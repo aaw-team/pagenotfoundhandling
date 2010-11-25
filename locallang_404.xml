@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for module &quot;tools_ubetestM1&quot; - header, description</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="page_title">Page not found!</label>
+			<label index="page_message">The requested page was not found</label>
+		</languageKey>
+		<languageKey index="en" type="array">
+			<label index="page_title">Page not found!</label>
+			<label index="page_message">The requested page was not found</label>
+		</languageKey>
+        <languageKey index="de" type="array">
+            <label index="page_title">Seite nicht gefunden!</label>
+            <label index="page_message">Die angeforderte Seite wurde nicht gefunden</label>
+        </languageKey>
+		<languageKey index="fr" type="array">
+            <label index="page_title">[FR] Seite nicht gefunden!</label>
+            <label index="page_message">[FR] Die angeforderte Seite wurde nicht gefunden</label>
+		</languageKey>
+	</data>
+</T3locallang>

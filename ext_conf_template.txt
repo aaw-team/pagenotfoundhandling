@@ -1,0 +1,20 @@
+# cat=basic/enable; type=int+; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.default404Page
+default404Page = 0
+
+# cat=basic/enable; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.defaultTemplateFile
+defaultTemplateFile = EXT:pagenotfoundhandling/res/defaultTemplate.tmpl
+
+# cat=basic/enable; type=boolean; Label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.disableDomainConfig
+disableDomainConfig = 0
+
+# cat=basic/language; type=boolean; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.ignoreLanguage
+ignoreLanguage = 0
+
+# cat=basic/language; type=user[EXT:pagenotfoundhandling/class.tx_pagenotfoundhandling_LanguageSelect.php:tx_pagenotfoundhandling_LanguageSelect->constantEditor]; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.forceLanguage
+forceLanguage = 0
+
+# cat=basic/language; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.locallangFile
+locallangFile = 
+
+# cat=basic/language; type=small; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.defaultLanguageKey
+defaultLanguageKey = default

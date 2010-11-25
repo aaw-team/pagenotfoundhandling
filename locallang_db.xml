@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>database</type>
+        <description>Language labels for extension &quot;pagenotfoundhandling&quot;</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="pagenotfoundhandling.sys_domain.tcasheet.title">404 handling</label>
+            <label index="pagenotfoundhandling.sys_domain.enable">Enable 404 handling configuration for this domain record</label>
+            <label index="pagenotfoundhandling.sys_domain.default404Page">404 page</label>
+            <label index="pagenotfoundhandling.sys_domain.defaultTemplateFile">404 template file</label>
+            <label index="pagenotfoundhandling.sys_domain.ignoreLanguage">Ignore requested language</label>
+            <label index="pagenotfoundhandling.sys_domain.forceLanguage">Force language</label>
+            
+            <label index="pagenotfoundhandling.constants.forceLanguage">Force language: This language is used to fetch default404Page and/or marker substitution in defaultTemplateFile. Default: ''</label>
+            <label index="pagenotfoundhandling.constants.default404Page">Default 404 Page:An uid of a page out of the page tree that will be returned as 404 page. '0' disables this feature. Default: '0'.</label>
+            <label index="pagenotfoundhandling.constants.defaultTemplateFile">Default 404 template File: This will be rendered if no default 404 page is given. Default: 'EXT:pagenotfoundhandling/res/defaultTemplate.tmpl'</label>
+            <label index="pagenotfoundhandling.constants.disableDomainConfig">Disable per-domain configuration:Domain dependent configurations will be ignored. The TCA of sys_domains will not be extended. Default: '0'</label>
+            <label index="pagenotfoundhandling.constants.ignoreLanguage">Ignore requested language: The language parameter in the request URL will be ignored, default language will be used. Default: '0'</label>
+            <label index="pagenotfoundhandling.constants.locallangFile">Additional locallang file: This locallang file will be merged with the default one. Default: ''</label>
+            <label index="pagenotfoundhandling.constants.defaultLanguageKey">Default language key: Use this if your default (or single) language is not TYPO3 default (english). Default: 'default'</label>
+        </languageKey>
+        <languageKey index="de" type="array">
+            <label index="pagenotfoundhandling.sys_domain.tcasheet.title">404 Behandlung</label>
+            <label index="pagenotfoundhandling.sys_domain.enable">404 Behandlung Konfiguration für diese Domain aktivieren</label>
+            <label index="pagenotfoundhandling.sys_domain.default404Page">404 Seite</label>
+            <label index="pagenotfoundhandling.sys_domain.defaultTemplateFile">404 Vorlage</label>
+            <label index="pagenotfoundhandling.sys_domain.ignoreLanguage">Angefragte Sprache ignorieren</label>
+            <label index="pagenotfoundhandling.sys_domain.forceLanguage">Sprache erzwingen</label>
+            
+            <label index="pagenotfoundhandling.constants.forceLanguage">Sprache erzwingen: Diese Sprache wird für die Ersetzung der Marker verwendet. Standard: ''</label>
+            <label index="pagenotfoundhandling.constants.default404Page">Standard 404 Seite:Die Uid einer Seite im TYPO3 Seitenbaum, die als 404 Seite ausgegeben werden soll. '0' deaktiviert diese Funktion. Standard: '0'.</label>
+            <label index="pagenotfoundhandling.constants.defaultTemplateFile">Standard 404 Vorlage: Diese wird gerendert, wenn keine Standard 404 seite ausgewählt oder verfügbar ist. Standard: 'EXT:pagenotfoundhandling/res/defaultTemplate.tmpl'</label>
+            <label index="pagenotfoundhandling.constants.disableDomainConfig">Konfiguration pro Domain deaktivieren:Domain abhängige Konfigurationen werden ignoriert. Das TCA von sys_domain wird nicht erweitert. Standard: '0'</label>
+            <label index="pagenotfoundhandling.constants.ignoreLanguage">Angefragte Sprache ignorieren: Wenn in der Anfrage URL ein Sprachparameter übergeben wird, wird dieser bei der Sprachauswahl ignoriert. Standard: '0'</label>
+            <label index="pagenotfoundhandling.constants.locallangFile">Zusätzliche locallang Datei: Die Inhalte dieser Datei werden mit der Standard Sprachdatei zusammengeführt. Standard: ''</label>
+            <label index="pagenotfoundhandling.constants.defaultLanguageKey">Standard Sprache: Diese kann gesetzt werden, wenn die als Standard benutzte (oder einzige verwendete) Sprache nicht dem TYPO3 Standard (Englisch) entspricht. Standard: 'default'</label>
+        </languageKey>
+    </data>
+</T3locallang>
