@@ -18,3 +18,6 @@ locallangFile =
 
 # cat=basic/language; type=small; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.defaultLanguageKey
 defaultLanguageKey = default
+
+# cat=basic/language; type=small; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.languageParam
+languageParam = L

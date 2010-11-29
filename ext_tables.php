@@ -65,6 +65,16 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
                 'userFunc' => 'EXT:pagenotfoundhandling/class.tx_pagenotfoundhandling_LanguageSelect.php:tx_pagenotfoundhandling_LanguageSelect->tca',
             ),
         ),
+        'tx_pagenotfoundhandling_languageParam' => array(
+            'exclude' => 1,
+            'label' => 'LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.languageParam',
+            'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
+            'config' => array (
+                'type' => 'input',
+                'size' => '5',
+                'default' => 'L',
+            )
+        ),
     );
 
     $GLOBALS['TCA']['sys_domain']['ctrl']['dividers2tabs'] = 1;
@@ -81,7 +91,8 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         tx_pagenotfoundhandling_default404Page;;;;1-1-1,
         tx_pagenotfoundhandling_defaultTemplateFile;;;;1-1-1,
         tx_pagenotfoundhandling_ignoreLanguage;;;;1-1-1,
-        tx_pagenotfoundhandling_forceLanguage;;;;1-1-1');
+        tx_pagenotfoundhandling_forceLanguage;;;;1-1-1,
+        tx_pagenotfoundhandling_languageParam;;;;1-1-1');
 
 
 }

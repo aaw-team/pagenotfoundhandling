@@ -62,6 +62,13 @@ class tx_pagenotfoundhandling
 	protected $_ignoreLanguage = false;
 
 	/**
+     * Default language parameter in _GET
+     *
+     * @var boolean
+     */
+    protected $_languageParam = 'L';
+
+	/**
 	 * Language uid to force using
 	 *
 	 * @var int
@@ -185,7 +192,8 @@ class tx_pagenotfoundhandling
      */
     protected function _setupLanguage()
     {
-        $language = (int) $this->_get['L'];
+        $language = (int) $this->_get[$this->_languageParam];
+
         if($language) {
             require_once t3lib_extMgm::extPath('pagenotfoundhandling') . 'class.tx_pagenotfoundhandling_LanguageSelect.php';
             if(array_key_exists($language, tx_pagenotfoundhandling_LanguageSelect::getLanguages(true))) {
@@ -211,6 +219,7 @@ class tx_pagenotfoundhandling
                     $this->_defaultTemplateFile = 'uploads/tx_pagenotfoundhandling/' . $row['tx_pagenotfoundhandling_defaultTemplateFile'];
                     $this->_ignoreLanguage = (bool) $row['tx_pagenotfoundhandling_ignoreLanguage'];
                     $this->_forceLanguage = (int) $row['tx_pagenotfoundhandling_forceLanguage'];
+                    $this->_languageParam = $row['tx_pagenotfoundhandling_languageParam'];
                 }
             }
         }
@@ -250,6 +259,10 @@ class tx_pagenotfoundhandling
 
         if(isset($conf['defaultLanguageKey'])) {
             $this->_defaultLanguageKey = (string) $conf['defaultLanguageKey'];
+        }
+
+        if(isset($conf['languageParam'])) {
+            $this->_languageParam = $conf['languageParam'];
         }
     }
 
