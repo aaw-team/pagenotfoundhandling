@@ -1,3 +1,7 @@
+2010-11-29 Simon Wermuth <develpment@agenturamwasser.ch>
+
+    * Feature #11065: Better default404Template
+
 2010-11-29 Christian Futterlieb <develpment@agenturamwasser.ch>
 
     * Feature #11081: Make language parameter configurable
