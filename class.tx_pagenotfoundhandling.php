@@ -41,6 +41,14 @@
 class tx_pagenotfoundhandling
 {
     /**
+     * The params given from tslib_fe pageErrorHandler
+     *
+     * @see tslib_fe
+     * @var array
+     */
+    protected $_params = array();
+
+    /**
      * Config from constants editor in EM
      *
      * @var array
@@ -106,12 +114,13 @@ class tx_pagenotfoundhandling
 	/**
 	 * Main method called through tslib_fe::pageErrorHandler()
 	 *
-	 * @param array $param
-	 * @param tslib_fe $ref
+	 * @param array $params
+	 * @param tslib_fe $tslib_fe
 	 * @return string
 	 */
     public function main($params, tslib_fe $tslib_fe)
     {
+        $this->_params = $params;
         $this->_get = t3lib_div::_GET();
 
         // prevent infinite loops
@@ -182,6 +191,8 @@ class tx_pagenotfoundhandling
 
         $html = str_replace('###TITLE###', $language->getLL('page_title', 1), $html);
         $html = str_replace('###MESSAGE###', $language->getLL('page_message', 1), $html);
+        $html = str_replace('###REASON_TITLE###', $language->getLL('reason_title', 1), $html);
+        $html = str_replace('###REASON_TEXT###', $this->_params['reasonText'], $html);
         return $html;
     }
 
