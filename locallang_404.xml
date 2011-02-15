@@ -17,9 +17,5 @@
             <label index="page_title">Seite nicht gefunden!</label>
             <label index="page_message">Die angeforderte Seite wurde nicht gefunden</label>
         </languageKey>
-		<languageKey index="fr" type="array">
-            <label index="page_title">[FR] Seite nicht gefunden!</label>
-            <label index="page_message">[FR] Die angeforderte Seite wurde nicht gefunden</label>
-		</languageKey>
 	</data>
 </T3locallang>
