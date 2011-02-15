@@ -111,6 +111,20 @@ class tx_pagenotfoundhandling
      */
     protected $_defaultLanguageKey = 'default';
 
+    /**
+     * Wether the page not found error is because of 'no access' or not
+     *
+     * @var boolean
+     */
+    protected $_isForbiddenError = false;
+
+    /**
+     * HTTP header to be sent for request on restricted pages
+     *
+     * @var string
+     */
+    protected $_forbiddenHeader = '';
+
 	/**
 	 * Main method called through tslib_fe::pageErrorHandler()
 	 *
@@ -120,7 +134,6 @@ class tx_pagenotfoundhandling
 	 */
     public function main($params, tslib_fe $tslib_fe)
     {
-        $this->_params = $params;
         $this->_get = t3lib_div::_GET();
 
         // prevent infinite loops
@@ -128,10 +141,23 @@ class tx_pagenotfoundhandling
             die('Caught infinite loop');
         }
 
+        $this->_params = $params;
+
+        // check for access errors
+        if(isset($this->_params['pageAccessFailureReasons']['fe_group'])
+            && $this->_params['pageAccessFailureReasons']['fe_group'] !== array('' => 0)) {
+                $this->_isForbiddenError = true;
+        }
+
         $this->_loadConstantsConfig();
 
         if($this->_disableDomainConfig !== true) {
             $this->_loadDomainConfig();
+        }
+
+        // send special HTTP header
+        if($this->_isForbiddenError && !empty($this->_forbiddenHeader)) {
+            header($this->_forbiddenHeader);
         }
 
         if(!$this->_ignoreLanguage && empty($this->_forceLanguage)) {
@@ -231,6 +257,15 @@ class tx_pagenotfoundhandling
                     $this->_ignoreLanguage = (bool) $row['tx_pagenotfoundhandling_ignoreLanguage'];
                     $this->_forceLanguage = (int) $row['tx_pagenotfoundhandling_forceLanguage'];
                     $this->_languageParam = $row['tx_pagenotfoundhandling_languageParam'];
+
+                    // override 404 page with its 403 equivalent (if needed and configured so)
+                    if($this->_isForbiddenError) {
+                        $this->_setForbiddenHeader($row['tx_pagenotfoundhandling_default403Header'], false);
+
+                        if($row['tx_pagenotfoundhandling_default403Page']) {
+                            $this->_default404Page = (int) $row['tx_pagenotfoundhandling_default403Page'];
+                        }
+                    }
                 }
             }
         }
@@ -274,6 +309,21 @@ class tx_pagenotfoundhandling
 
         if(isset($conf['languageParam'])) {
             $this->_languageParam = $conf['languageParam'];
+        }
+
+        // override 404 page/template with the 403 equivalents (if needed and configured so)
+        if($this->_isForbiddenError) {
+            $this->_setForbiddenHeader($conf['default403Header']);
+
+            if(isset($conf['default403TemplateFile'])) {
+                // reset the 404Page, because the page could come from default404Page and override this templateFile setting
+                $this->_default404Page = 0;
+                $this->_defaultTemplateFile = (string) $conf['default403TemplateFile'];
+            }
+
+            if(isset($conf['default403Page'])) {
+                $this->_default404Page = (int) $conf['default403Page'];
+            }
         }
     }
 
@@ -339,6 +389,38 @@ class tx_pagenotfoundhandling
 		</div>
     </body>
 </html>');
+    }
+
+    /**
+     * Sets the forbiddenHeader to the accurate value
+     *
+     * @param int $number
+     * @return void
+     */
+    protected function _setForbiddenHeader($number, $overrideIfEmpty = true)
+    {
+        switch((int) $number) {
+            case -1:
+                $this->_forbiddenHeader = '';
+                break;
+            case 1:
+                $this->_forbiddenHeader = t3lib_utility_Http::HTTP_STATUS_400;
+                break;
+            case 2:
+                $this->_forbiddenHeader = t3lib_utility_Http::HTTP_STATUS_401;
+                break;
+            case 3:
+                $this->_forbiddenHeader = t3lib_utility_Http::HTTP_STATUS_402;
+                break;
+            case 4:
+                $this->_forbiddenHeader = t3lib_utility_Http::HTTP_STATUS_403;
+                break;
+            default :
+                if($overrideIfEmpty) {
+                    $this->_forbiddenHeader = '';
+                }
+                break;
+        }
     }
 }
 

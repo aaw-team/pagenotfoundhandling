@@ -47,6 +47,37 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
                 'minitems' => 0,
             )
         ),
+        'tx_pagenotfoundhandling_default403Page' => array(
+            'exclude' => 1,
+            'label' => 'LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.default403Page',
+            'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
+            'config' => array (
+                'type' => 'group',
+                'internal_type' => 'db',
+                'allowed' => 'pages',
+                'size' => 1,
+                'maxitems' => 1,
+                'minitems' => 0,
+            )
+        ),
+        'tx_pagenotfoundhandling_default403Header' => array(
+            'exclude' => 1,
+            'label' => 'LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.default403Header',
+            'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
+            'config' => array (
+                'type' => 'select',
+                'items' => array(
+                    array('LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.default403Header.none', -1),
+                    array('LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.default403Header.default', 0),
+                    array('HTTP/1.1 400 Bad Request', 1),
+                    array('HTTP/1.1 401 Unauthorized', 2),
+                    array('HTTP/1.1 402 Payment Required', 3),
+                    array('HTTP/1.1 403 Forbidden', 4),
+                ),
+                'size' => 1,
+                'maxitems' => 1,
+            )
+        ),
         'tx_pagenotfoundhandling_ignoreLanguage' => array(
             'exclude' => 1,
             'label' => 'LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.ignoreLanguage',
@@ -90,6 +121,8 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         tx_pagenotfoundhandling_enable;;;;1-1-1,
         tx_pagenotfoundhandling_default404Page;;;;1-1-1,
         tx_pagenotfoundhandling_defaultTemplateFile;;;;1-1-1,
+        tx_pagenotfoundhandling_default403Page;;;;1-1-1,
+        tx_pagenotfoundhandling_default403Header;;;;1-1-1,
         tx_pagenotfoundhandling_ignoreLanguage;;;;1-1-1,
         tx_pagenotfoundhandling_forceLanguage;;;;1-1-1,
         tx_pagenotfoundhandling_languageParam;;;;1-1-1');

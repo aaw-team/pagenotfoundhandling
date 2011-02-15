@@ -1,3 +1,7 @@
+2011-02-15 Christian Futterlieb <develpment@agenturamwasser.ch>
+
+    * Feature #11197: Define reason-dependent 404 pages
+
 2010-11-29 Simon Wermuth <develpment@agenturamwasser.ch>
 
     * Feature #11065: Better default404Template
