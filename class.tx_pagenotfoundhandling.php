@@ -344,13 +344,13 @@ class tx_pagenotfoundhandling
         if($this->_isForbiddenError) {
             $this->_setForbiddenHeader($conf['default403Header']);
 
-            if(isset($conf['default403TemplateFile'])) {
+            if(isset($conf['default403TemplateFile']) && !empty($conf['default403TemplateFile'])) {
                 // reset the 404Page, because the page could come from default404Page and override this templateFile setting
                 $this->_default404Page = 0;
                 $this->_defaultTemplateFile = (string) $conf['default403TemplateFile'];
             }
 
-            if(isset($conf['default403Page'])) {
+            if(isset($conf['default403Page']) && !empty($conf['default403Page'])) {
                 $this->_default404Page = (int) $conf['default403Page'];
             }
         }
