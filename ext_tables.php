@@ -30,6 +30,11 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
                 'size' => 1,
                 'maxitems' => 1,
                 'minitems' => 0,
+                'wizards' => array(
+                    'suggest' => array(
+                        'type' => 'suggest'
+                    )
+                ),
             )
         ),
         'tx_pagenotfoundhandling_defaultTemplateFile' => array(
@@ -58,6 +63,11 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
                 'size' => 1,
                 'maxitems' => 1,
                 'minitems' => 0,
+                'wizards' => array(
+                    'suggest' => array(
+                        'type' => 'suggest'
+                    )
+                ),
             )
         ),
         'tx_pagenotfoundhandling_default403Header' => array(
