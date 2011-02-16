@@ -7,15 +7,18 @@
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="page_title">Page not found!</label>
-			<label index="reason_title">Reason</label>
+            <label index="reason_title">Reason</label>
+			<label index="current_url_title">Current URL</label>
 		</languageKey>
 		<languageKey index="en" type="array">
 			<label index="page_title">Page not found!</label>
             <label index="reason_title">Reason</label>
+            <label index="current_url_title">Current URL</label>
 		</languageKey>
         <languageKey index="de" type="array">
             <label index="page_title">Seite nicht gefunden!</label>
             <label index="reason_title">Grund</label>
+            <label index="current_url_title">Aktuelle URL</label>
         </languageKey>
 	</data>
 </T3locallang>

@@ -218,7 +218,9 @@ class tx_pagenotfoundhandling
         $html = str_replace('###TITLE###', $language->getLL('page_title', 1), $html);
         $html = str_replace('###MESSAGE###', $language->getLL('page_message', 1), $html);
         $html = str_replace('###REASON_TITLE###', $language->getLL('reason_title', 1), $html);
-        $html = str_replace('###REASON_TEXT###', $this->_params['reasonText'], $html);
+        $html = str_replace('###REASON###', $this->_params['reasonText'], $html);
+        $html = str_replace('###CURRENT_URL_TITLE###', $language->getLL('current_url_title', 1), $html);
+        $html = str_replace('###CURRENT_URL###', $this->_params['currentUrl'], $html);
         return $html;
     }
 
