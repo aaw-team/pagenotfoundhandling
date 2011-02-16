@@ -1,5 +1,9 @@
 2011-02-16 Christian Futterlieb <develpment@agenturamwasser.ch>
 
+    * Releasing version 0.2.1 to TER
+
+2011-02-16 Christian Futterlieb <develpment@agenturamwasser.ch>
+
     * Bugfix: do not override _default404Page/_default404Template with the 403 equivalents when they are empty
     * Added replacement of ###CURRENT_URL### in the additionalGetParams/additional403GetParams
 
