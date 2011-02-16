@@ -389,6 +389,8 @@ class tx_pagenotfoundhandling
     				}
 				}
 
+                $url = str_replace('###CURRENT_URL###', urlencode($this->_params['currentUrl']), $url);
+
                 $headers = array(
                     'User-agent: ' . t3lib_div::getIndpEnv('HTTP_USER_AGENT'),
                     'Referer: ' . t3lib_div::getIndpEnv('TYPO3_REQUEST_URL')
