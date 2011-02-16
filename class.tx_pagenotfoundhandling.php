@@ -376,7 +376,7 @@ class tx_pagenotfoundhandling
 				$url .= 'index.php?id=' . $this->_default404Page . '&loopPrevention=1';
 
 				if(!empty($this->_forceLanguage)) {
-					$url .= '&L=' . $this->_forceLanguage;
+					$url .= '&' . $this->_languageParam . '=' . $this->_forceLanguage;
 				}
 
 				if($this->_isForbiddenError) {
