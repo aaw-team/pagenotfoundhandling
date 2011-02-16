@@ -398,8 +398,8 @@ class tx_pagenotfoundhandling
 
 			}
     	}
-    	if($html === null && isset($this->_conf['defaultTemplateFile']) && !empty($this->_conf['defaultTemplateFile'])) {
-			$file = t3lib_div::getFileAbsFileName($this->_conf['defaultTemplateFile']);
+    	if($html === null && !empty($this->_defaultTemplateFile)) {
+			$file = t3lib_div::getFileAbsFileName($this->_defaultTemplateFile);
 
 			if(!empty($file) && is_readable($file)) {
 				$html = file_get_contents($file);
