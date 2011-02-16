@@ -1,5 +1,9 @@
 2011-02-16 Christian Futterlieb <develpment@agenturamwasser.ch>
 
+    * Bugfix: do not override _default404Page/_default404Template with the 403 equivalents when they are empty
+
+2011-02-16 Christian Futterlieb <develpment@agenturamwasser.ch>
+
     * Updated link to wiki
     * Made the markers more TYPO3-like
     * Changed some labels to a more meaningful text
