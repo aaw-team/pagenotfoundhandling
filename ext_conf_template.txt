@@ -10,7 +10,7 @@ default403Page = 0
 # cat=basic/enable; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.default403TemplateFile
 default403TemplateFile = 
 
-# cat=basic/enable; type=options[Default (TYPO3 sends the HTTP header as in normal 404 pages)=0, HTTP/1.1 400 Bad Request=1, HTTP/1.1 401 Unauthorized=2, HTTP/1.1 402 Payment Required=3, HTTP/1.1 403 Forbidden=4]; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.default403Header
+# cat=basic/enable; type=options[Default (Do not send special headers)=0, HTTP/1.1 400 Bad Request=1, HTTP/1.1 401 Unauthorized=2, HTTP/1.1 402 Payment Required=3, HTTP/1.1 403 Forbidden=4]; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.default403Header
 default403Header = 4
 
 # cat=basic/enable; type=boolean; Label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.disableDomainConfig
