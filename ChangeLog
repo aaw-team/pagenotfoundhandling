@@ -1,3 +1,12 @@
+2011-02-16 Christian Futterlieb <develpment@agenturamwasser.ch>
+
+    * Updated link to wiki
+    * Made the markers more TYPO3-like
+    * Changed some labels to a more meaningful text
+    * Added Feature #11067: Configurable $_GET params for default404Page fetching
+    * Bugfix: defaultTemplateFile was not taken from domain config even it was set
+    * Bugfix: configured languageParam was not used in page-fetching
+
 2011-02-15 Christian Futterlieb <develpment@agenturamwasser.ch>
 
     * Feature #11197: Define reason-dependent 404 pages
