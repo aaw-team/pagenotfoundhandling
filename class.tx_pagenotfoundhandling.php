@@ -125,6 +125,25 @@ class tx_pagenotfoundhandling
      */
     protected $_forbiddenHeader = '';
 
+    /**
+     * Additional _GET params
+     *
+     * These will be appended to the URL when fetching default404Page
+     *
+     * @var array
+     */
+    protected $_additional404GetParams = array();
+
+    /**
+     * Additional 403 _GET params
+     *
+     * These will be appended to the URL when fetching default404Page and
+     * $_forbiddenError is true
+     *
+     * @var array
+     */
+    protected $_additional403GetParams = array();
+
 	/**
 	 * Main method called through tslib_fe::pageErrorHandler()
 	 *
@@ -293,6 +312,14 @@ class tx_pagenotfoundhandling
             $this->_defaultTemplateFile = (string) $conf['defaultTemplateFile'];
         }
 
+        if(isset($conf['additional404GetParams'])) {
+            $this->_addAdditionalGetParams($conf['additional404GetParams']);
+        }
+
+        if(isset($conf['additional403GetParams'])) {
+            $this->_addAdditional403GetParams($conf['additional403GetParams']);
+        }
+
         if(isset($conf['ignoreLanguage'])) {
             $this->_ignoreLanguage = (bool) $conf['ignoreLanguage'];
         }
@@ -346,12 +373,20 @@ class tx_pagenotfoundhandling
 			if(count($pageRow) === 1) {
 				$pageRow = current($pageRow);
 				$url = t3lib_div::locationHeaderUrl('/');
-				$url .= 'index.php?id=' . $this->_default404Page;
-
-				$url .= '&loopPrevention=1';
+				$url .= 'index.php?id=' . $this->_default404Page . '&loopPrevention=1';
 
 				if(!empty($this->_forceLanguage)) {
 					$url .= '&L=' . $this->_forceLanguage;
+				}
+
+				if($this->_isForbiddenError) {
+                    if(count($this->_additional403GetParams)) {
+                        $url .= '&' . implode('&', $this->_additional403GetParams);
+                    }
+				} else {
+    				if(count($this->_additional404GetParams)) {
+    				    $url .= '&' . implode('&', $this->_additional404GetParams);
+    				}
 				}
 
                 $headers = array(
@@ -423,6 +458,42 @@ class tx_pagenotfoundhandling
                 }
                 break;
         }
+    }
+
+    /**
+     * Add additional _GET params
+     *
+     * @param string $params  (works like additionalParams in typolink)
+     * @return void
+     */
+    protected function _addAdditionalGetParams($params)
+    {
+        $params = $this->_normalizeGetParams($params);
+        $this->_additional404GetParams = array_merge($this->_additional404GetParams, t3lib_div::trimExplode('&', $params, true));
+    }
+
+    /**
+     * Add additional 403 _GET params
+     *
+     * @param string $params  (works like additionalParams in typolink)
+     * @return void
+     */
+    protected function _addAdditional403GetParams($params)
+    {
+        $params = $this->_normalizeGetParams($params);
+        $this->_additional403GetParams = array_merge($this->_additional403GetParams, t3lib_div::trimExplode('&', $params, true));
+    }
+
+    /**
+     * Normalize the _GET params for using in the page_fetching of _getHtml()
+     *
+     * @param string $params
+     * @return void
+     */
+    protected function _normalizeGetParams($params)
+    {
+        // strip out params that will be generated in _getHtml()
+        return preg_replace('/&?(id|loopPrevention|' . $this->_languageParam . ')=[^&]*/', '', $params);
     }
 }
 
