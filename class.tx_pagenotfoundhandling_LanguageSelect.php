@@ -65,10 +65,10 @@ class tx_pagenotfoundhandling_LanguageSelect
      * Returns a select box for use in constants editor userFunc
      *
      * @param array $params
-     * @param t3lib_tsStyleConfig $styleConfig
+     * @param $styleConfig
      * @return string
      */
-    public function constantEditor($params, t3lib_tsStyleConfig $styleConfig)
+    public function constantEditor($params, $styleConfig)
     {
         $params['fieldName'];
         $params['fieldValue'];
