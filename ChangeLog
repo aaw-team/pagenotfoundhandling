@@ -1,5 +1,9 @@
 2012-07-12 Christian Futterlieb <development@agenturamwasser.ch>
 
+    * Setting the correct TYPO3 version dependency
+
+2012-07-12 Christian Futterlieb <development@agenturamwasser.ch>
+
     * Removing unused type hint
 
 2011-02-16 Christian Futterlieb <develpment@agenturamwasser.ch>
