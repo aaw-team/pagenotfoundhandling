@@ -32,7 +32,7 @@
             <label index="pagenotfoundhandling.constants.locallangFile">Additional locallang file: This locallang file will be merged with the default one. Default: ''</label>
             <label index="pagenotfoundhandling.constants.defaultLanguageKey">Default language key: Use this if your default (or single) language is not TYPO3 default (english). Default: 'default'</label>
             <label index="pagenotfoundhandling.constants.languageParam">Language parameter: This should be the same as config.linkVars. Default: 'L'</label>
-            <label index="pagenotfoundhandling.constants.passthroughContentTypeHeader">Passthrough content-type header: When a 404 page is defined, the HTTP header 'Content-Type' will be captured an sent with the 404 page. Default: '0'</label>
+            <label index="pagenotfoundhandling.constants.passthroughContentTypeHeader">Passthrough content-type header: When a 404 page is defined, the HTTP header 'Content-Type' will be captured and sent with the 404 page. Default: '0'</label>
         </languageKey>
         <languageKey index="de" type="array">
             <label index="pagenotfoundhandling.sys_domain.tcasheet.title">404 Behandlung</label>
