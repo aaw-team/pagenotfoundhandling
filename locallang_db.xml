@@ -17,6 +17,7 @@
             <label index="pagenotfoundhandling.sys_domain.ignoreLanguage">Ignore requested language</label>
             <label index="pagenotfoundhandling.sys_domain.forceLanguage">Force language</label>
             <label index="pagenotfoundhandling.sys_domain.languageParam">Language parameter</label>
+            <label index="pagenotfoundhandling.sys_domain.passthroughContentTypeHeader">Passthrough content-type header</label>
             
             <label index="pagenotfoundhandling.constants.forceLanguage">Force language: This language is used to fetch default404Page and/or marker substitution in defaultTemplateFile. Default: ''</label>
             <label index="pagenotfoundhandling.constants.default404Page">Default 404 Page:An uid of a page out of the page tree that will be returned as 404 page. '0' disables this feature. Default: '0'.</label>
@@ -31,6 +32,7 @@
             <label index="pagenotfoundhandling.constants.locallangFile">Additional locallang file: This locallang file will be merged with the default one. Default: ''</label>
             <label index="pagenotfoundhandling.constants.defaultLanguageKey">Default language key: Use this if your default (or single) language is not TYPO3 default (english). Default: 'default'</label>
             <label index="pagenotfoundhandling.constants.languageParam">Language parameter: This should be the same as config.linkVars. Default: 'L'</label>
+            <label index="pagenotfoundhandling.constants.passthroughContentTypeHeader">Passthrough content-type header: When a 404 page is defined, the HTTP header 'Content-Type' will be captured an sent with the 404 page. Default: '0'</label>
         </languageKey>
         <languageKey index="de" type="array">
             <label index="pagenotfoundhandling.sys_domain.tcasheet.title">404 Behandlung</label>
@@ -44,6 +46,7 @@
             <label index="pagenotfoundhandling.sys_domain.ignoreLanguage">Angefragte Sprache ignorieren</label>
             <label index="pagenotfoundhandling.sys_domain.forceLanguage">Sprache erzwingen</label>
             <label index="pagenotfoundhandling.sys_domain.languageParam">Sprachparameter</label>
+            <label index="pagenotfoundhandling.sys_domain.passthroughContentTypeHeader">Content-type header weitergeben</label>
             
             <label index="pagenotfoundhandling.constants.forceLanguage">Sprache erzwingen: Diese Sprache wird für die Ersetzung der Marker verwendet. Standard: ''</label>
             <label index="pagenotfoundhandling.constants.default404Page">Standard 404 Seite:Die Uid einer Seite im TYPO3 Seitenbaum, die als 404 Seite ausgegeben werden soll. '0' deaktiviert diese Funktion. Standard: '0'.</label>
@@ -58,6 +61,7 @@
             <label index="pagenotfoundhandling.constants.locallangFile">Zusätzliche locallang Datei: Die Inhalte dieser Datei werden mit der Standard Sprachdatei zusammengeführt. Standard: ''</label>
             <label index="pagenotfoundhandling.constants.defaultLanguageKey">Standard Sprache: Diese kann gesetzt werden, wenn die als Standard benutzte (oder einzige verwendete) Sprache nicht dem TYPO3 Standard (Englisch) entspricht. Standard: 'default'</label>
             <label index="pagenotfoundhandling.constants.languageParam">Sprachparameter: Sollte dasselbe beinhalten, wie config.linkVars. Standard: 'L'</label>
+            <label index="pagenotfoundhandling.constants.passthroughContentTypeHeader">Content-type header weitergeben: Wenn eine 404 Seite definiert ist, kann der HTTP header 'Content-Type' weiter an die Ausgabe gesendet werden. Standard: '0'</label>
         </languageKey>
     </data>
 </T3locallang>

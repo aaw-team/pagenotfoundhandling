@@ -22,6 +22,9 @@ default403Header = 4
 # cat=basic/enable; type=boolean; Label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.disableDomainConfig
 disableDomainConfig = 0
 
+# cat=basic/enable; type=boolean; Label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.passthroughContentTypeHeader
+passthroughContentTypeHeader = 0
+
 # cat=basic/language; type=boolean; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.ignoreLanguage
 ignoreLanguage = 0
 

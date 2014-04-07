@@ -144,6 +144,13 @@ class tx_pagenotfoundhandling
      */
     protected $_additional403GetParams = array();
 
+    /**
+     * Passthrough for the HTTP header 'Content-Type'
+     *
+     * @var boolean
+     */
+    protected $_passthroughContentTypeHeader = false;
+
 	/**
 	 * Main method called through tslib_fe::pageErrorHandler()
 	 *
@@ -278,6 +285,7 @@ class tx_pagenotfoundhandling
                     $this->_ignoreLanguage = (bool) $row['tx_pagenotfoundhandling_ignoreLanguage'];
                     $this->_forceLanguage = (int) $row['tx_pagenotfoundhandling_forceLanguage'];
                     $this->_languageParam = $row['tx_pagenotfoundhandling_languageParam'];
+                    $this->_passthroughContentTypeHeader = (bool) $row['tx_pagenotfoundhandling_passthroughContentTypeHeader'];
 
                     // override 404 page with its 403 equivalent (if needed and configured so)
                     if($this->_isForbiddenError) {
@@ -354,6 +362,10 @@ class tx_pagenotfoundhandling
                 $this->_default404Page = (int) $conf['default403Page'];
             }
         }
+
+        if(isset($conf['passthroughContentTypeHeader'])) {
+            $this->_passthroughContentTypeHeader = (bool) $conf['passthroughContentTypeHeader'];
+        }
     }
 
     /**
@@ -396,8 +408,13 @@ class tx_pagenotfoundhandling
                     'Referer: ' . t3lib_div::getIndpEnv('TYPO3_REQUEST_URL')
                 );
 
-				$html = t3lib_div::getURL($url, 0, $headers);
-
+                $html = t3lib_div::getURL($url, (int) $this->_passthroughContentTypeHeader, $headers);
+                if ($this->_passthroughContentTypeHeader && $html !== null) {
+                    list ($capturedHeaders, $html) = explode(CRLF . CRLF, $html, 2);
+                    if (preg_match('/Content-Type:([^\n]+)/', $capturedHeaders, $matches)) {
+                        header($matches[0]);
+                    }
+                }
 			}
     	}
     	if($html === null && !empty($this->_defaultTemplateFile)) {
