@@ -408,11 +408,15 @@ class tx_pagenotfoundhandling
                     'Referer: ' . t3lib_div::getIndpEnv('TYPO3_REQUEST_URL')
                 );
 
-                $html = t3lib_div::getURL($url, (int) $this->_passthroughContentTypeHeader, $headers);
+                $report = array();
+                $html = t3lib_div::getURL($url, (int) $this->_passthroughContentTypeHeader, $headers, $report);
                 if ($this->_passthroughContentTypeHeader && $html !== null) {
-                    list ($capturedHeaders, $html) = explode(CRLF . CRLF, $html, 2);
-                    if (preg_match('/Content-Type:([^\n]+)/', $capturedHeaders, $matches)) {
-                        header($matches[0]);
+                    // split response header and body
+                    list ($responseHeaders, $html) = t3lib_div::trimExplode(CRLF . CRLF, $html, false, 2);
+
+                    // content-type passthrough
+                    if (array_key_exists('content_type', $report) && strlen($report['content_type'])) {
+                        header('Content-Type: ' . $report['content_type']);
                     }
                 }
 			}
