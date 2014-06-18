@@ -47,18 +47,14 @@ class tx_pagenotfoundhandling_LanguageSelect
      * @param array $PA
      * @param t3lib_TCEforms $fObj
      * @return string
+     * @deprecated since 1.0, will be removed in 1.2, use Tx_Pagenotfoundhandling_Utility_LanguageUtility::tca() instead
      */
     public function tca($PA, t3lib_TCEforms $fObj)
     {
-        $options = $this->_getLanguageSelector($PA['itemFormElValue']);
-
-        if(empty($options)) {
-            $return = 'No languages found';
-        } else {
-            $return = '<select id="' . $PA['itemFormElID'] . '" name="' . $PA['itemFormElName'] . '">' . $options . '</select>';
-        }
-
-        return $return;
+        \t3lib_div::logDeprecatedFunction();
+        require_once \t3lib_extMgm::extPath('pagenotfoundhandling') . 'Classes/Utility/LanguageUtility.php';
+        $languageUtility = \t3lib_div::makeInstance('Tx_Pagenotfoundhandling_Utility_LanguageUtility');
+        return $languageUtility->tcaLanguageField($PA, $fObj);
     }
 
     /**
@@ -67,54 +63,14 @@ class tx_pagenotfoundhandling_LanguageSelect
      * @param array $params
      * @param $styleConfig
      * @return string
+     * @deprecated since 1.0, will be removed in 1.2, use Tx_Pagenotfoundhandling_Utility_LanguageUtility::constantEditor() instead
      */
     public function constantEditor($params, $styleConfig)
     {
-        $params['fieldName'];
-        $params['fieldValue'];
-
-        $options = $this->_getLanguageSelector($params['fieldValue']);
-
-        if(empty($options)) {
-            $return = 'No languages found';
-        } else {
-            $return = '<select name="' . $params['fieldName'] . '">' . $options . '</select>';
-        }
-
-        return $return;
-    }
-
-    /**
-     * Returns all sys_languages as options for use in a select tag
-     *
-     * @param int $selectedUid
-     * @return string
-     */
-    protected function _getLanguageSelector($selectedUid = 0)
-    {
-        $selectedUid = (int) $selectedUid;
-        $noneSelected = true;
-        $options = '<option value="0"></option>';
-
-        $languages = self::getLanguages(false);
-        foreach($languages as $language) {
-            $selected = '';
-            if($selectedUid == $language['uid']) {
-                $selected = 'selected="selected"';
-                $noneSelected = false;
-            }
-
-            $options .= sprintf('<option %s value="%s">%s [PID:%s]</option>',
-                                    $selected,
-                                    $language['uid'],
-                                    $language['title'],
-                                    $language['pid']);
-        }
-
-        if(!empty($selectedUid) && $noneSelected) {
-            $options = '<option selected="selected" value="">Illegal value: [' . $selectedUid . ']</option>' . $options;
-        }
-        return $options;
+        \t3lib_div::logDeprecatedFunction();
+        require_once \t3lib_extMgm::extPath('pagenotfoundhandling') . 'Classes/Utility/LanguageUtility.php';
+        $languageUtility = \t3lib_div::makeInstance('Tx_Pagenotfoundhandling_Utility_LanguageUtility');
+        return $languageUtility->constantEditor($params, $styleConfig);
     }
 
     /**
@@ -123,21 +79,13 @@ class tx_pagenotfoundhandling_LanguageSelect
      *
      * @param boolean $asPairs
      * @return array
+     * @deprecated since 1.0, will be removed in 1.2, use Tx_Pagenotfoundhandling_Utility_LanguageUtility::getLanguages() instead
      */
     public static function getLanguages($asPairs = true)
     {
-        $return = array();
-        $languages = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('*', 'sys_language', 'hidden=0', '', 'uid ASC, pid ASC');
-
-        if($asPairs) {
-            foreach($languages as $language) {
-                $return[$language['uid']] = $language['title'];
-            }
-        } else {
-            $return = $languages;
-        }
-
-        return $return;
+        \t3lib_div::logDeprecatedFunction();
+        require_once \t3lib_extMgm::extPath('pagenotfoundhandling') . 'Classes/Utility/LanguageUtility.php';
+        return Tx_Pagenotfoundhandling_Utility_LanguageUtility::getLanguages($asPairs);
     }
 }
 
