@@ -151,6 +151,13 @@ class Tx_Pagenotfoundhandling_Controller_PagenotfoundController
      */
     protected $_passthroughContentTypeHeader = false;
 
+    /**
+     * Addtional HTTP headers to be sent with the 404/403 page
+     *
+     * @var array
+     */
+    protected $_additionalHeaders = array();
+
 	/**
 	 * Main method called through tslib_fe::pageErrorHandler()
 	 *
@@ -288,6 +295,7 @@ class Tx_Pagenotfoundhandling_Controller_PagenotfoundController
                     $this->_forceLanguage = (int) $row['tx_pagenotfoundhandling_forceLanguage'];
                     $this->_languageParam = $row['tx_pagenotfoundhandling_languageParam'];
                     $this->_passthroughContentTypeHeader = (bool) $row['tx_pagenotfoundhandling_passthroughContentTypeHeader'];
+                    $this->_additionalHeaders = \t3lib_div::trimExplode('|', $row['tx_pagenotfoundhandling_additionalHeaders'], true);
 
                     // override 404 page with its 403 equivalent (if needed and configured so)
                     if($this->_isForbiddenError) {
@@ -368,6 +376,10 @@ class Tx_Pagenotfoundhandling_Controller_PagenotfoundController
         if(isset($conf['passthroughContentTypeHeader'])) {
             $this->_passthroughContentTypeHeader = (bool) $conf['passthroughContentTypeHeader'];
         }
+
+        if(isset($conf['additionalHeaders'])) {
+            $this->_additionalHeaders = \t3lib_div::trimExplode('|', $conf['additionalHeaders'], true);
+        }
     }
 
     /**
@@ -435,6 +447,16 @@ class Tx_Pagenotfoundhandling_Controller_PagenotfoundController
 				$html = file_get_contents($file);
 			}
     	}
+
+    	// send additional HTTP headers
+        if (count($this->_additionalHeaders)) {
+            // disallow sending 'Location' header (redirecting)
+            foreach ($this->_additionalHeaders as $header) {
+                if (!preg_match('/^Location:/i', $header, $matches)) {
+                    header($header);
+                }
+            }
+        }
 
     	if(!is_null($html)) {
     		return $this->_processMarkers($html);

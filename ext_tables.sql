@@ -11,4 +11,5 @@ CREATE TABLE sys_domain (
     tx_pagenotfoundhandling_forceLanguage int(11) DEFAULT '0' NOT NULL,
     tx_pagenotfoundhandling_languageParam varchar(45) DEFAULT 'L' NOT NULL,
     tx_pagenotfoundhandling_passthroughContentTypeHeader tinyint(3) DEFAULT '0' NOT NULL
+    tx_pagenotfoundhandling_additionalHeaders text,
 );

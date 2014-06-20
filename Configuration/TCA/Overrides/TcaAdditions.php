@@ -161,6 +161,15 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
                 'default' => '0',
             )
         ),
+        'tx_pagenotfoundhandling_additionalHeaders' => array(
+            'exclude' => 1,
+            'label' => 'LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.additionalHeaders',
+            'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
+            'config' => array (
+                'type' => 'input',
+                'default' => '',
+            )
+        ),
     );
 
     $GLOBALS['TCA']['sys_domain']['ctrl']['dividers2tabs'] = 1;
@@ -200,6 +209,7 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         tx_pagenotfoundhandling_ignoreLanguage;;;;1-1-1,
         tx_pagenotfoundhandling_forceLanguage;;;;1-1-1,
         tx_pagenotfoundhandling_languageParam;;;;1-1-1,
-        tx_pagenotfoundhandling_passthroughContentTypeHeader;;;;1-1-1');
+        tx_pagenotfoundhandling_passthroughContentTypeHeader;;;;1-1-1,
+        tx_pagenotfoundhandling_additionalHeaders;;;;1-1-1');
 }
 
