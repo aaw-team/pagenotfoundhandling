@@ -466,7 +466,7 @@ class Tx_Pagenotfoundhandling_Controller_PagenotfoundController
 
 			$oldTemplateFilePath = t3lib_extMgm::extPath('pagenotfoundhandling') . 'res/defaultTemplate.tmpl';
 			if (\strcmp($file, $oldTemplateFilePath) === 0) {
-                t3lib_div::deprecationLog('pagenotfoundhandling: old defaultTemplate file (EXT:pagenotfoundhandling/res/defaultTemplate.tmpl) in use, deprecated since 1.0, will be removed in 1.2, use EXT:pagenotfoundhandling/Resources/Private/Templates/default.html instead');
+                t3lib_div::deprecationLog('pagenotfoundhandling: old defaultTemplate file (EXT:pagenotfoundhandling/res/defaultTemplate.tmpl) in use, deprecated since 2.0, will be removed in 2.2, use EXT:pagenotfoundhandling/Resources/Private/Templates/default.html instead');
 			}
 
 			if(!empty($file) && is_readable($file)) {

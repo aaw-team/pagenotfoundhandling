@@ -46,7 +46,7 @@ class tx_pagenotfoundhandling
 	 * @param array $params
 	 * @param tslib_fe $tslib_fe
 	 * @return string
-	 * @deprecated since 1.0, will be removed in 1.2, use Tx_Pagenotfoundhandling_Controller_PagenotfoundController::main() instead
+	 * @deprecated since 2.0, will be removed in 2.2, use Tx_Pagenotfoundhandling_Controller_PagenotfoundController::main() instead
 	 */
     public function main($params, tslib_fe $tslib_fe)
     {

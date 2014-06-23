@@ -47,7 +47,7 @@ class tx_pagenotfoundhandling_LanguageSelect
      * @param array $PA
      * @param t3lib_TCEforms $fObj
      * @return string
-     * @deprecated since 1.0, will be removed in 1.2, use Tx_Pagenotfoundhandling_Utility_LanguageUtility::tca() instead
+     * @deprecated since 2.0, will be removed in 2.2, use Tx_Pagenotfoundhandling_Utility_LanguageUtility::tca() instead
      */
     public function tca($PA, t3lib_TCEforms $fObj)
     {
@@ -63,7 +63,7 @@ class tx_pagenotfoundhandling_LanguageSelect
      * @param array $params
      * @param $styleConfig
      * @return string
-     * @deprecated since 1.0, will be removed in 1.2, use Tx_Pagenotfoundhandling_Utility_LanguageUtility::constantEditor() instead
+     * @deprecated since 2.0, will be removed in 2.2, use Tx_Pagenotfoundhandling_Utility_LanguageUtility::constantEditor() instead
      */
     public function constantEditor($params, $styleConfig)
     {
@@ -79,7 +79,7 @@ class tx_pagenotfoundhandling_LanguageSelect
      *
      * @param boolean $asPairs
      * @return array
-     * @deprecated since 1.0, will be removed in 1.2, use Tx_Pagenotfoundhandling_Utility_LanguageUtility::getLanguages() instead
+     * @deprecated since 2.0, will be removed in 2.2, use Tx_Pagenotfoundhandling_Utility_LanguageUtility::getLanguages() instead
      */
     public static function getLanguages($asPairs = true)
     {
