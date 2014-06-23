@@ -158,6 +158,15 @@ class Tx_Pagenotfoundhandling_Controller_PagenotfoundController
      */
     protected $_additionalHeaders = array();
 
+    /**
+     * Absolute reference prefix
+     *
+     * Prefixes the URL which fetches the 404 page
+     *
+     * @var string
+     */
+    protected $_absoluteReferencePrefix = '';
+
 	/**
 	 * Main method called through tslib_fe::pageErrorHandler()
 	 *
@@ -380,6 +389,18 @@ class Tx_Pagenotfoundhandling_Controller_PagenotfoundController
         if(isset($conf['additionalHeaders'])) {
             $this->_additionalHeaders = \t3lib_div::trimExplode('|', $conf['additionalHeaders'], true);
         }
+
+        if(isset($conf['absoluteReferencePrefix'])) {
+            // remove '/' and whitespaces
+            $absoluteReferencePrefix = \trim(\trim($conf['absoluteReferencePrefix'], '/'));
+
+            // check for double dots (..) in the path
+            if (\preg_match('/([\.]|\%2e){2}/i', $absoluteReferencePrefix)) {
+                throw new \InvalidArgumentException('EXT:pagenotfoundhandling: absoluteReferencePrefix must not contain double dots', 1403536458);
+            }
+
+            $this->_absoluteReferencePrefix = $absoluteReferencePrefix;
+        }
     }
 
     /**
@@ -398,7 +419,12 @@ class Tx_Pagenotfoundhandling_Controller_PagenotfoundController
 			$pageRow = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('*', 'pages', $where);
 			if(count($pageRow) === 1) {
 				$pageRow = current($pageRow);
-				$url = t3lib_div::locationHeaderUrl('/');
+				$url = \t3lib_div::getIndpEnv('TYPO3_REQUEST_HOST') . '/';
+
+				if ($this->_absoluteReferencePrefix) {
+				    $url .= $this->_absoluteReferencePrefix . '/';
+				}
+
 				$url .= 'index.php?id=' . $this->_default404Page . '&loopPrevention=1';
 
 				if(!empty($this->_forceLanguage)) {

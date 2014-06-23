@@ -256,6 +256,21 @@ on the extension name to open the configuration interface.
    Default
          -
 
+.. container:: table-row
+
+   Property
+         absoluteReferencePrefix
+   
+   Data type
+         string
+   
+   Description
+         If your TYPO3 installation runs in a subdir of the DOCUMENT_ROOT,
+         add the relative path from DOCUMENT_ROOT to the installation here
+   
+   Default
+         -
+
 
 .. ###### END~OF~TABLE ######
 

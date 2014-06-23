@@ -35,6 +35,7 @@
             <label index="pagenotfoundhandling.constants.languageParam">Language parameter: This should be the same as config.linkVars. Default: 'L'</label>
             <label index="pagenotfoundhandling.constants.passthroughContentTypeHeader">Passthrough content-type header: When a 404 page is defined, the HTTP header 'Content-Type' will be captured and sent with the 404 page. Default: '0'</label>
             <label index="pagenotfoundhandling.constants.additionalHeaders">Additional HTTP headers: Send additional HTTP headers with the 404/403 page. Separate headers with '|'. Default: ''</label>
+            <label index="pagenotfoundhandling.constants.absoluteReferencePrefix">Additional reference prefix: If your TYPO3 installation runs in a subdir of the DOCUMENT_ROOT, add the relative path from DOCUMENT_ROOT to the installation here. Default: ''</label>
         </languageKey>
         <languageKey index="de" type="array">
             <label index="pagenotfoundhandling.sys_domain.tcasheet.title">404 Behandlung</label>
@@ -66,6 +67,7 @@
             <label index="pagenotfoundhandling.constants.languageParam">Sprachparameter: Sollte dasselbe beinhalten, wie config.linkVars. Standard: 'L'</label>
             <label index="pagenotfoundhandling.constants.passthroughContentTypeHeader">Content-type header weitergeben: Wenn eine 404 Seite definiert ist, kann der HTTP header 'Content-Type' weiter an die Ausgabe gesendet werden. Standard: '0'</label>
             <label index="pagenotfoundhandling.constants.additionalHeaders">Zusätzliche HTTP header: Sendet die hier definierten HTTP headers mit der 404/403 Seite. Mehrere headers mit '|' trennen. Standard: ''</label>
+            <label index="pagenotfoundhandling.constants.absoluteReferencePrefix">Absoluter Referenz-Präfix: Falls TYPO3 nicht direkt im DOCUMENT_ROOT installiert ist, muss der relative Pfad vom DOCUMENT_ROOT zur Installation hier angegeben werden. Standard: ''</label>
         </languageKey>
     </data>
 </T3locallang>
