@@ -179,24 +179,6 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         $GLOBALS['TCA']['sys_domain']['ctrl']['requestUpdate'] = 'tx_pagenotfoundhandling_enable';
     }
 
-    // creating palettes
-    $GLOBALS['TCA']['sys_domain']['palettes']['tx_pagenotfoundhandling_404'] = array(
-        'showitem' => 'tx_pagenotfoundhandling_default404Page,--linebreak--,tx_pagenotfoundhandling_defaultTemplateFile',
-        'canNotCollapse' => 1
-    );
-    $GLOBALS['TCA']['sys_domain']['palettes']['tx_pagenotfoundhandling_403'] = array(
-        'showitem' => 'tx_pagenotfoundhandling_default403Page,--linebreak--,tx_pagenotfoundhandling_default403Header',
-        'canNotCollapse' => 1
-    );
-    $GLOBALS['TCA']['sys_domain']['palettes']['tx_pagenotfoundhandling_language'] = array(
-        'showitem' => 'tx_pagenotfoundhandling_ignoreLanguage,tx_pagenotfoundhandling_forceLanguage,tx_pagenotfoundhandling_languageParam',
-        'canNotCollapse' => 1
-    );
-    $GLOBALS['TCA']['sys_domain']['palettes']['tx_pagenotfoundhandling_options'] = array(
-        'showitem' => 'tx_pagenotfoundhandling_passthroughContentTypeHeader',
-        'canNotCollapse' => 1
-    );
-
     t3lib_extMgm::addTCAcolumns('sys_domain', $tempColumns, 1);
 
     t3lib_extMgm::addToAllTCAtypes('sys_domain', '

@@ -26,7 +26,7 @@ disableDomainConfig = 0
 passthroughContentTypeHeader = 0
 
 # cat=basic/enable; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.additionalHeaders
-additionalHeaders = X-404PageBy: pagenotfoundhandling
+additionalHeaders = 
 
 # cat=basic/language; type=boolean; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.ignoreLanguage
 ignoreLanguage = 0
