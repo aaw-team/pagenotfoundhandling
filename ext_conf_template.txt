@@ -28,6 +28,9 @@ disableDomainConfig = 0
 # cat=basic/enable; type=boolean; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.passthroughContentTypeHeader
 passthroughContentTypeHeader = 0
 
+# cat=basic/enable; type=boolean; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.sendXForwardedForHeader
+sendXForwardedForHeader = 0
+
 # cat=basic/enable; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.additionalHeaders
 additionalHeaders = 
 

@@ -244,6 +244,22 @@ on the extension name to open the configuration interface.
 .. container:: table-row
 
    Property
+         sendXForwardedForHeader
+   
+   Data type
+         boolean
+   
+   Description
+         Send the REMOTE_ADDR in the 'X-Forwarded-For' HTTP header when 
+         fetching the 404 page. Be sure to correctly configure
+         [TYPO3_CONF_VARS][SYS][reverseProxyIP] when using this feature.
+   
+   Default
+         0
+
+.. container:: table-row
+
+   Property
          additionalHeaders
    
    Data type

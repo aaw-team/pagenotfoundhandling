@@ -152,6 +152,13 @@ class Tx_Pagenotfoundhandling_Controller_PagenotfoundController
     protected $_passthroughContentTypeHeader = false;
 
     /**
+     * Send a 'X-Forwarded-For' HTTP header
+     *
+     * @var boolean
+     */
+    protected $_sendXForwardedForHeader = false;
+
+    /**
      * Addtional HTTP headers to be sent with the 404/403 page
      *
      * @var array
@@ -304,6 +311,7 @@ class Tx_Pagenotfoundhandling_Controller_PagenotfoundController
                     $this->_forceLanguage = (int) $row['tx_pagenotfoundhandling_forceLanguage'];
                     $this->_languageParam = $row['tx_pagenotfoundhandling_languageParam'];
                     $this->_passthroughContentTypeHeader = (bool) $row['tx_pagenotfoundhandling_passthroughContentTypeHeader'];
+                    $this->_sendXForwardedForHeader = (bool) $row['tx_pagenotfoundhandling_sendXForwardedForHeader'];
                     $this->_additionalHeaders = \t3lib_div::trimExplode('|', $row['tx_pagenotfoundhandling_additionalHeaders'], true);
 
                     // override 404 page with its 403 equivalent (if needed and configured so)
@@ -386,6 +394,10 @@ class Tx_Pagenotfoundhandling_Controller_PagenotfoundController
             $this->_passthroughContentTypeHeader = (bool) $conf['passthroughContentTypeHeader'];
         }
 
+        if(isset($conf['sendXForwardedForHeader'])) {
+            $this->_sendXForwardedForHeader = (bool) $conf['sendXForwardedForHeader'];
+        }
+
         if(isset($conf['additionalHeaders'])) {
             $this->_additionalHeaders = \t3lib_div::trimExplode('|', $conf['additionalHeaders'], true);
         }
@@ -447,6 +459,10 @@ class Tx_Pagenotfoundhandling_Controller_PagenotfoundController
                     'User-agent: ' . t3lib_div::getIndpEnv('HTTP_USER_AGENT'),
                     'Referer: ' . t3lib_div::getIndpEnv('TYPO3_REQUEST_URL')
                 );
+
+                if ($this->_sendXForwardedForHeader) {
+                    $headers[] = 'X-Forwarded-For: ' . t3lib_div::getIndpEnv('REMOTE_ADDR');
+                }
 
                 $report = array();
                 $html = t3lib_div::getURL($url, (int) $this->_passthroughContentTypeHeader, $headers, $report);

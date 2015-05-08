@@ -161,6 +161,15 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
                 'default' => '0',
             )
         ),
+        'tx_pagenotfoundhandling_sendXForwardedForHeader' => array(
+            'exclude' => 1,
+            'label' => 'LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.sendXForwardedForHeader',
+            'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
+            'config' => array (
+                'type' => 'check',
+                'default' => '0',
+            )
+        ),
         'tx_pagenotfoundhandling_additionalHeaders' => array(
             'exclude' => 1,
             'label' => 'LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.additionalHeaders',
@@ -192,6 +201,7 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         tx_pagenotfoundhandling_forceLanguage;;;;1-1-1,
         tx_pagenotfoundhandling_languageParam;;;;1-1-1,
         tx_pagenotfoundhandling_passthroughContentTypeHeader;;;;1-1-1,
+        tx_pagenotfoundhandling_sendXForwardedForHeader;;;;1-1-1,
         tx_pagenotfoundhandling_additionalHeaders;;;;1-1-1');
 }
 
