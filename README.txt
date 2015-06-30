@@ -1,4 +1,4 @@
 
-Please refer to the manual on TYPO3 forge:
+Please refer to the manual on:
 
-http://forge.typo3.org/projects/extension-pagenotfoundhandling/wiki/Extension_manual
+http://docs.typo3.org/typo3cms/extensions/pagenotfoundhandling/

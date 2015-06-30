@@ -4,4 +4,4 @@ if (!defined ('TYPO3_MODE')) {
 }
 
 // register pageNotFound_handling
-$GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFound_handling'] = 'USER_FUNCTION:Tx_Pagenotfoundhandling_Controller_PagenotfoundController->main';
+$GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFound_handling'] = 'USER_FUNCTION:Aaw\\Pagenotfoundhandling\\Controller\\PagenotfoundController->main';

@@ -1,4 +1,6 @@
 <?php
+namespace Aaw\Pagenotfoundhandling\Utility;
+
 /**
  * **************************************************************
  * Copyright notice
@@ -38,16 +40,16 @@
  * @category TYPO3
  * @package  pagenotfoundhandling
  */
-class Tx_Pagenotfoundhandling_Utility_LanguageUtility
+class LanguageUtility
 {
     /**
      * Returns a select box for use in TCA userFunc
      *
      * @param array $PA
-     * @param t3lib_TCEforms $fObj
+     * @param \TYPO3\CMS\Backend\Form\FormEngine $fObj
      * @return string
      */
-    public function tcaLanguageField($PA, \t3lib_TCEforms $fObj)
+    public function tcaLanguageField($PA, \TYPO3\CMS\Backend\Form\FormEngine $fObj)
     {
         $options = $this->_getLanguageSelector($PA['itemFormElValue']);
 
@@ -127,7 +129,7 @@ class Tx_Pagenotfoundhandling_Utility_LanguageUtility
     public static function getLanguages($asPairs = true)
     {
         $return = array();
-        $languages = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('*', 'sys_language', 'hidden=0', '', 'title');
+        $languages = self::_getDatabaseConnection()->exec_SELECTgetRows('*', 'sys_language', 'hidden=0', '', 'title');
         if (is_array($languages)) {
             if ($asPairs) {
                 foreach ($languages as $language) {
@@ -139,5 +141,13 @@ class Tx_Pagenotfoundhandling_Utility_LanguageUtility
         }
 
         return $return;
+    }
+
+    /**
+     * @return \TYPO3\CMS\Core\Database\DatabaseConnection
+     */
+    protected static function _getDatabaseConnection()
+    {
+        return $GLOBALS['TYPO3_DB'];
     }
 }

@@ -188,9 +188,9 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         $GLOBALS['TCA']['sys_domain']['ctrl']['requestUpdate'] = 'tx_pagenotfoundhandling_enable';
     }
 
-    t3lib_extMgm::addTCAcolumns('sys_domain', $tempColumns, 1);
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('sys_domain', $tempColumns);
 
-    t3lib_extMgm::addToAllTCAtypes('sys_domain', '
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('sys_domain', '
         --div--;LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.tcasheet.title,
         tx_pagenotfoundhandling_enable;;;;1-1-1,
         tx_pagenotfoundhandling_default404Page;;;;1-1-1,
