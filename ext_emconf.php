@@ -29,10 +29,10 @@ $EM_CONF[$_EXTKEY] = array(
 	'clearCacheOnLoad' => 1,
 	'lockType' => '',
 	'author_company' => 'Agentur am Wasser | Maeder & Partner AG',
-	'version' => '2.1.1',
+	'version' => '2.2.0-dev',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '4.5.0-6.2.99',
+			'typo3' => '6.2.1-7.3.99',
 		),
 		'conflicts' => array(
 		),
