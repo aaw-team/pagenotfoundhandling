@@ -181,27 +181,49 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         ),
     );
 
+    // avoid deprecation messages
+    // @todo: integrate this above, when dropping support for TYPO3 < 7
+    if (version_compare(TYPO3_version, '7', '>=')) {
+        $tempColumns['tx_pagenotfoundhandling_default403Header']['config']['renderType'] = 'selectSingle';
+    }
+
+    // force-enable dividers2Tabs
     $GLOBALS['TCA']['sys_domain']['ctrl']['dividers2tabs'] = 1;
+
+    // inject field tx_pagenotfoundhandling_enable to 'requestUpdate'
     if($GLOBALS['TCA']['sys_domain']['ctrl']['requestUpdate']) {
         $GLOBALS['TCA']['sys_domain']['ctrl']['requestUpdate'] .= ',tx_pagenotfoundhandling_enable';
     } else {
         $GLOBALS['TCA']['sys_domain']['ctrl']['requestUpdate'] = 'tx_pagenotfoundhandling_enable';
     }
 
+    // add the columns
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('sys_domain', $tempColumns);
 
+    // define palettes
+    $GLOBALS['TCA']['sys_domain']['palettes']['pagenotfoundhandling_palette_main'] = array(
+        'showitem' => 'tx_pagenotfoundhandling_default404Page,--linebreak--,tx_pagenotfoundhandling_defaultTemplateFile',
+        'canNotCollapse' => true,
+    );
+    $GLOBALS['TCA']['sys_domain']['palettes']['pagenotfoundhandling_palette_forbidden'] = array(
+        'showitem' => 'tx_pagenotfoundhandling_default403Page,--linebreak--,tx_pagenotfoundhandling_default403Header',
+        'canNotCollapse' => true,
+    );
+    $GLOBALS['TCA']['sys_domain']['palettes']['pagenotfoundhandling_palette_lang'] = array(
+        'showitem' => 'tx_pagenotfoundhandling_ignoreLanguage,tx_pagenotfoundhandling_languageParam,--linebreak--,tx_pagenotfoundhandling_forceLanguage',
+        'canNotCollapse' => true,
+    );
+    $GLOBALS['TCA']['sys_domain']['palettes']['pagenotfoundhandling_palette_opts'] = array(
+        'showitem' => 'tx_pagenotfoundhandling_passthroughContentTypeHeader,tx_pagenotfoundhandling_sendXForwardedForHeader,--linebreak--,tx_pagenotfoundhandling_additionalHeaders',
+        'canNotCollapse' => true,
+    );
+
+    // add types
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('sys_domain', '
         --div--;LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.tcasheet.title,
-        tx_pagenotfoundhandling_enable;;;;1-1-1,
-        tx_pagenotfoundhandling_default404Page;;;;1-1-1,
-        tx_pagenotfoundhandling_defaultTemplateFile;;;;1-1-1,
-        tx_pagenotfoundhandling_default403Page;;;;1-1-1,
-        tx_pagenotfoundhandling_default403Header;;;;1-1-1,
-        tx_pagenotfoundhandling_ignoreLanguage;;;;1-1-1,
-        tx_pagenotfoundhandling_forceLanguage;;;;1-1-1,
-        tx_pagenotfoundhandling_languageParam;;;;1-1-1,
-        tx_pagenotfoundhandling_passthroughContentTypeHeader;;;;1-1-1,
-        tx_pagenotfoundhandling_sendXForwardedForHeader;;;;1-1-1,
-        tx_pagenotfoundhandling_additionalHeaders;;;;1-1-1');
+        tx_pagenotfoundhandling_enable,
+        --palette--;;pagenotfoundhandling_palette_main,
+        --palette--;;pagenotfoundhandling_palette_forbidden,
+        --palette--;;pagenotfoundhandling_palette_lang,
+        --palette--;;pagenotfoundhandling_palette_opts');
 }
-
