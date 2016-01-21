@@ -13,4 +13,5 @@ CREATE TABLE sys_domain (
     tx_pagenotfoundhandling_passthroughContentTypeHeader tinyint(3) DEFAULT '0' NOT NULL,
     tx_pagenotfoundhandling_sendXForwardedForHeader tinyint(3) DEFAULT '0' NOT NULL,
     tx_pagenotfoundhandling_additionalHeaders text,
+    tx_pagenotfoundhandling_digestAuthentication varchar(255) DEFAULT '' NOT NULL,
 );

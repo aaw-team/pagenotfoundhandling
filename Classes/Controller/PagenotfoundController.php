@@ -182,6 +182,15 @@ class PagenotfoundController
      */
     protected $_absoluteReferencePrefix = '';
 
+    /**
+     * HTTP digest authentication
+     *
+     * Format: 'username:password'
+     *
+     * @var string
+     */
+    protected $_digestAuthentication = '';
+
 	/**
 	 * Main method called through TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController::pageErrorHandler()
 	 *
@@ -319,6 +328,7 @@ class PagenotfoundController
                     $this->_passthroughContentTypeHeader = (bool) $row['tx_pagenotfoundhandling_passthroughContentTypeHeader'];
                     $this->_sendXForwardedForHeader = (bool) $row['tx_pagenotfoundhandling_sendXForwardedForHeader'];
                     $this->_additionalHeaders = GeneralUtility::trimExplode('|', $row['tx_pagenotfoundhandling_additionalHeaders'], true);
+                    $this->_digestAuthentication = trim($row['tx_pagenotfoundhandling_digestAuthentication']);
 
                     // override 404 page with its 403 equivalent (if needed and configured so)
                     if($this->_isForbiddenError) {
@@ -409,6 +419,10 @@ class PagenotfoundController
             $this->_additionalHeaders = GeneralUtility::trimExplode('|', $conf['additionalHeaders'], true);
         }
 
+        if(isset($conf['digestAuthentication'])) {
+            $this->_digestAuthentication = trim($conf['digestAuthentication']);
+        }
+
         if(isset($conf['absoluteReferencePrefix'])) {
             // remove '/' and whitespaces
             $absoluteReferencePrefix = \trim(\trim($conf['absoluteReferencePrefix'], '/'));
@@ -472,7 +486,7 @@ class PagenotfoundController
                 }
 
                 $report = array();
-                $html = GeneralUtility::getURL($url, (int) $this->_passthroughContentTypeHeader, $headers, $report);
+                $html = $this->_getUrl($url, (int) $this->_passthroughContentTypeHeader, $headers, $report);
                 if ($this->_passthroughContentTypeHeader && $html !== null) {
                     // split response header and body
                     list ($responseHeaders, $html) = GeneralUtility::trimExplode(CRLF . CRLF, $html, false, 2);
@@ -521,6 +535,159 @@ class PagenotfoundController
 		</div>
     </body>
 </html>');
+    }
+
+    /**
+     * Wrapper method for GeneralUtility::getURL();
+     *
+     * Additionally, this method adds a HTTP 'Authorization' header, when one is
+     * present in the current request.
+     *
+     * @throws \Exception
+     * @param string $url
+     * @param int $includeHeaders
+     * @param array $headers
+     * @param array $report
+     * @return mixed
+     * @see \TYPO3\CMS\Core\Utility\GeneralUtility::getURL()
+     */
+    protected function _getUrl($url, $includeHeaders = 0, array $headers = array(), &$report = null)
+    {
+        // handle http authorization
+        $digestAuthorization = false;
+        $requestHeaders = $this->_getAllHttpHeaders();
+        if (array_key_exists('Authorization', $requestHeaders)) {
+            $authorizationHeader = $requestHeaders['Authorization'];
+            // Authorization 'basic' support
+            if (strpos($authorizationHeader, 'Basic ') === 0) {
+                // check the header value for authentication basic,
+                // only base64 characters are allowed
+                if (preg_match('~[^a-zA-Z0-9+/=]~', substr($authorizationHeader, 6)) === 0) {
+                    $headers[] = 'Authorization: ' . $authorizationHeader;
+                }
+            } elseif (strpos($authorizationHeader, 'Digest ') === 0) {
+                $digestAuthorization = true;
+            }
+        }
+
+        if ($digestAuthorization === true) {
+            $return = $this->_getUrlWithDigestAuthentication($url, $includeHeaders, $headers, $report);
+        } else {
+            $return = GeneralUtility::getURL($url, $includeHeaders, $headers, $report);
+        }
+
+        if ($return === false) {
+            throw new \Exception('Fetching the 40' . ($this->_isForbiddenError ? '3' : '4') . ' page failed with error #' . $report['error'] . ': "' . $report['message'] . '"');
+        }
+        return $return;
+    }
+
+    /**
+     * Wrapper method for the cURL-enabled part of GeneralUtility::getURL()
+     *
+     * Additionally, this method configures cURL to use HTTP digest
+     * authentication.
+     *
+     * Note: other than GeneralUtility::getURL(), this method supports no
+     * redirection itself. Redirection won't work, when cURL option
+     * CURLOPT_FOLLOWLOCATION con't be applied!
+     *
+     * @throws \Exception
+     * @param string $url
+     * @param int $includeHeaders
+     * @param array $headers
+     * @param array $report
+     * @return mixed
+     * @see \TYPO3\CMS\Core\Utility\GeneralUtility::getURL()
+     */
+    protected function _getUrlWithDigestAuthentication($url, $includeHeaders = 0, array $headers = array(), &$report = null)
+    {
+        if ($GLOBALS['TYPO3_CONF_VARS']['SYS']['curlUse'] != '1') {
+            throw new \Exception('cURL usage must be enabled ($GLOBALS[\'TYPO3_CONF_VARS\'][\'SYS\'][\'curlUse\']) when using HTTP digest authentication.');
+        }
+
+        // prepare username/password
+        list ($username, $password) = GeneralUtility::trimExplode(':', $this->_digestAuthentication, false, 2);
+
+        // do (almost) the same things as in GeneralUtility::getURL();
+        if (!function_exists('curl_init') || !($ch = curl_init())) {
+            if (isset($report)) {
+                $report['error'] = -1;
+                $report['message'] = 'Couldn\'t initialize cURL.';
+            }
+            return false;
+        }
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        @curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_HEADER, (intval($includeHeaders) > 0));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FAILONERROR, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, max(0, (int) $GLOBALS['TYPO3_CONF_VARS']['SYS']['curlTimeout']));
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_DIGEST);
+        curl_setopt($ch, CURLOPT_USERPWD, $username. ':' . $password);
+        if ($GLOBALS['TYPO3_CONF_VARS']['SYS']['curlProxyServer']) {
+            curl_setopt($ch, CURLOPT_PROXY, $GLOBALS['TYPO3_CONF_VARS']['SYS']['curlProxyServer']);
+            if ($GLOBALS['TYPO3_CONF_VARS']['SYS']['curlProxyNTLM']) {
+                curl_setopt($ch, CURLOPT_PROXYAUTH, CURLAUTH_NTLM);
+            }
+            if ($GLOBALS['TYPO3_CONF_VARS']['SYS']['curlProxyTunnel']) {
+                curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, $GLOBALS['TYPO3_CONF_VARS']['SYS']['curlProxyTunnel']);
+            }
+            if ($GLOBALS['TYPO3_CONF_VARS']['SYS']['curlProxyUserPass']) {
+                curl_setopt($ch, CURLOPT_PROXYUSERPWD, $GLOBALS['TYPO3_CONF_VARS']['SYS']['curlProxyUserPass']);
+            }
+        }
+
+        // apply the http headers
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        // execute the request
+        $content = curl_exec($ch);
+        $curlInfo = curl_getinfo($ch);
+
+        // strip http headers
+        // @see GeneralUtility::stripHttpHeaders()
+        if ($includeHeaders < 1) {
+            $headersEndPos = strpos($content, CRLF . CRLF);
+            if ($headersEndPos !== false) {
+                $content = substr($content, $headersEndPos + 4);
+            }
+        }
+
+        if (isset($report)) {
+            if ($content === false) {
+                $report['error'] = curl_errno($ch);
+                $report['message'] = curl_error($ch);
+            } elseif ($includeHeader) {
+                $report['http_code'] = $curlInfo['http_code'];
+                $report['content_type'] = $curlInfo['content_type'];
+            }
+        }
+        curl_close($ch);
+        return $content;
+    }
+
+    /**
+     * Returns all HTTP headers from the current request
+     *
+     * @return array
+     */
+    protected function _getAllHttpHeaders()
+    {
+        if (function_exists('getallheaders')) {
+            return \getallheaders();
+        } else {
+            $headers = array();
+            foreach ($_SERVER as $key => $value) {
+                if (strpos($key, 'HTTP_') === 0) {
+                    $name = str_replace(' ', '-', ucwords(str_replace('_', ' ', strtolower(substr($key, 5)))));
+                    $headers[$name] = $value;
+                }
+            }
+            return $headers;
+        }
     }
 
     /**

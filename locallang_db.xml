@@ -19,8 +19,9 @@
             <label index="pagenotfoundhandling.sys_domain.languageParam">Language parameter</label>
             <label index="pagenotfoundhandling.sys_domain.passthroughContentTypeHeader">Passthrough content-type header</label>
             <label index="pagenotfoundhandling.sys_domain.sendXForwardedForHeader">Send X-Forwarded-For header</label>
-            <label index="pagenotfoundhandling.sys_domain.additionalHeaders">Additional HTTP headers</label>
-            
+            <label index="pagenotfoundhandling.sys_domain.additionalHeaders">Additional HTTP headers sent to the client</label>
+            <label index="pagenotfoundhandling.sys_domain.digestAuthentication">HTTP digest authentication</label>
+
             <label index="pagenotfoundhandling.constants.forceLanguage">Force language: This language is used to fetch default404Page and/or marker substitution in defaultTemplateFile. Default: ''</label>
             <label index="pagenotfoundhandling.constants.default404Page">Default 404 Page:An uid of a page out of the page tree that will be returned as 404 page. '0' disables this feature. Default: '0'.</label>
             <label index="pagenotfoundhandling.constants.additional404GetParams">Additional GET params:These will be appended to the URL when fetching default404Page. Default: ''</label>
@@ -38,6 +39,7 @@
             <label index="pagenotfoundhandling.constants.sendXForwardedForHeader">Send X-Forwarded-For header:Send the REMOTE_ADDR in the 'X-Forwarded-For' HTTP header. Default: '0'</label>
             <label index="pagenotfoundhandling.constants.additionalHeaders">Additional HTTP headers: Send additional HTTP headers with the 404/403 page. Separate headers with '|'. Default: ''</label>
             <label index="pagenotfoundhandling.constants.absoluteReferencePrefix">Additional reference prefix: If your TYPO3 installation runs in a subdir of the DOCUMENT_ROOT, add the relative path from DOCUMENT_ROOT to the installation here. Default: ''</label>
+            <label index="pagenotfoundhandling.constants.digestAuthentication">HTTP digest authentication:Username and password when using HTTP digest authentication (this is not required for HTTP basic authentication). Format: "username:password". Default: ''</label>
         </languageKey>
         <languageKey index="de" type="array">
             <label index="pagenotfoundhandling.sys_domain.tcasheet.title">404 Behandlung</label>
@@ -53,8 +55,9 @@
             <label index="pagenotfoundhandling.sys_domain.languageParam">Sprachparameter</label>
             <label index="pagenotfoundhandling.sys_domain.passthroughContentTypeHeader">Content-type header weitergeben</label>
             <label index="pagenotfoundhandling.sys_domain.sendXForwardedForHeader">X-Forwarded-For header senden</label>
-            <label index="pagenotfoundhandling.sys_domain.additionalHeaders">Zusätzliche HTTP header</label>
-            
+            <label index="pagenotfoundhandling.sys_domain.additionalHeaders">Zusätzliche HTTP header die zum Client gesendet werden</label>
+            <label index="pagenotfoundhandling.sys_domain.digestAuthentication">HTTP digest authentication</label>
+
             <label index="pagenotfoundhandling.constants.forceLanguage">Sprache erzwingen: Diese Sprache wird für die Ersetzung der Marker verwendet. Standard: ''</label>
             <label index="pagenotfoundhandling.constants.default404Page">Standard 404 Seite:Die Uid einer Seite im TYPO3 Seitenbaum, die als 404 Seite ausgegeben werden soll. '0' deaktiviert diese Funktion. Standard: '0'.</label>
             <label index="pagenotfoundhandling.constants.additional404GetParams">Zusätzliche GET Parameter:Diese werden beim Holen der default404Page verwendet. Standard: ''</label>
@@ -72,6 +75,7 @@
             <label index="pagenotfoundhandling.constants.sendXForwardedForHeader">X-Forwarded-For header senden:Sendet die REMOTE_ADDR im 'X-Forwarded-For' HTTP header. Standard: '0'</label>
             <label index="pagenotfoundhandling.constants.additionalHeaders">Zusätzliche HTTP header: Sendet die hier definierten HTTP headers mit der 404/403 Seite. Mehrere headers mit '|' trennen. Standard: ''</label>
             <label index="pagenotfoundhandling.constants.absoluteReferencePrefix">Absoluter Referenz-Präfix: Falls TYPO3 nicht direkt im DOCUMENT_ROOT installiert ist, muss der relative Pfad vom DOCUMENT_ROOT zur Installation hier angegeben werden. Standard: ''</label>
+            <label index="pagenotfoundhandling.constants.digestAuthentication">HTTP digest authentication:Benutzername und Passwort für HTTP digest authentication (nicht notwendig, wenn HTTP basic authentication verwendet wird). Format: "benutzername:passwort". Standard: ''</label>
         </languageKey>
     </data>
 </T3locallang>

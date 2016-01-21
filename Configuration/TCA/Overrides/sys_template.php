@@ -179,6 +179,15 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
                 'default' => '',
             )
         ),
+        'tx_pagenotfoundhandling_digestAuthentication' => array(
+            'exclude' => 1,
+            'label' => 'LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.digestAuthentication',
+            'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
+            'config' => array (
+                'type' => 'input',
+                'default' => '',
+            )
+        ),
     );
 
     // avoid deprecation messages
@@ -214,7 +223,7 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         'canNotCollapse' => true,
     );
     $GLOBALS['TCA']['sys_domain']['palettes']['pagenotfoundhandling_palette_opts'] = array(
-        'showitem' => 'tx_pagenotfoundhandling_passthroughContentTypeHeader,tx_pagenotfoundhandling_sendXForwardedForHeader,--linebreak--,tx_pagenotfoundhandling_additionalHeaders',
+        'showitem' => 'tx_pagenotfoundhandling_passthroughContentTypeHeader,tx_pagenotfoundhandling_sendXForwardedForHeader,--linebreak--,tx_pagenotfoundhandling_additionalHeaders,--linebreak--,tx_pagenotfoundhandling_digestAuthentication',
         'canNotCollapse' => true,
     );
 

@@ -287,6 +287,29 @@ on the extension name to open the configuration interface.
    Default
          -
 
+.. container:: table-row
+
+   Property
+         digestAuthentication
+   
+   Data type
+         string
+   
+   Description
+         If the 404/403 page is access restricted with HTTP digest
+         authentication, you can configure the username and password here.
+         
+         Format: "username:password"
+         
+         HTTP digest authentication requires cURL to be installed and enabled in
+         $GLOBALS['TYPO3_CONF_VARS']['SYS']['curlUse']
+         
+         Note: this is NOT required for HTTP basic authentication (this type of
+         authentication works out-of-the box)!
+   
+   Default
+         -
+
 
 .. ###### END~OF~TABLE ######
 

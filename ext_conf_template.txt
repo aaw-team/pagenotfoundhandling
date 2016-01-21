@@ -34,6 +34,9 @@ sendXForwardedForHeader = 0
 # cat=basic/enable; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.additionalHeaders
 additionalHeaders = 
 
+# cat=basic/enable; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.digestAuthentication
+digestAuthentication = 
+
 # cat=basic/language; type=boolean; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.ignoreLanguage
 ignoreLanguage = 0
 
