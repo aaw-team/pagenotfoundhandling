@@ -1,0 +1,42 @@
+{
+	"name": "aaw/pagenotfoundhandling",
+	"type": "typo3-cms-extension",
+	"description": "404 Page not found handling",
+	"keywords": ["typo3", "404", "403", "page not found", "page not found handling", "page unavailable handling", "pageNotFound_handling"],
+	"homepage": "https://forge.typo3.org/projects/extension-pagenotfoundhandling",
+	"version": "2.3.0",
+	"license": "GPL-2.0+",
+	"authors": [
+        {
+            "name": "Agentur am Wasser | Maeder & Partner AG",
+            "email": "development@agenturamwasser.ch",
+            "role": "Developer",
+            "homepage": "https://web.agenturamwasser.ch/"
+        },
+        {
+            "name": "Christian Futterlieb",
+            "email": "christian.futterlieb@agenturamwasser.ch",
+            "role": "Developer",
+            "homepage": "https://web.agenturamwasser.ch/"
+        }
+	],
+	"require": {
+		"typo3/cms-core": ">=6.2.1,<=7.6.999"
+	},
+	"suggest": {
+	    "typo3-ter/realurl": ">=1.12.8",
+        "typo3-ter/static-info-tables": ">=6.2.0"
+	},
+	"replace": {
+	    "pagenotfoundhandling": "self.version"
+	},
+	"autoload": {
+		"psr-4": {
+            "Aaw\\Pagenotfoundhandling\\": "Classes/"
+		}
+	},
+	"support": {
+	    "issues": "https://forge.typo3.org/projects/extension-pagenotfoundhandling/issues",
+	    "docs": "https://docs.typo3.org/typo3cms/extensions/pagenotfoundhandling/"
+	}
+}
