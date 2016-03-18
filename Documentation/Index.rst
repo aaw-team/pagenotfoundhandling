@@ -14,7 +14,7 @@
       pagenotfoundhandling
 
 :Version:
-      2.1.0
+      2.3.1
 
 :Language:
       en
