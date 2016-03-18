@@ -28,12 +28,8 @@ Suggestions
 
 * Optional you can make use of the third-party extension
   `static_info_tables <http://typo3.org/extensions/repository/view/static_info_tables/current/>`_.
-* If you have a multilingual environment and
-  `realurl <http://typo3.org/extensions/repository/view/realurl/current/>`_
-  installed, also install extension
-  `realurl_force404lang <http://typo3.org/extensions/repository/view/realurl_force404lang/current/>`_
-  to make automatic language guessing work.
-  
+
+
 Available markers
 ==============================
 

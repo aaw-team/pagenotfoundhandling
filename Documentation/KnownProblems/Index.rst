@@ -10,37 +10,44 @@ Known problems
 ==============================
 
 
-With solution(s)
-==============================
+With solution
+=============
 
-Extension realurl
-^^^^^^^^^^^^^^^^^
+Language guessing and realurl
+-----------------------------
 
-At the moment the automatic language guessing does not work when the language
-parameter is translated with realurl.
-
-**Solution:**
-Install extension `realurl_force404lang <http://typo3.org/extensions/repository/view/realurl_force404lang/current/>`_
-if you have a multilingual environment with realurl.
-Make sure, you install realurl_force404lang **after** pagenotfoundhandling.
-Then - in extension manager configuration of realurl_force404lang - set the
-value of basic.pageNotFound_handling empty.
-
-
-Extension aeurltool
-^^^^^^^^^^^^^^^^^^^
-
-The extension aeurltool has a page not found handling too.
+Language guessing does not always work when the language parameter is translated
+with old versions of realurl.
 
 **Solution:**
-To avoid conflicting 404 configurations, disable 'Use 404-Errorpage' in the
-backend module of aeurltool.
+Update realurl to at least version 1.12.8
 
-Without solution(s)
-==============================
 
 Extension cooluri
-^^^^^^^^^^^^^^^^^
+-----------------
 
-With cooluri enabled, the extension does not work at all. Cooluri has its own
-404 handling and won't report back to TypoScriptFrontendController
+By default, cooluri handles 404 errors itself.
+
+**Solution:**
+
+Configure cooluri to use the default TYPO3 404 handling. Luckily it provides
+this option itself, you just have to uncomment it in CoolUriConf.xml:
+
+::
+
+    <cooluri>
+        <cache>
+            <pagenotfound>
+                <behavior type="userfunc">Bednarik\Cooluri\Integration\Cooluri->pageNotFound</behavior>
+            </pagenotfound>
+        </cache>
+    </cooluri>
+
+
+Without solution
+================
+
+Language guessing and cooluri
+-----------------------------
+
+With cooluri, the language guessing does not work at all.

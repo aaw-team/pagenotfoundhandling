@@ -460,9 +460,8 @@ class PagenotfoundController
 
 				$url .= 'index.php?id=' . $this->_default404Page . '&loopPrevention=1';
 
-				if(!empty($this->_forceLanguage)) {
-					$url .= '&' . $this->_languageParam . '=' . $this->_forceLanguage;
-				}
+				// append language parameter to query string
+				$url .= $this->_getLanguageQueryString();
 
 				if($this->_isForbiddenError) {
                     if(count($this->_additional403GetParams)) {
@@ -756,6 +755,48 @@ class PagenotfoundController
     {
         // strip out params that will be generated in _getHtml()
         return preg_replace('/&?(id|loopPrevention|' . $this->_languageParam . ')=[^&]*/', '', $params);
+    }
+
+    /**
+     * Returns a string to append to an URL (ex: "&L=1"). The string consists of
+     * the languageParam (mostly "L") and the needed sys_language_uid. When no
+     * language is requested, an empty string is retured.
+     *
+     * @return string
+     */
+    protected function _getLanguageQueryString()
+    {
+        $languageUid = null;
+
+        if(!empty($this->_forceLanguage)) {
+            $languageUid = $this->_forceLanguage;
+        } elseif(($languageUidFromRealurl = $this->_getLanguageUidFromRealurl())) {
+            $languageUid = $languageUidFromRealurl;
+        }
+
+        if ($languageUid) {
+            return '&' . $this->_languageParam . '=' . $languageUid;
+        }
+        return '';
+    }
+
+    /**
+     * @return integer|null
+     */
+    protected function _getLanguageUidFromRealurl()
+    {
+        if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('realurl') && array_key_exists('realurl_detectedLanguageId', $this->_getTyposcriptFrontendController()->register)) {
+            return (int) $this->_getTyposcriptFrontendController()->register['realurl_detectedLanguageId'];
+        }
+        return null;
+    }
+
+    /**
+     * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
+     */
+    protected function _getTyposcriptFrontendController()
+    {
+        return $GLOBALS['TSFE'];
     }
 
     /**
