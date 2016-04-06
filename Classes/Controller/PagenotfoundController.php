@@ -766,29 +766,10 @@ class PagenotfoundController
      */
     protected function _getLanguageQueryString()
     {
-        $languageUid = null;
-
         if(!empty($this->_forceLanguage)) {
-            $languageUid = $this->_forceLanguage;
-        } elseif(($languageUidFromRealurl = $this->_getLanguageUidFromRealurl())) {
-            $languageUid = $languageUidFromRealurl;
-        }
-
-        if ($languageUid) {
-            return '&' . $this->_languageParam . '=' . $languageUid;
+            return '&' . rawurlencode($this->_languageParam) . '=' . rawurlencode($this->_forceLanguage);
         }
         return '';
-    }
-
-    /**
-     * @return integer|null
-     */
-    protected function _getLanguageUidFromRealurl()
-    {
-        if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('realurl') && array_key_exists('realurl_detectedLanguageId', $this->_getTyposcriptFrontendController()->register)) {
-            return (int) $this->_getTyposcriptFrontendController()->register['realurl_detectedLanguageId'];
-        }
-        return null;
     }
 
     /**

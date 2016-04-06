@@ -56,10 +56,11 @@ class RealurlV1 extends \tx_realurl
      */
     public function decodeSpURL_throw404($msg)
     {
-        // Register the detectedLanguageId
+        // Set language to allow localized error pages
         if ($this->detectedLanguage > 0) {
-            $this->pObj->register['realurl_detectedLanguageId'] = $this->detectedLanguage;
+            $_GET['L'] = $this->detectedLanguage;
         }
+
         return parent::decodeSpURL_throw404($msg);
     }
 }

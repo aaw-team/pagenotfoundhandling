@@ -36,7 +36,7 @@ namespace Aaw\Pagenotfoundhandling\Realurl\Decoder;
 /**
  * Realurl UrlDecoder XCLASS
  *
- * It is used for realurl versions >=2.0 (and <2.0.x ???).
+ * It is used for realurl versions >=2.0 (and <2.0.12).
  *
  * For older realurl versions, \Aaw\Pagenotfoundhandling\Realurl\RealurlV1 is
  * used for the very same job.
@@ -55,8 +55,9 @@ class UrlDecoder extends \DmitryDulepov\Realurl\Decoder\UrlDecoder
      */
     protected function throw404($errorMessage)
     {
-        // Register the detectedLanguageId
-        $this->caller->register['realurl_detectedLanguageId'] = $this->detectedLanguageId;
+        // Set language to allow localized error pages
+        $_GET['L'] = $this->detectedLanguageId;
+
         return parent::throw404($errorMessage);
     }
 }
