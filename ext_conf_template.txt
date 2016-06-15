@@ -1,53 +1,53 @@
-# cat=basic/enable; type=int+; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.default404Page
+# cat=basic//001; type=int+; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.default404Page
 default404Page = 0
 
-# cat=basic/enable; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.defaultTemplateFile
+# cat=basic//002; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.defaultTemplateFile
 defaultTemplateFile = EXT:pagenotfoundhandling/Resources/Private/Templates/default.html
 
-# cat=basic/enable; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.additional404GetParams
-additional404GetParams = 
+# cat=basic//003; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.additional404GetParams
+additional404GetParams =
 
-# cat=basic/enable; type=int+; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.default403Page
+# cat=basic//004; type=int+; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.default403Page
 default403Page = 0
 
-# cat=basic/enable; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.default403TemplateFile
-default403TemplateFile = 
+# cat=basic//005; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.default403TemplateFile
+default403TemplateFile =
 
-# cat=basic/enable; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.additional403GetParams
-additional403GetParams = 
+# cat=basic//006; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.additional403GetParams
+additional403GetParams =
 
-# cat=basic/enable; type=options[Default (Do not send special headers)=0, HTTP/1.1 400 Bad Request=1, HTTP/1.1 401 Unauthorized=2, HTTP/1.1 402 Payment Required=3, HTTP/1.1 403 Forbidden=4]; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.default403Header
-default403Header = 4
+# cat=advanced//001; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.absoluteReferencePrefix
+absoluteReferencePrefix =
 
-# cat=basic/enable; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.absoluteReferencePrefix
-absoluteReferencePrefix = 
-
-# cat=basic/enable; type=boolean; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.disableDomainConfig
+# cat=advanced//002; type=boolean; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.disableDomainConfig
 disableDomainConfig = 0
 
-# cat=basic/enable; type=boolean; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.passthroughContentTypeHeader
+# cat=http//001; type=options[Default (Do not send special headers)=0, HTTP/1.1 400 Bad Request=1, HTTP/1.1 401 Unauthorized=2, HTTP/1.1 402 Payment Required=3, HTTP/1.1 403 Forbidden=4]; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.default403Header
+default403Header = 4
+
+# cat=http//002; type=boolean; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.passthroughContentTypeHeader
 passthroughContentTypeHeader = 0
 
-# cat=basic/enable; type=boolean; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.sendXForwardedForHeader
+# cat=http//003; type=boolean; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.sendXForwardedForHeader
 sendXForwardedForHeader = 0
 
-# cat=basic/enable; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.additionalHeaders
-additionalHeaders = 
+# cat=http//004; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.additionalHeaders
+additionalHeaders =
 
-# cat=basic/enable; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.digestAuthentication
-digestAuthentication = 
+# cat=http//005; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.digestAuthentication
+digestAuthentication =
 
-# cat=basic/language; type=boolean; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.ignoreLanguage
+# cat=language//001; type=boolean; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.ignoreLanguage
 ignoreLanguage = 0
 
-# cat=basic/language; type=user[Aaw\Pagenotfoundhandling\Utility\LanguageUtility->constantEditor]; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.forceLanguage
+# cat=language//002; type=user[Aaw\Pagenotfoundhandling\Utility\LanguageUtility->constantEditor]; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.forceLanguage
 forceLanguage = 0
 
-# cat=basic/language; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.locallangFile
-locallangFile = 
+# cat=language//003; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.locallangFile
+locallangFile =
 
-# cat=basic/language; type=small; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.defaultLanguageKey
+# cat=language//004; type=small; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.defaultLanguageKey
 defaultLanguageKey = default
 
-# cat=basic/language; type=small; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.languageParam
+# cat=language//005; type=small; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.languageParam
 languageParam = L
