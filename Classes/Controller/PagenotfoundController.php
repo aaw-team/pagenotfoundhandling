@@ -191,6 +191,13 @@ class PagenotfoundController
      */
     protected $_digestAuthentication = '';
 
+    /**
+     * Presesrve frontend user login session when fetching the 404/403 page
+     *
+     * @var boolean
+     */
+    protected $_preserveFeuserLogin = false;
+
 	/**
 	 * Main method called through TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController::pageErrorHandler()
 	 *
@@ -434,6 +441,10 @@ class PagenotfoundController
 
             $this->_absoluteReferencePrefix = $absoluteReferencePrefix;
         }
+
+        if(isset($conf['preserveFeuserLogin'])) {
+            $this->_preserveFeuserLogin = (bool) $conf['preserveFeuserLogin'];
+        }
     }
 
     /**
@@ -479,6 +490,15 @@ class PagenotfoundController
                     'User-agent: ' . GeneralUtility::getIndpEnv('HTTP_USER_AGENT'),
                     'Referer: ' . GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL')
                 );
+
+                // Preserve a frontend user login session
+                if ($this->_preserveFeuserLogin) {
+                    $frontendUserAuthentication = $this->_getTyposcriptFrontendController()->fe_user;
+                    if (is_array($frontendUserAuthentication->user) && $frontendUserAuthentication->user['uid'] > 0) {
+                        $headers[] = 'Cookie: ' . rawurlencode($frontendUserAuthentication->getCookieName()) . '=' . rawurlencode($frontendUserAuthentication->id);
+                        $this->_sendXForwardedForHeader = true;
+                    }
+                }
 
                 if ($this->_sendXForwardedForHeader) {
                     $headers[] = 'X-Forwarded-For: ' . GeneralUtility::getIndpEnv('REMOTE_ADDR');

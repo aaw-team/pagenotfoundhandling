@@ -166,6 +166,46 @@ Advanced options
    Default
          0
 
+.. container:: table-row
+
+   Property
+         preserveFeuserLogin
+
+   Data type
+         boolean
+
+   Description
+         Preserve a frontend user login session by sending the session cookie
+         when fetching the 404/403 page.
+
+         This option internally enables the option ``sendXForwardedForHeader``
+         when a valid login session is detected.
+
+         To get this working, you need to configure your TYPO3 installation in
+         one of the following ways.
+
+         1: Configure the IP address of the machine, where TYPO3 runs on as
+         ``reverseProxyIP``:
+
+         .. code-block:: php
+
+             $GLOBALS['TYPO3_CONF_VARS']['SYS']['reverseProxyIP'] = '127.0.0.1';
+             $GLOBALS['TYPO3_CONF_VARS']['SYS']['reverseProxyHeaderMultiValue'] = 'first';
+
+         2: Alternatively you can disable the ``lockIP`` for frontend login
+         sessions:
+
+         **CAUTION: this decreases the security of the frontend login sessions and
+         is NOT RECOMMENDED, especially for public websites! Use only if you
+         know what you do.**
+
+         .. code-block:: php
+
+             $GLOBALS['TYPO3_CONF_VARS']['FE']['lockIP'] = 0;
+
+   Default
+         0
+
 .. ###### END~OF~TABLE ######
 
 .. _section-language-options:
@@ -357,6 +397,5 @@ HTTP options
 
    Default
          -
-
 
 .. ###### END~OF~TABLE ######
