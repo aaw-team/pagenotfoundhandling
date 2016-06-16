@@ -5,6 +5,7 @@
 
 .. include:: ../Includes.txt
 
+.. _section-configuration:
 
 ==============================
 Configuration
@@ -23,4 +24,3 @@ in Extension Manager and/or within a domain record. This means:
 
    ExtensionManager/Index
    DomainRecord/Index
-

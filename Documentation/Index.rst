@@ -23,21 +23,21 @@
       This is the manual of the TYPO3 extension pagenotfoundhandling
 
 :Copyright:
-      2014
+      2014-2016
 
 :License:
       This document is published under the Open Content License
       available from http://www.opencontent.org/opl.shtml
 
 :Keywords:
-      404, 403, page not found handling, page unavailable handling, pageNotFound_handling 
+      404, 403, page not found handling, page unavailable handling, pageNotFound_handling
 
 :Author:
-      Christian Futterlieb, `Agentur am Wasser | Maeder & Partner AG <http://web.agenturamwasser.ch>`_
+      Christian Futterlieb, `Agentur am Wasser | Maeder & Partner AG <https://web.agenturamwasser.ch>`_
 
 :Email:
       development@agenturamwasser.ch
-      
+
 :Rendered:
       |today|
 
@@ -60,4 +60,3 @@ The extension pagenotfoundhandling is hosted on `TYPO3 forge
    Administration/Index
    Configuration/Index
    KnownProblems/Index
-

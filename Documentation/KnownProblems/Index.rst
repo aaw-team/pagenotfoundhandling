@@ -5,9 +5,11 @@
 
 .. include:: ../Includes.txt
 
-==============================
+.. _section-known-problems:
+
+==============
 Known problems
-==============================
+==============
 
 
 With solution

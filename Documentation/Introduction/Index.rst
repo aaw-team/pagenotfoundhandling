@@ -5,10 +5,13 @@
 
 .. include:: ../Includes.txt
 
+.. _section-introduction:
+
 ==============================
 Introduction
 ==============================
 
+.. _section-features:
 
 Features
 ==============================
@@ -19,10 +22,11 @@ Features
 * Supports multi-domain systems
 * Supports multi-language systems
 
+.. _section-credits:
 
 Credits
 ==============================
 
-Thanks to the `Agentur am Wasser <http://web.agenturamwasser.ch/>`_, our
+Thanks to the `Agentur am Wasser <https://web.agenturamwasser.ch/>`_, our
 company, for giving us the possibility to realize this extension and share it
 with the TYPO3 community.
