@@ -183,10 +183,12 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
     $GLOBALS['TCA']['sys_domain']['ctrl']['dividers2tabs'] = 1;
 
     // inject field tx_pagenotfoundhandling_enable to 'requestUpdate'
-    if($GLOBALS['TCA']['sys_domain']['ctrl']['requestUpdate']) {
-        $GLOBALS['TCA']['sys_domain']['ctrl']['requestUpdate'] .= ',tx_pagenotfoundhandling_enable';
-    } else {
-        $GLOBALS['TCA']['sys_domain']['ctrl']['requestUpdate'] = 'tx_pagenotfoundhandling_enable';
+    if (version_compare(TYPO3_version, '8', '<')) {
+        if($GLOBALS['TCA']['sys_domain']['ctrl']['requestUpdate']) {
+            $GLOBALS['TCA']['sys_domain']['ctrl']['requestUpdate'] .= ',tx_pagenotfoundhandling_enable';
+        } else {
+            $GLOBALS['TCA']['sys_domain']['ctrl']['requestUpdate'] = 'tx_pagenotfoundhandling_enable';
+        }
     }
 
     // add the columns
