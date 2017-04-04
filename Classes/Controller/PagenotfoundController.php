@@ -264,7 +264,7 @@ class PagenotfoundController
         $language = GeneralUtility::makeInstance('TYPO3\\CMS\\Lang\\LanguageService');
         //$language instanceof \TYPO3\CMS\Lang\LanguageService;
         $language->init($lang);
-        $language->includeLLFile('EXT:pagenotfoundhandling/locallang_404.xml');
+        $language->includeLLFile('EXT:pagenotfoundhandling/Resources/Private/Language/locallang_404.xml');
 
         if(!empty($this->_conf['locallangFile'])) {
             $language->includeLLFile($this->_conf['locallangFile']);

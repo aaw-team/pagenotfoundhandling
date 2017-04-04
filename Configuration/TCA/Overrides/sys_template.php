@@ -28,7 +28,7 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         'tx_pagenotfoundhandling_enable' => array(
             'onChange' => 'reload',
             'exclude' => 1,
-            'label' => 'LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.enable',
+            'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.enable',
             'config' => array (
                 'type' => 'check',
                 'default' => '0',
@@ -36,7 +36,7 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         ),
         'tx_pagenotfoundhandling_default404Page' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.default404Page',
+            'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.default404Page',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
             'config' => array (
                 'type' => 'group',
@@ -52,7 +52,7 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         ),
         'tx_pagenotfoundhandling_defaultTemplateFile' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.defaultTemplateFile',
+            'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.defaultTemplateFile',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
             'config' => array (
                 'type' => 'group',
@@ -67,7 +67,7 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         ),
         'tx_pagenotfoundhandling_default403Page' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.default403Page',
+            'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.default403Page',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
             'config' => array (
                 'type' => 'group',
@@ -83,13 +83,13 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         ),
         'tx_pagenotfoundhandling_default403Header' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.default403Header',
+            'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.default403Header',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
             'config' => array (
                 'type' => 'select',
                 'items' => array(
-                    array('LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.default403Header.none', -1),
-                    array('LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.default403Header.default', 0),
+                    array('LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.default403Header.none', -1),
+                    array('LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.default403Header.default', 0),
                     array('HTTP/1.1 400 Bad Request', 1),
                     array('HTTP/1.1 401 Unauthorized', 2),
                     array('HTTP/1.1 402 Payment Required', 3),
@@ -101,7 +101,7 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         ),
         'tx_pagenotfoundhandling_ignoreLanguage' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.ignoreLanguage',
+            'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.ignoreLanguage',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
             'config' => array (
                 'type' => 'check',
@@ -110,7 +110,7 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         ),
         'tx_pagenotfoundhandling_forceLanguage' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.forceLanguage',
+            'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.forceLanguage',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
             'config' => array(
                 'type' => 'group',
@@ -127,7 +127,7 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         ),
         'tx_pagenotfoundhandling_languageParam' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.languageParam',
+            'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.languageParam',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
             'config' => array (
                 'type' => 'input',
@@ -137,7 +137,7 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         ),
         'tx_pagenotfoundhandling_passthroughContentTypeHeader' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.passthroughContentTypeHeader',
+            'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.passthroughContentTypeHeader',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
             'config' => array (
                 'type' => 'check',
@@ -146,7 +146,7 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         ),
         'tx_pagenotfoundhandling_sendXForwardedForHeader' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.sendXForwardedForHeader',
+            'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.sendXForwardedForHeader',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
             'config' => array (
                 'type' => 'check',
@@ -155,7 +155,7 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         ),
         'tx_pagenotfoundhandling_additionalHeaders' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.additionalHeaders',
+            'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.additionalHeaders',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
             'config' => array (
                 'type' => 'input',
@@ -164,7 +164,7 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         ),
         'tx_pagenotfoundhandling_digestAuthentication' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.digestAuthentication',
+            'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.digestAuthentication',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
             'config' => array (
                 'type' => 'input',
@@ -212,7 +212,7 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
 
     // add types
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('sys_domain', '
-        --div--;LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.sys_domain.tcasheet.title,
+        --div--;LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.tcasheet.title,
         tx_pagenotfoundhandling_enable,
         --palette--;;pagenotfoundhandling_palette_main,
         --palette--;;pagenotfoundhandling_palette_forbidden,
