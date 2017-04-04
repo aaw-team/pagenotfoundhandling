@@ -1,5 +1,5 @@
 <?php
-namespace Aaw\Pagenotfoundhandling\Utility;
+namespace AawTeam\Pagenotfoundhandling\Utility;
 
 /**
  * **************************************************************

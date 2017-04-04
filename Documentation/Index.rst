@@ -14,7 +14,7 @@
       pagenotfoundhandling
 
 :Version:
-      2.3.3-dev
+      2.4.0-dev
 
 :Language:
       en
@@ -23,7 +23,7 @@
       This is the manual of the TYPO3 extension pagenotfoundhandling
 
 :Copyright:
-      2014-2016
+      2014-2017
 
 :License:
       This document is published under the Open Content License
@@ -45,9 +45,10 @@
 The content of this document is related to TYPO3, a GNU/GPL CMS/Framework
 available from `typo3.org <http://typo3.org/>`_.
 
-The extension pagenotfoundhandling is hosted on `TYPO3 forge
-<http://forge.typo3.org/projects/extension-pagenotfoundhandling>`_ and available through
-`TYPO3 Extension Repository (TER) <http://typo3.org/extensions/repository/view/pagenotfoundhandling>`_.
+The extension pagenotfoundhandling is hosted on `GitHub
+<https://github.com/aaw-team/pagenotfoundhandling>`_ and available through
+`TYPO3 Extension Repository (TER)
+<https://typo3.org/extensions/repository/view/pagenotfoundhandling>`_.
 
 **Table of Contents**
 

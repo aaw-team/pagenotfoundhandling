@@ -1,42 +1,34 @@
 {
-	"name": "aaw/pagenotfoundhandling",
+	"name": "aaw-team/pagenotfoundhandling",
 	"type": "typo3-cms-extension",
 	"description": "404 Page not found handling",
 	"keywords": ["typo3", "404", "403", "page not found", "page not found handling", "page unavailable handling", "pageNotFound_handling"],
-	"homepage": "https://forge.typo3.org/projects/extension-pagenotfoundhandling",
+	"homepage": "https://github.com/aaw-team/pagenotfoundhandling",
 	"version": "2.4.0-dev",
 	"license": "GPL-2.0+",
-	"authors": [
+    "authors": [
         {
-            "name": "Agentur am Wasser | Maeder & Partner AG",
+            "name": "Agentur am Wasser Team",
             "email": "development@agenturamwasser.ch",
-            "role": "Developer",
-            "homepage": "https://web.agenturamwasser.ch/"
-        },
-        {
-            "name": "Christian Futterlieb",
-            "email": "christian.futterlieb@agenturamwasser.ch",
-            "role": "Developer",
-            "homepage": "https://web.agenturamwasser.ch/"
+            "homepage": "https://web.agenturamwasser.ch/",
+            "role": "Developer"
         }
-	],
+    ],
 	"require": {
-		"typo3/cms-core": ">=6.2.1,<=7.6.999"
-	},
-	"suggest": {
-	    "typo3-ter/realurl": ">=1.12.8",
-        "typo3-ter/static-info-tables": ">=6.2.0"
+		"typo3/cms": "^6.2.1|^7.6|^8.7"
 	},
 	"replace": {
-	    "pagenotfoundhandling": "self.version"
+	    "pagenotfoundhandling": "self.version",
+        "typo3-ter/pagenotfoundhandling": "self.version"
 	},
 	"autoload": {
 		"psr-4": {
-            "Aaw\\Pagenotfoundhandling\\": "Classes/"
+            "AawTeam\\Pagenotfoundhandling\\": "Classes/"
 		}
 	},
 	"support": {
-	    "issues": "https://forge.typo3.org/projects/extension-pagenotfoundhandling/issues",
+	    "source": "https://github.com/aaw-team/pagenotfoundhandling",
+	    "issues": "https://github.com/aaw-team/pagenotfoundhandling/issues",
 	    "docs": "https://docs.typo3.org/typo3cms/extensions/pagenotfoundhandling/"
 	}
 }

@@ -1,5 +1,5 @@
 <?php
-namespace Aaw\Pagenotfoundhandling\Controller;
+namespace AawTeam\Pagenotfoundhandling\Controller;
 
 /**
  * **************************************************************
@@ -37,7 +37,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
-use Aaw\Pagenotfoundhandling\Utility\LanguageUtility;
+use AawTeam\Pagenotfoundhandling\Utility\LanguageUtility;
 
 /**
  * 404 handling controller

@@ -1,5 +1,5 @@
 <?php
-namespace Aaw\Pagenotfoundhandling\Realurl\Decoder;
+namespace AawTeam\Pagenotfoundhandling\Realurl\Decoder;
 
 /**
  * **************************************************************
@@ -38,13 +38,13 @@ namespace Aaw\Pagenotfoundhandling\Realurl\Decoder;
  *
  * It is used for realurl versions >=2.0 (and <2.0.12).
  *
- * For older realurl versions, \Aaw\Pagenotfoundhandling\Realurl\RealurlV1 is
+ * For older realurl versions, \AawTeam\Pagenotfoundhandling\Realurl\RealurlV1 is
  * used for the very same job.
  *
  * @author   Agentur am Wasser | Maeder & Partner AG <development@agenturamwasser.ch>
  * @category TYPO3
  * @package  pagenotfoundhandling
- * @see      \Aaw\Pagenotfoundhandling\Realurl\RealurlV1
+ * @see      \AawTeam\Pagenotfoundhandling\Realurl\RealurlV1
  */
 class UrlDecoder extends \DmitryDulepov\Realurl\Decoder\UrlDecoder
 {

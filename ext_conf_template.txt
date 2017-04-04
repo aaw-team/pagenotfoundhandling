@@ -43,7 +43,7 @@ digestAuthentication =
 # cat=language//001; type=boolean; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.ignoreLanguage
 ignoreLanguage = 0
 
-# cat=language//002; type=user[Aaw\Pagenotfoundhandling\Utility\LanguageUtility->constantEditor]; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.forceLanguage
+# cat=language//002; type=user[AawTeam\Pagenotfoundhandling\Utility\LanguageUtility->constantEditor]; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.forceLanguage
 forceLanguage = 0
 
 # cat=language//003; type=string; label=LLL:EXT:pagenotfoundhandling/locallang_db.xml:pagenotfoundhandling.constants.locallangFile
