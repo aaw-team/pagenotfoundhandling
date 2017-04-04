@@ -1,8 +1,3 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
 .. include:: ../../Includes.txt
 
 .. _section-domain-record-configuration:
@@ -14,9 +9,6 @@ Domain record configuration
 This configuration is almost the same as in
 :ref:`section-extension-manager-configuration`. The described options either
 differ from Extension Manager configuration or are only available here.
-
-
-.. ### BEGIN~OF~TABLE ###
 
 .. container:: table-row
 
@@ -31,8 +23,7 @@ differ from Extension Manager configuration or are only available here.
          setting (0) prevents, that every domain must be configured, when
          per-domain config is enabled in the extension manager
 
-   Default
-         0
+         Default: 0
 
 .. container:: table-row
 
@@ -57,8 +48,4 @@ differ from Extension Manager configuration or are only available here.
          * HTTP/1.1 402 Payment Required
          * HTTP/1.1 403 Forbidden
 
-   Default
-         Default
-
-
-.. ###### END~OF~TABLE ######
+         Default: Default

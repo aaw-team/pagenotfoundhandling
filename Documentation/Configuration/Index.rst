@@ -1,8 +1,3 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
 .. include:: ../Includes.txt
 
 .. _section-configuration:
@@ -20,7 +15,6 @@ in Extension Manager and/or within a domain record. This means:
 .. toctree::
    :maxdepth: 5
    :titlesonly:
-   :glob:
 
    ExtensionManager/Index
    DomainRecord/Index

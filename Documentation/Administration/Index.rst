@@ -1,8 +1,3 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
 .. include:: ../Includes.txt
 
 .. _section-administration:
@@ -38,10 +33,6 @@ Available markers
 
 In template files or in fetched pages, several markers will be replaced before
 outputting:
-
-
-
-.. ### BEGIN~OF~TABLE ###
 
 .. container:: table-row
 
@@ -86,7 +77,7 @@ outputting:
 
    Description
          ``current_url_title`` from locallang_404.xml
-         
+
 
 .. container:: table-row
 
@@ -95,6 +86,3 @@ outputting:
 
    Description
          From TYPO3 (autofilled)
-
-
-.. ###### END~OF~TABLE ######

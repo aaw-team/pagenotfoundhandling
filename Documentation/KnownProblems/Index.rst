@@ -1,8 +1,3 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
 .. include:: ../Includes.txt
 
 .. _section-known-problems:
@@ -35,7 +30,7 @@ By default, cooluri handles 404 errors itself.
 Configure cooluri to use the default TYPO3 404 handling. Luckily it provides
 this option itself, you just have to uncomment it in CoolUriConf.xml:
 
-::
+.. code-block:: xml
 
     <cooluri>
         <cache>

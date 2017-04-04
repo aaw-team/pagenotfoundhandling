@@ -1,9 +1,3 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
-
 .. include:: ../../Includes.txt
 
 .. _section-extension-manager-configuration:
@@ -28,8 +22,6 @@ The available options are structured in four groups:
 Basic options
 =============
 
-.. ### BEGIN~OF~TABLE ###
-
 .. container:: table-row
 
    Property
@@ -43,8 +35,7 @@ Basic options
          content of the 404 page. '0' disables this feature. See section
          :ref:`section-available-markers` for details on marker substitution
 
-   Default
-         0
+         Default: 0
 
 
 .. container:: table-row
@@ -60,8 +51,7 @@ Basic options
          See section :ref:`section-available-markers` for details on marker
          substitution
 
-   Default
-         `EXT:pagenotfoundhandling/Resources/Private/Templates/default.html`
+         Default: `EXT:pagenotfoundhandling/Resources/Private/Templates/default.html`
 
 
 .. container:: table-row
@@ -76,8 +66,7 @@ Basic options
          These will be appended to the URL when fetching ``default404Page``.
          The marker ``###CURRENT_URL###`` is replaced within this string.
 
-   Default
-         -
+         Default: *empty*
 
 .. container:: table-row
 
@@ -91,8 +80,7 @@ Basic options
          Behaves like ``default404Page``, but activates a separate handling for
          requests on protected pages. Leave empty to disable this feature.
 
-   Default
-         -
+         Default: *empty*
 
 .. container:: table-row
 
@@ -106,8 +94,7 @@ Basic options
          Behaves like ``defaultTemplateFile``, but activates a separate handling
          for requests on protected pages. Leave empty to disable this feature.
 
-   Default
-         -
+         Default: *empty*
 
 .. container:: table-row
 
@@ -122,19 +109,12 @@ Basic options
          ``default404Page``/``default403Page`` in case of access restriction
          error. The marker ``###CURRENT_URL###`` is replaced within this string.
 
-   Default
-         -
-
-.. ###### END~OF~TABLE ######
+         Default: *empty*
 
 .. _section-advanced-options:
 
 Advanced options
 ================
-
-.. ### BEGIN~OF~TABLE ###
-
-.. container:: table-row
 
 .. container:: table-row
 
@@ -148,8 +128,7 @@ Advanced options
          If your TYPO3 installation runs in a subdir of the DOCUMENT_ROOT,
          add the relative path from DOCUMENT_ROOT to the installation here
 
-   Default
-         -
+         Default: *empty*
 
 .. container:: table-row
 
@@ -163,8 +142,7 @@ Advanced options
          Domain dependent configurations will be ignored. The TCA of
          sys_domain will not be extended.
 
-   Default
-         0
+         Default: 0
 
 .. container:: table-row
 
@@ -203,17 +181,12 @@ Advanced options
 
              $GLOBALS['TYPO3_CONF_VARS']['FE']['lockIP'] = 0;
 
-   Default
-         0
-
-.. ###### END~OF~TABLE ######
+         Default: 0
 
 .. _section-language-options:
 
 Language options
 ================
-
-.. ### BEGIN~OF~TABLE ###
 
 .. container:: table-row
 
@@ -227,8 +200,7 @@ Language options
          The GET variable that holds the language uid. In most cases this will
          be "L", which is the TYPO3 default.
 
-   Default
-         L
+         Default: L
 
 .. container:: table-row
 
@@ -243,8 +215,7 @@ Language options
          ignored, default language will be used. See also option
          ``defaultLanguageKey``.
 
-   Default
-         0
+         Default: 0
 
 .. container:: table-row
 
@@ -261,8 +232,7 @@ Language options
          At the moment the extension only supports german and english, to use
          your own language, see the option ``locallangFile`` below.
 
-   Default
-         default
+         Default: default
 
 .. container:: table-row
 
@@ -278,8 +248,7 @@ Language options
          the selector box will be empty. If this option is used :php:`$_GET['L']`
          will be ignored.
 
-   Default
-         -
+         Default: *empty*
 
 .. container:: table-row
 
@@ -293,17 +262,14 @@ Language options
          This language xml file will be included and used for marker
          substitution. See section :ref:`section-available-markers` for details.
 
-   Default
-         -
-
-.. ###### END~OF~TABLE ######
+         Default: *empty*
 
 .. _section-http-options:
 
 HTTP options
 ============
 
-.. ### BEGIN~OF~TABLE ###
+.. container:: table-row
 
    Property
          default403Header
@@ -323,8 +289,7 @@ HTTP options
          * HTTP/1.1 402 Payment Required
          * HTTP/1.1 403 Forbidden
 
-   Default
-           HTTP/1.1 403 Forbidden
+         Default: HTTP/1.1 403 Forbidden
 
 .. container:: table-row
 
@@ -338,8 +303,7 @@ HTTP options
          When a 404 page is defined, the HTTP header ``Content-Type`` will be
          captured and sent when delivering the 404 page
 
-   Default
-         0
+         Default: 0
 
 .. container:: table-row
 
@@ -357,8 +321,7 @@ HTTP options
          :php:`$GLOBALS['TYPO3_CONF_VARS']['SYS']['reverseProxyIP']` correctly
          when using this feature.
 
-   Default
-         0
+         Default: 0
 
 .. container:: table-row
 
@@ -372,8 +335,7 @@ HTTP options
          Send additional HTTP headers with the 404/403 page response.
          Multiple headers are separated with '|'
 
-   Default
-         -
+         Default: *empty*
 
 .. container:: table-row
 
@@ -395,7 +357,4 @@ HTTP options
          **Note**: this is NOT required for HTTP basic authentication (this type of
          authentication works out-of-the box)!
 
-   Default
-         -
-
-.. ###### END~OF~TABLE ######
+         Default: *empty*
