@@ -36,7 +36,7 @@ if (!defined ('TYPO3_MODE')) {
 }
 
 
-$conf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]);
+$conf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['pagenotfoundhandling']);
 
 // add the fields to tca of sys_domain
 if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) {
