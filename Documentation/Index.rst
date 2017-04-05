@@ -54,4 +54,5 @@ Table of Contents
    Administration/Index
    Configuration/Index
    KnownProblems/Index
+   Changelog/Index
    Links
