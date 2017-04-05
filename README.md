@@ -25,6 +25,10 @@ https://typo3.org/extensions/repository/view/pagenotfoundhandling
 Documentation is available from
 https://docs.typo3.org/typo3cms/extensions/pagenotfoundhandling
 
+## Changelog
+
+See https://github.com/aaw-team/pagenotfoundhandling/wiki/Changelog
+
 ## License
 
 GPLv2.0
