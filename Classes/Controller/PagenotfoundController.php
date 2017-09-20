@@ -557,6 +557,7 @@ class PagenotfoundController
     {
         // handle http authorization
         $digestAuthorization = false;
+        $basicAuthorization = '';
         $requestHeaders = $this->_getAllHttpHeaders();
         if (array_key_exists('Authorization', $requestHeaders)) {
             $authorizationHeader = $requestHeaders['Authorization'];
@@ -564,17 +565,79 @@ class PagenotfoundController
             if (strpos($authorizationHeader, 'Basic ') === 0) {
                 // check the header value for authentication basic,
                 // only base64 characters are allowed
-                if (preg_match('~[^a-zA-Z0-9+/=]~', substr($authorizationHeader, 6)) === 0) {
-                    $headers[] = 'Authorization: ' . $authorizationHeader;
+                $basicAuthorization = substr($authorizationHeader, 6);
+                if (preg_match('~[^a-zA-Z0-9+/=]~', $basicAuthorization) !== 0) {
+                    $basicAuthorization = '';
                 }
             } elseif (strpos($authorizationHeader, 'Digest ') === 0) {
                 $digestAuthorization = true;
             }
         }
 
-        if ($digestAuthorization === true) {
+        // Use RequestFactory in TYPO3 >= 8.1
+        if ((!empty($basicAuthorization) || $digestAuthorization) && version_compare(TYPO3_version, '8.1', '>=')) {
+            // Setup options for the request
+            $options = [
+                \GuzzleHttp\RequestOptions::HEADERS => $headers,
+            ];
+
+            // Handle authorization
+            if (!empty($basicAuthorization)) {
+                list ($username, $password) = explode(':', base64_decode($basicAuthorization), 2);
+                $options[\GuzzleHttp\RequestOptions::AUTH] = [$username, $password];
+            } elseif ($digestAuthorization) {
+                list ($username, $password) = GeneralUtility::trimExplode(':', $this->_digestAuthentication, false, 2);
+                $options[\GuzzleHttp\RequestOptions::AUTH] = [$username, $password, 'digest'];
+            }
+
+            /** @var \TYPO3\CMS\Core\Http\RequestFactory $requestFactory */
+            $requestFactory = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Http\RequestFactory::class);
+            try {
+                $response = $requestFactory->request($url, 'GET', $options);
+                $return = '';
+
+                // Do it almost the same way as in GeneralUtility::getUrl()
+                $includeHeaders = (int)$includeHeaders;
+                if ($includeHeaders) {
+                    foreach ($response->getHeaders() as $name => $values) {
+                        $return .= $name . ": " . implode(", ", $values) . CRLF;
+                    }
+                    $return .= CRLF;
+                }
+                if ($includeHeaders !== 2) {
+                    $return .= $response->getBody()->getContents();
+                }
+                if (isset($report)) {
+                    $report['lib'] = 'http';
+                    if ($response->getStatusCode() >= 300 && $response->getStatusCode() < 400) {
+                        $report['http_code'] = $response->getStatusCode();
+                        $report['content_type'] = $response->getHeader('Content-Type');
+                        $report['error'] = $response->getStatusCode();
+                        $report['message'] = $response->getReasonPhrase();
+                    } elseif (!empty($return)) {
+                        $report['error'] = $response->getStatusCode();
+                        $report['message'] = $response->getReasonPhrase();
+                    } elseif ($includeHeaders) {
+                        // Set only for $includeHeader to work exactly like PHP variant
+                        $report['http_code'] = $response->getStatusCode();
+                        $report['content_type'] = $response->getHeader('Content-Type');
+                    }
+                }
+            } catch (\GuzzleHttp\Exception\RequestException $e) {
+                $return = false;
+                if (isset($report)) {
+                    $report['error'] = $e->getCode();
+                    $report['message'] = $e->getMessage();
+                }
+            }
+        } elseif ($digestAuthorization) {
+            // Digest authorization in TYPO3 < 8.1
             $return = $this->_getUrlWithDigestAuthentication($url, $includeHeaders, $headers, $report);
         } else {
+            // Default
+            if (!empty($basicAuthorization)) {
+                $headers[] = 'Authorization: Basic ' . $basicAuthorization;
+            }
             $return = GeneralUtility::getURL($url, $includeHeaders, $headers, $report);
         }
 
