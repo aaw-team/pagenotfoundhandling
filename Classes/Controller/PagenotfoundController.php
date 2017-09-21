@@ -594,6 +594,10 @@ class PagenotfoundController
                 $options[\GuzzleHttp\RequestOptions::AUTH] = [$username, $password, 'digest'];
             }
 
+            if (isset($report)) {
+                $report['lib'] = 'GuzzleHttp';
+            }
+
             /** @var \TYPO3\CMS\Core\Http\RequestFactory $requestFactory */
             $requestFactory = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Http\RequestFactory::class);
             try {
@@ -612,7 +616,6 @@ class PagenotfoundController
                     $return .= $response->getBody()->getContents();
                 }
                 if (isset($report)) {
-                    $report['lib'] = 'http';
                     if ($response->getStatusCode() >= 300 && $response->getStatusCode() < 400) {
                         $report['http_code'] = $response->getStatusCode();
                         $report['content_type'] = $response->getHeader('Content-Type');
@@ -632,6 +635,7 @@ class PagenotfoundController
                 if (isset($report)) {
                     $report['error'] = $e->getCode();
                     $report['message'] = $e->getMessage();
+                    $report['exception'] = $e;
                 }
             }
         } elseif ($digestAuthorization) {
