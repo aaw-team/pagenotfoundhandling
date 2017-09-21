@@ -578,8 +578,12 @@ class PagenotfoundController
         if ((!empty($basicAuthorization) || $digestAuthorization) && version_compare(TYPO3_version, '8.1', '>=')) {
             // Setup options for the request
             $options = [
-                \GuzzleHttp\RequestOptions::HEADERS => $headers,
+                \GuzzleHttp\RequestOptions::HEADERS => [],
             ];
+            foreach ($headers as $header) {
+                list($headerName, $headerValue) = explode(':', $header, 2);
+                $options[\GuzzleHttp\RequestOptions::HEADERS][$headerName] = ltrim($headerValue);
+            }
 
             // Handle authorization
             if (!empty($basicAuthorization)) {
