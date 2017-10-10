@@ -26,26 +26,6 @@ namespace AawTeam\Pagenotfoundhandling\Utility;
 class LanguageUtility
 {
     /**
-     * Returns a select box for use in TCA userFunc
-     *
-     * @param array $PA
-     * @param \TYPO3\CMS\Backend\Form\FormEngine $fObj
-     * @return string
-     */
-    public function tcaLanguageField($PA, \TYPO3\CMS\Backend\Form\FormEngine $fObj)
-    {
-        $options = $this->_getLanguageSelector($PA['itemFormElValue']);
-
-        if(empty($options)) {
-            $return = 'No languages found';
-        } else {
-            $return = '<select id="' . $PA['itemFormElID'] . '" name="' . $PA['itemFormElName'] . '">' . $options . '</select>';
-        }
-
-        return $return;
-    }
-
-    /**
      * Returns a select box for use in constants editor userFunc
      *
      * @param array $params
@@ -54,7 +34,6 @@ class LanguageUtility
      */
     public function constantEditor($params, $styleConfig)
     {
-        //return 'asd';
         $params['fieldName'];
         $params['fieldValue'];
 
