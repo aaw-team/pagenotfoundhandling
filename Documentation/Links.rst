@@ -7,7 +7,7 @@ Links
 -----
 
 :TER:
-	https://typo3.org/extensions/repository/view/pagenotfoundhandling
+    https://typo3.org/extensions/repository/view/pagenotfoundhandling
 
 :Bug Tracker:
     https://github.com/aaw-team/pagenotfoundhandling/issues
@@ -16,4 +16,4 @@ Links
     https://github.com/aaw-team/pagenotfoundhandling.git
 
 :Contact:
-	development@agenturamwasser.ch
+    development@agenturamwasser.ch

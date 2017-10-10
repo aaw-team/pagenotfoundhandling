@@ -1,11 +1,11 @@
 {
-	"name": "aaw-team/pagenotfoundhandling",
-	"type": "typo3-cms-extension",
-	"description": "404 Page not found handling",
-	"keywords": ["typo3", "404", "403", "page not found", "page not found handling", "page unavailable handling", "pageNotFound_handling"],
-	"homepage": "https://github.com/aaw-team/pagenotfoundhandling",
-	"version": "2.4.3-dev",
-	"license": "GPL-2.0+",
+    "name": "aaw-team/pagenotfoundhandling",
+    "type": "typo3-cms-extension",
+    "description": "404 Page not found handling",
+    "keywords": ["typo3", "404", "403", "page not found", "page not found handling", "page unavailable handling", "pageNotFound_handling"],
+    "homepage": "https://github.com/aaw-team/pagenotfoundhandling",
+    "version": "2.4.3-dev",
+    "license": "GPL-2.0+",
     "authors": [
         {
             "name": "Agentur am Wasser Team",
@@ -14,21 +14,21 @@
             "role": "Developer"
         }
     ],
-	"require": {
-		"typo3/cms": "^6.2.1|^7.6|^8.7"
-	},
-	"replace": {
-	    "pagenotfoundhandling": "self.version",
+    "require": {
+        "typo3/cms": "^6.2.1|^7.6|^8.7"
+    },
+    "replace": {
+        "pagenotfoundhandling": "self.version",
         "typo3-ter/pagenotfoundhandling": "self.version"
-	},
-	"autoload": {
-		"psr-4": {
+    },
+    "autoload": {
+        "psr-4": {
             "AawTeam\\Pagenotfoundhandling\\": "Classes/"
-		}
-	},
-	"support": {
-	    "source": "https://github.com/aaw-team/pagenotfoundhandling",
-	    "issues": "https://github.com/aaw-team/pagenotfoundhandling/issues",
-	    "docs": "https://docs.typo3.org/typo3cms/extensions/pagenotfoundhandling/"
-	}
+        }
+    },
+    "support": {
+        "source": "https://github.com/aaw-team/pagenotfoundhandling",
+        "issues": "https://github.com/aaw-team/pagenotfoundhandling/issues",
+        "docs": "https://docs.typo3.org/typo3cms/extensions/pagenotfoundhandling/"
+    }
 }

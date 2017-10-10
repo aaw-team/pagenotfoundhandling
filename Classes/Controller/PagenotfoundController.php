@@ -44,34 +44,34 @@ class PagenotfoundController
      *
      * @var array
      */
-	protected $_conf = array();
+    protected $_conf = array();
 
-	/**
-	 * Content of $_GET
-	 *
-	 * @var array
-	 */
-	protected $_get = array();
+    /**
+     * Content of $_GET
+     *
+     * @var array
+     */
+    protected $_get = array();
 
-	/**
-	 * Ignore the language parameter in _GET
-	 *
-	 * @var boolean
-	 */
-	protected $_ignoreLanguage = false;
+    /**
+     * Ignore the language parameter in _GET
+     *
+     * @var boolean
+     */
+    protected $_ignoreLanguage = false;
 
-	/**
+    /**
      * Default language parameter in _GET
      *
      * @var boolean
      */
     protected $_languageParam = 'L';
 
-	/**
-	 * Language uid to force using
-	 *
-	 * @var int
-	 */
+    /**
+     * Language uid to force using
+     *
+     * @var int
+     */
     protected $_forceLanguage = 0;
 
     /**
@@ -79,14 +79,14 @@ class PagenotfoundController
      *
      * @var int
      */
-	protected $_default404Page = 0;
+    protected $_default404Page = 0;
 
-	/**
-	 * Template file to render as 404 page
-	 *
-	 * @var string
-	 */
-	protected $_defaultTemplateFile = '';
+    /**
+     * Template file to render as 404 page
+     *
+     * @var string
+     */
+    protected $_defaultTemplateFile = '';
 
     /**
      * Disable the per-domain configuration
@@ -188,13 +188,13 @@ class PagenotfoundController
      */
     protected $_debugGetUrlError = false;
 
-	/**
-	 * Main method called through TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController::pageErrorHandler()
-	 *
-	 * @param array $params
-	 * @param TypoScriptFrontendController $typoScriptFrontendController
-	 * @return string
-	 */
+    /**
+     * Main method called through TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController::pageErrorHandler()
+     *
+     * @param array $params
+     * @param TypoScriptFrontendController $typoScriptFrontendController
+     * @return string
+     */
     public function main($params, TypoScriptFrontendController $typoScriptFrontendController)
     {
         $this->_get = GeneralUtility::_GET();
@@ -448,35 +448,35 @@ class PagenotfoundController
      */
     protected function _getHtml()
     {
-    	$html = null;
-    	if(isset($this->_default404Page) && !empty($this->_default404Page)) {
+        $html = null;
+        if(isset($this->_default404Page) && !empty($this->_default404Page)) {
 
-    		$now = $GLOBALS['SIM_ACCESS_TIME'];
-    		$where = 'uid=' . $this->_default404Page . ' AND deleted=0 AND hidden=0 AND (starttime=0 OR starttime =\'\' OR starttime<=' . $now .') AND (endtime=0 OR endtime =\'\' OR endtime>' . $now .')';
+            $now = $GLOBALS['SIM_ACCESS_TIME'];
+            $where = 'uid=' . $this->_default404Page . ' AND deleted=0 AND hidden=0 AND (starttime=0 OR starttime =\'\' OR starttime<=' . $now .') AND (endtime=0 OR endtime =\'\' OR endtime>' . $now .')';
 
-			$pageRow = $this->_getDatabaseConnection()->exec_SELECTgetRows('*', 'pages', $where);
-			if(count($pageRow) === 1) {
-				$pageRow = current($pageRow);
-				$url = GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST') . '/';
+            $pageRow = $this->_getDatabaseConnection()->exec_SELECTgetRows('*', 'pages', $where);
+            if(count($pageRow) === 1) {
+                $pageRow = current($pageRow);
+                $url = GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST') . '/';
 
-				if ($this->_absoluteReferencePrefix) {
-				    $url .= $this->_absoluteReferencePrefix . '/';
-				}
+                if ($this->_absoluteReferencePrefix) {
+                    $url .= $this->_absoluteReferencePrefix . '/';
+                }
 
-				$url .= 'index.php?id=' . $this->_default404Page . '&loopPrevention=1';
+                $url .= 'index.php?id=' . $this->_default404Page . '&loopPrevention=1';
 
-				// append language parameter to query string
-				$url .= $this->_getLanguageQueryString();
+                // append language parameter to query string
+                $url .= $this->_getLanguageQueryString();
 
-				if($this->_isForbiddenError) {
+                if($this->_isForbiddenError) {
                     if(count($this->_additional403GetParams)) {
                         $url .= '&' . implode('&', $this->_additional403GetParams);
                     }
-				} else {
-    				if(count($this->_additional404GetParams)) {
-    				    $url .= '&' . implode('&', $this->_additional404GetParams);
-    				}
-				}
+                } else {
+                    if(count($this->_additional404GetParams)) {
+                        $url .= '&' . implode('&', $this->_additional404GetParams);
+                    }
+                }
 
                 $url = str_replace('###CURRENT_URL###', urlencode($this->_params['currentUrl']), $url);
 
@@ -509,16 +509,16 @@ class PagenotfoundController
                         header('Content-Type: ' . $report['content_type']);
                     }
                 }
-			}
-    	}
-    	if($html === null && !empty($this->_defaultTemplateFile)) {
-			$file = GeneralUtility::getFileAbsFileName($this->_defaultTemplateFile);
-			if(!empty($file) && is_readable($file)) {
-				$html = file_get_contents($file);
-			}
-    	}
+            }
+        }
+        if($html === null && !empty($this->_defaultTemplateFile)) {
+            $file = GeneralUtility::getFileAbsFileName($this->_defaultTemplateFile);
+            if(!empty($file) && is_readable($file)) {
+                $html = file_get_contents($file);
+            }
+        }
 
-    	// send additional HTTP headers
+        // send additional HTTP headers
         if (count($this->_additionalHeaders)) {
             // disallow sending 'Location' header (redirecting)
             foreach ($this->_additionalHeaders as $header) {
@@ -528,11 +528,11 @@ class PagenotfoundController
             }
         }
 
-    	if(!is_null($html)) {
-    		return $this->_processMarkers($html);
-    	}
+        if(!is_null($html)) {
+            return $this->_processMarkers($html);
+        }
 
-		return $this->_processMarkers('<?xml version="1.0" encoding="utf-8"?>
+        return $this->_processMarkers('<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -542,10 +542,10 @@ class PagenotfoundController
         <title>###TITLE###</title>
     </head>
     <body>
-		<div id="page">
-			<h1>###TITLE###</h1>
-			<p>###MESSAGE###</p>
-		</div>
+        <div id="page">
+            <h1>###TITLE###</h1>
+            <p>###MESSAGE###</p>
+        </div>
     </body>
 </html>');
     }

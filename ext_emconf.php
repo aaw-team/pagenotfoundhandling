@@ -11,22 +11,22 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => '404 Page not found handling',
-	'description' => 'Highly configurable 404 page handling. Supports multi domain systems with multiple languages.',
-	'category' => 'fe',
-	'author' => 'Agentur am Wasser | Maeder & Partner AG',
-	'author_email' => 'development@agenturamwasser.ch',
-	'state' => 'stable',
-	'modify_tables' => 'sys_domain',
-	'clearCacheOnLoad' => 1,
-	'version' => '2.4.3-dev',
-	'constraints' => array(
-		'depends' => array(
-			'typo3' => '6.2.1-8.7.999',
-		),
-		'conflicts' => array(),
-		'suggests' => array(
-		    'realurl' => '1.12.8'
-		)
-	)
+    'title' => '404 Page not found handling',
+    'description' => 'Highly configurable 404 page handling. Supports multi domain systems with multiple languages.',
+    'category' => 'fe',
+    'author' => 'Agentur am Wasser | Maeder & Partner AG',
+    'author_email' => 'development@agenturamwasser.ch',
+    'state' => 'stable',
+    'modify_tables' => 'sys_domain',
+    'clearCacheOnLoad' => 1,
+    'version' => '2.4.3-dev',
+    'constraints' => array(
+        'depends' => array(
+            'typo3' => '6.2.1-8.7.999',
+        ),
+        'conflicts' => array(),
+        'suggests' => array(
+            'realurl' => '1.12.8'
+        )
+    )
 );
