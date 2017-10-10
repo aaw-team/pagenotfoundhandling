@@ -586,7 +586,7 @@ class PagenotfoundController
         }
 
         // Use RequestFactory in TYPO3 >= 8.1
-        if ((!empty($basicAuthorization) || $digestAuthorization) && version_compare(TYPO3_version, '8.1', '>=')) {
+        if (version_compare(TYPO3_version, '8.1', '>=')) {
             // Setup options for the request
             $options = [
                 \GuzzleHttp\RequestOptions::HEADERS => [],
@@ -653,7 +653,7 @@ class PagenotfoundController
             // Digest authorization in TYPO3 < 8.1
             $return = $this->_getUrlWithDigestAuthentication($url, $includeHeaders, $headers, $report);
         } else {
-            // Default
+            // Default for TYPO3 < 8.1
             if (!empty($basicAuthorization)) {
                 $headers[] = 'Authorization: Basic ' . $basicAuthorization;
             }
