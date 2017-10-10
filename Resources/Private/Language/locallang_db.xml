@@ -41,6 +41,7 @@
             <label index="pagenotfoundhandling.constants.absoluteReferencePrefix">Additional reference prefix: If your TYPO3 installation runs in a subdir of the DOCUMENT_ROOT, add the relative path from DOCUMENT_ROOT to the installation here. Default: ''</label>
             <label index="pagenotfoundhandling.constants.digestAuthentication">HTTP digest authentication:Username and password when using HTTP digest authentication (this is not required for HTTP basic authentication). Format: "username:password". Default: ''</label>
             <label index="pagenotfoundhandling.constants.preserveFeuserLogin">Preserve frontend user login:Send the session cookie of a logged in frontend user when fetching the 404/403 page. Default: '0'</label>
+            <label index="pagenotfoundhandling.constants.debugGetUrlError">Debug getUrl error:Print debugging information when PagenotfoundController::_getUrl() does not get a valid response. For development purposes only. Default: '0'</label>
         </languageKey>
         <languageKey index="de" type="array">
             <label index="pagenotfoundhandling.sys_domain.tcasheet.title">404 Behandlung</label>
@@ -78,6 +79,7 @@
             <label index="pagenotfoundhandling.constants.absoluteReferencePrefix">Absoluter Referenz-Präfix: Falls TYPO3 nicht direkt im DOCUMENT_ROOT installiert ist, muss der relative Pfad vom DOCUMENT_ROOT zur Installation hier angegeben werden. Standard: ''</label>
             <label index="pagenotfoundhandling.constants.digestAuthentication">HTTP digest authentication:Benutzername und Passwort für HTTP digest authentication (nicht notwendig, wenn HTTP basic authentication verwendet wird). Format: "benutzername:passwort". Standard: ''</label>
             <label index="pagenotfoundhandling.constants.preserveFeuserLogin">Frontend Benutzer Login bewahren:Das session cookie eines eingeloggten Frontend Benutzers wird beim Holen der 404/403 Seite mitgesendet. Standard: '0'</label>
+            <label index="pagenotfoundhandling.constants.debugGetUrlError">getUrl Fehler debuggen:Zeige debugging Informationen, wenn PagenotfoundController::_getUrl() keine gültige Antwort erhält. Nur zur Entwicklung einsetzen. Standard: '0'</label>
         </languageKey>
     </data>
 </T3locallang>

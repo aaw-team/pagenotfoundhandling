@@ -181,6 +181,13 @@ class PagenotfoundController
      */
     protected $_preserveFeuserLogin = false;
 
+    /**
+     * Print debugging information when _getUrl() did not receive a valid response
+     *
+     * @var boolean
+     */
+    protected $_debugGetUrlError = false;
+
 	/**
 	 * Main method called through TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController::pageErrorHandler()
 	 *
@@ -428,6 +435,10 @@ class PagenotfoundController
         if(isset($conf['preserveFeuserLogin'])) {
             $this->_preserveFeuserLogin = (bool) $conf['preserveFeuserLogin'];
         }
+
+        if(isset($conf['debugGetUrlError'])) {
+            $this->_debugGetUrlError = (bool) $conf['debugGetUrlError'];
+        }
     }
 
     /**
@@ -650,7 +661,21 @@ class PagenotfoundController
         }
 
         if ($return === false) {
-            throw new \Exception('Fetching the 40' . ($this->_isForbiddenError ? '3' : '4') . ' page failed with error #' . $report['error'] . ': "' . $report['message'] . '"');
+            $return = null;
+            if ($this->_debugGetUrlError) {
+                \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump([
+                    '$url' => $url,
+                    '$includeHeaders' => $includeHeaders,
+                    '$headers' => $headers,
+                    '$report' => $report,
+                    '$digestAuthorization' => $digestAuthorization,
+                    '$basicAuthorization' => $basicAuthorization,
+                ], 'pagenotfoundhandling debug: _getUrl()');
+
+                if (isset($report['exception']) && $report['exception'] instanceof \GuzzleHttp\Exception\RequestException) {
+                    $return = '<h1>pagenotfoundhandling debug: response content</h1>' . $report['exception']->getResponse()->getBody()->getContents();
+                }
+            }
         }
         return $return;
     }
