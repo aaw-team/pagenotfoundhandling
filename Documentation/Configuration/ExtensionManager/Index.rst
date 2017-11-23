@@ -183,6 +183,28 @@ Advanced options
 
          Default: 0
 
+.. container:: table-row
+
+   Property
+         requestTimeout
+
+   Data type
+         int
+
+   Description
+         The timeout for the HTTP request to fetch the 404/403 page. Zero
+         (0) means no timeout, or "wait forever", which is **not
+         recommended**.
+
+         .. important::
+   
+            This works only in **TYPO3 >= 8.1**, since as from this
+            version, TYPO3 uses
+            `GuzzleHttp <http://docs.guzzlephp.org/>`_ as backend for
+            HTTP requests.
+
+         Default: 10
+
 .. _section-language-options:
 
 Language options

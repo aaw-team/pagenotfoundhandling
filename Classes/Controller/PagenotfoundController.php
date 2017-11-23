@@ -20,6 +20,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
+use TYPO3\CMS\Core\Utility\MathUtility;
 use AawTeam\Pagenotfoundhandling\Utility\LanguageUtility;
 
 /**
@@ -187,6 +188,13 @@ class PagenotfoundController
      * @var boolean
      */
     protected $_debugGetUrlError = false;
+
+    /**
+     * Request timeout
+     *
+     * @var integer
+     */
+    protected $_requestTimeout = 10;
 
     /**
      * Main method called through TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController::pageErrorHandler()
@@ -439,6 +447,10 @@ class PagenotfoundController
         if(isset($conf['debugGetUrlError'])) {
             $this->_debugGetUrlError = (bool) $conf['debugGetUrlError'];
         }
+
+        if(isset($conf['requestTimeout']) && MathUtility::canBeInterpretedAsInteger($conf['requestTimeout']) && $conf['requestTimeout'] >= 0) {
+            $this->_requestTimeout = (int) $conf['requestTimeout'];
+        }
     }
 
     /**
@@ -590,6 +602,8 @@ class PagenotfoundController
             // Setup options for the request
             $options = [
                 \GuzzleHttp\RequestOptions::HEADERS => [],
+                \GuzzleHttp\RequestOptions::TIMEOUT => $this->_requestTimeout,
+                \GuzzleHttp\RequestOptions::CONNECT_TIMEOUT => $this->_requestTimeout,
             ];
             foreach ($headers as $header) {
                 list($headerName, $headerValue) = explode(':', $header, 2);
@@ -673,7 +687,16 @@ class PagenotfoundController
                 ], 'pagenotfoundhandling debug: _getUrl()');
 
                 if (isset($report['exception']) && $report['exception'] instanceof \GuzzleHttp\Exception\RequestException) {
-                    $return = '<h1>pagenotfoundhandling debug: response content</h1>' . $report['exception']->getResponse()->getBody()->getContents();
+                    $return = '<h1>pagenotfoundhandling debug</h1>';
+                    if ($report['exception']->hasResponse()) {
+                        $return .= '<h2>Response content:</h2>' . $report['exception']->getResponse()->getBody()->getContents();
+                    } else {
+                        $return .= '<p>The response does not have any content.';
+                        if ($this->_requestTimeout > 0) {
+                            $return .= ' Maybe the request timed out (after ' . $this->_requestTimeout . 's)?';
+                        }
+                        $return .= '</p>';
+                    }
                 }
             }
         }
