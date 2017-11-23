@@ -4,7 +4,7 @@
     "description": "404 Page not found handling",
     "keywords": ["typo3", "404", "403", "page not found", "page not found handling", "page unavailable handling", "pageNotFound_handling"],
     "homepage": "https://github.com/aaw-team/pagenotfoundhandling",
-    "version": "2.4.5",
+    "version": "2.4.6-dev",
     "license": "GPL-2.0+",
     "authors": [
         {
