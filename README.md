@@ -15,7 +15,7 @@ handles the "Page not found" case.
 
 Install either with composer
 ```
-composer require typo3-ter/pagenotfoundhandling
+composer require aaw-team/pagenotfoundhandling
 ```
 or in TYPO3 Extension Manager from TER:
 https://typo3.org/extensions/repository/view/pagenotfoundhandling
