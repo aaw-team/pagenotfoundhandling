@@ -29,6 +29,6 @@
     "support": {
         "source": "https://github.com/aaw-team/pagenotfoundhandling",
         "issues": "https://github.com/aaw-team/pagenotfoundhandling/issues",
-        "docs": "https://docs.typo3.org/typo3cms/extensions/pagenotfoundhandling/"
+        "docs": "https://docs.typo3.org/p/aaw-team/pagenotfoundhandling/master/en-us/"
     }
 }
