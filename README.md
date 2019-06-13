@@ -23,7 +23,7 @@ https://typo3.org/extensions/repository/view/pagenotfoundhandling
 ## Docs
 
 Documentation is available from
-https://docs.typo3.org/typo3cms/extensions/pagenotfoundhandling
+https://docs.typo3.org/p/aaw-team/pagenotfoundhandling/master/en-us/
 
 ### Troubleshooting
 
