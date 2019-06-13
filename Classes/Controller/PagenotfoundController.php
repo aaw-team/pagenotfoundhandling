@@ -16,12 +16,12 @@ namespace AawTeam\Pagenotfoundhandling\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use AawTeam\Pagenotfoundhandling\Utility\LanguageUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
-use AawTeam\Pagenotfoundhandling\Utility\LanguageUtility;
 
 /**
  * 404 handling controller
@@ -200,10 +200,10 @@ class PagenotfoundController
      * Main method called through TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController::pageErrorHandler()
      *
      * @param array $params
-     * @param TypoScriptFrontendController $typoScriptFrontendController
+     * @param object $controller
      * @return string
      */
-    public function main($params, TypoScriptFrontendController $typoScriptFrontendController)
+    public function main($params, $controller)
     {
         $this->_get = GeneralUtility::_GET();
 
@@ -255,18 +255,22 @@ class PagenotfoundController
         $lang = $this->_defaultLanguageKey;
 
         if(ExtensionManagementUtility::isLoaded('static_info_tables') && !empty($this->_forceLanguage)) {
-            $res = $this->_getDatabaseConnection()->sql_query('
-                SELECT
-                    *
-                FROM
-                    sys_language
-                LEFT JOIN
-                    static_languages
-                    ON sys_language.static_lang_isocode=static_languages.uid
-                WHERE
-                    sys_language.uid='.$this->_forceLanguage.'
-                LIMIT 1');
-            if(($row = $this->_getDatabaseConnection()->sql_fetch_assoc($res))) {
+
+            $qb = $this->_getConnectionForTable('sys_language')->createQueryBuilder();
+            $qb->select('*')
+                ->from('sys_language')
+                ->leftJoin(
+                    'sys_language',
+                    'static_languages',
+                    'static_languages',
+                    $qb->expr()->eq('sys_language.static_lang_isocode', $qb->quoteIdentifier('static_languages.uid'))
+                )
+                ->where(
+                    $qb->expr()->eq('sys_language.uid', $qb->createNamedParameter($this->_forceLanguage, \PDO::PARAM_INT))
+                )
+                ->setMaxResults(1);
+
+            if(($row = $qb->execute()->fetch())) {
                 // workaround for english because it has no lg_typo3 but is default language
                 if($row['lg_iso_2'] === 'EN') {
                     $lang = 'default';
@@ -317,36 +321,39 @@ class PagenotfoundController
      */
     protected function _loadDomainConfig()
     {
-        $domain = GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY');
-        $res = $this->_getDatabaseConnection()->exec_SELECTquery('*', 'sys_domain', 'domainName=\'' . $domain . '\' AND hidden=0');
+        $domainRecords = $this->_getConnectionForTable('sys_domain')->select(
+            ['*'],
+            'sys_domain',
+            [
+                'domainName' => GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY')
+            ]
+        )->fetchAll();
 
-        if($this->_getDatabaseConnection()->sql_num_rows($res) == 1) {
-            if($row = $this->_getDatabaseConnection()->sql_fetch_assoc($res)) {
-                if($row['tx_pagenotfoundhandling_enable']) {
-                    $this->_default404Page = (int) $row['tx_pagenotfoundhandling_default404Page'];
-                    if ($row['tx_pagenotfoundhandling_defaultTemplateFile']) {
-                        $this->_defaultTemplateFile = 'uploads/tx_pagenotfoundhandling/' . $row['tx_pagenotfoundhandling_defaultTemplateFile'];
-                    }
-                    $this->_ignoreLanguage = (bool) $row['tx_pagenotfoundhandling_ignoreLanguage'];
-                    $this->_forceLanguage = (int) $row['tx_pagenotfoundhandling_forceLanguage'];
-                    $this->_languageParam = $row['tx_pagenotfoundhandling_languageParam'];
-                    $this->_passthroughContentTypeHeader = (bool) $row['tx_pagenotfoundhandling_passthroughContentTypeHeader'];
-                    $this->_sendXForwardedForHeader = (bool) $row['tx_pagenotfoundhandling_sendXForwardedForHeader'];
-                    $this->_additionalHeaders = GeneralUtility::trimExplode('|', $row['tx_pagenotfoundhandling_additionalHeaders'], true);
-                    $this->_digestAuthentication = trim($row['tx_pagenotfoundhandling_digestAuthentication']);
+        if(count($domainRecords) == 1) {
+            $row = $domainRecords[0];
+            if($row['tx_pagenotfoundhandling_enable']) {
+                $this->_default404Page = (int) $row['tx_pagenotfoundhandling_default404Page'];
+                if ($row['tx_pagenotfoundhandling_defaultTemplateFile']) {
+                    $this->_defaultTemplateFile = 'uploads/tx_pagenotfoundhandling/' . $row['tx_pagenotfoundhandling_defaultTemplateFile'];
+                }
+                $this->_ignoreLanguage = (bool) $row['tx_pagenotfoundhandling_ignoreLanguage'];
+                $this->_forceLanguage = (int) $row['tx_pagenotfoundhandling_forceLanguage'];
+                $this->_languageParam = $row['tx_pagenotfoundhandling_languageParam'];
+                $this->_passthroughContentTypeHeader = (bool) $row['tx_pagenotfoundhandling_passthroughContentTypeHeader'];
+                $this->_sendXForwardedForHeader = (bool) $row['tx_pagenotfoundhandling_sendXForwardedForHeader'];
+                $this->_additionalHeaders = GeneralUtility::trimExplode('|', $row['tx_pagenotfoundhandling_additionalHeaders'], true);
+                $this->_digestAuthentication = trim($row['tx_pagenotfoundhandling_digestAuthentication']);
 
-                    // override 404 page with its 403 equivalent (if needed and configured so)
-                    if($this->_isForbiddenError) {
-                        $this->_setForbiddenHeader($row['tx_pagenotfoundhandling_default403Header'], false);
+                // override 404 page with its 403 equivalent (if needed and configured so)
+                if($this->_isForbiddenError) {
+                    $this->_setForbiddenHeader($row['tx_pagenotfoundhandling_default403Header'], false);
 
-                        if($row['tx_pagenotfoundhandling_default403Page']) {
-                            $this->_default404Page = (int) $row['tx_pagenotfoundhandling_default403Page'];
-                        }
+                    if($row['tx_pagenotfoundhandling_default403Page']) {
+                        $this->_default404Page = (int) $row['tx_pagenotfoundhandling_default403Page'];
                     }
                 }
             }
         }
-        $this->_getDatabaseConnection()->sql_free_result($res);
     }
 
     /**
@@ -463,10 +470,14 @@ class PagenotfoundController
         $html = null;
         if(isset($this->_default404Page) && !empty($this->_default404Page)) {
 
-            $now = $GLOBALS['SIM_ACCESS_TIME'];
-            $where = 'uid=' . $this->_default404Page . ' AND deleted=0 AND hidden=0 AND (starttime=0 OR starttime =\'\' OR starttime<=' . $now .') AND (endtime=0 OR endtime =\'\' OR endtime>' . $now .')';
+            $pageRow = $this->_getConnectionForTable('pages')->select(
+                ['*'],
+                'pages',
+                [
+                    'uid' => $this->_default404Page,
+                ]
+            )->fetchAll();
 
-            $pageRow = $this->_getDatabaseConnection()->exec_SELECTgetRows('*', 'pages', $where);
             if(count($pageRow) === 1) {
                 $pageRow = current($pageRow);
                 $url = GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST') . '/';
@@ -903,10 +914,13 @@ class PagenotfoundController
     }
 
     /**
-     * @return \TYPO3\CMS\Core\Database\DatabaseConnection
+     * @return \TYPO3\CMS\Core\Database\Connection
      */
-    protected function _getDatabaseConnection()
+    protected function _getConnectionForTable(string $tableName = null)
     {
-        return $GLOBALS['TYPO3_DB'];
+        if ($tableName !== null) {
+            return GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($tableName);
+        }
+        return GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionByName(ConnectionPool::DEFAULT_CONNECTION_NAME);
     }
 }

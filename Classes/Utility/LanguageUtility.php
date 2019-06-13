@@ -16,6 +16,9 @@ namespace AawTeam\Pagenotfoundhandling\Utility;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Language utility
  *
@@ -91,7 +94,13 @@ class LanguageUtility
     public static function getLanguages($asPairs = true)
     {
         $return = array();
-        $languages = self::_getDatabaseConnection()->exec_SELECTgetRows('*', 'sys_language', 'hidden=0', '', 'title');
+        $languages = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('sys_language')->select(
+            ['*'],
+            'sys_language',
+            [
+                'hidden' => 0,
+            ]
+        )->fetchAll();
         if (is_array($languages)) {
             if ($asPairs) {
                 foreach ($languages as $language) {
@@ -103,13 +112,5 @@ class LanguageUtility
         }
 
         return $return;
-    }
-
-    /**
-     * @return \TYPO3\CMS\Core\Database\DatabaseConnection
-     */
-    protected static function _getDatabaseConnection()
-    {
-        return $GLOBALS['TYPO3_DB'];
     }
 }
