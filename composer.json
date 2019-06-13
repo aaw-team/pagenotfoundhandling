@@ -4,7 +4,6 @@
     "description": "404 Page not found handling",
     "keywords": ["typo3", "404", "403", "page not found", "page not found handling", "page unavailable handling", "pageNotFound_handling"],
     "homepage": "https://github.com/aaw-team/pagenotfoundhandling",
-    "version": "2.4.7-dev",
     "license": "GPL-2.0+",
     "authors": [
         {
@@ -15,7 +14,8 @@
         }
     ],
     "require": {
-        "typo3/cms-core": "^6.2.1|^7.6|^8.7"
+        "php": ">=7",
+        "typo3/cms-core": "^8.7|^9.5"
     },
     "replace": {
         "pagenotfoundhandling": "self.version",
