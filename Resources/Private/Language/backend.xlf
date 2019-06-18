@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0" xmlns:t3="http://typo3.org/schemas/xliff">
+    <file source-language="en" datatype="plaintext" original="messages" date="2019-06-18T19:06:05Z" product-name="pagenotfoundhandling">
+        <header/>
+        <body>
+            <!-- constants editor -->
+            <trans-unit id="constants.logLevel">
+                <source>Log level:The log with the according entries is written to a file in the TYPO3 log dir. Caution: logLevel DEBUG will log request parameters like session-cookies and/or HTTP Authorization, do not use in production environments! Default: '3'.</source>
+            </trans-unit>
+
+            <!-- site -->
+            <trans-unit id="site.additionalGetParams">
+                <source>Additional GET parameters</source>
+            </trans-unit>
+            <trans-unit id="site.passthroughContentTypeHeader">
+                <source>Passthrough Content-Type HTTP header</source>
+            </trans-unit>
+            <trans-unit id="site.requestTimeout">
+                <source>Request timeout</source>
+            </trans-unit>
+            <trans-unit id="site.requestTimeout.description">
+                <source>Supersedes TYPO3_CONF_VARS[HTTP][timeout]</source>
+            </trans-unit>
+            <trans-unit id="site.connectTimeout">
+                <source>Request connection timeout</source>
+            </trans-unit>
+            <trans-unit id="site.connectTimeout.description">
+                <source>Supersedes TYPO3_CONF_VARS[HTTP][connect_timeout]</source>
+            </trans-unit>
+            <trans-unit id="site.forceLanguage">
+                <source>Force language</source>
+            </trans-unit>
+            <trans-unit id="site.forceLanguage.description">
+                <source>When disabled, the requested language will be used (if possible)</source>
+            </trans-unit>
+            <trans-unit id="site.forceLanguage.disable">
+                <source>Disable</source>
+            </trans-unit>
+            <trans-unit id="site.trustInsecureIncomingConnections">
+                <source>Trust data from insecure incoming connections</source>
+            </trans-unit>
+            <trans-unit id="site.trustInsecureIncomingConnections.description">
+                <source>This allows using cookies and/or authentication data to be passed to the error page request, when the initial request is not via https://</source>
+            </trans-unit>
+            <trans-unit id="site.passAuthinfoToInsecureConnections">
+                <source>Pass authentication information to insecure connections</source>
+            </trans-unit>
+            <trans-unit id="site.passAuthinfoToInsecureConnections.description">
+                <source>This allows using cookies and/or authentication data to be sent to the error page request via http://</source>
+            </trans-unit>
+            <trans-unit id="site.disableCertificateVerification">
+                <source>Dangerous: disable certificate verification</source>
+            </trans-unit>
+            <trans-unit id="site.disableCertificateVerification.description">
+                <source>NEVER EVER do this in production environments!</source>
+            </trans-unit>
+            <trans-unit id="site.debugErrorPageRequestException">
+                <source>Render a debug message when an error occurs</source>
+            </trans-unit>
+            <trans-unit id="site.debugErrorPageRequestException.description">
+                <source>Make errors more transparent, when fetching the error page fails. Caution: this is a development option, do not enable in production environments!</source>
+            </trans-unit>
+            <trans-unit id="site.tabs.pnfh">
+                <source>Error Handling (advanced)</source>
+            </trans-unit>
+            <trans-unit id="site.palettes.pnfh-fetching">
+                <source>Fetching the Error Page (request options)</source>
+            </trans-unit>
+            <trans-unit id="site.palettes.pnfh-responding">
+                <source>Delivering the Error Page (response options)</source>
+            </trans-unit>
+            <trans-unit id="site.palettes.pnfh-language">
+                <source>Language</source>
+            </trans-unit>
+
+            <!-- site_errorhandling -->
+            <trans-unit id="site_errorhandling.errorPhpClassFQCN.valuePicker.pnfh">
+                <source>EXT: Page Not Found Handling</source>
+            </trans-unit>
+            <trans-unit id="site_errorhandling.errorPage">
+                <source>Error Page</source>
+            </trans-unit>
+            <trans-unit id="site_errorhandling.additionalGetParams">
+                <source>Additional GET parameters</source>
+            </trans-unit>
+            <trans-unit id="site_errorhandling.palettes.pnfh-advanced">
+                <source>Advanced</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

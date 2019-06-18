@@ -29,6 +29,7 @@ use TYPO3\CMS\Core\Utility\MathUtility;
  * @author   Agentur am Wasser | Maeder & Partner AG <development@agenturamwasser.ch>
  * @category TYPO3
  * @package  pagenotfoundhandling
+ * @deprecated since pagenotfoundhandling v3, will be removed in pagenotfoundhandling v4.0.
  */
 class PagenotfoundController
 {
@@ -202,9 +203,16 @@ class PagenotfoundController
      * @param array $params
      * @param object $controller
      * @return string
+     * @deprecated since pagenotfoundhandling v3, will be removed in pagenotfoundhandling v4.0.
      */
     public function main($params, $controller)
     {
+        if (version_compare(TYPO3_version, '9.0', '<')) {
+            GeneralUtility::logDeprecatedFunction();
+        } else {
+            trigger_error(__METHOD__ . ' will be removed in pagenotfoundhandling v4.0. Use ' . \AawTeam\Pagenotfoundhandling\ErrorHandler\PageErrorHandler::class . ' within TYPO3 Site Configuration instead.', E_USER_DEPRECATED);
+        }
+
         $this->_get = GeneralUtility::_GET();
 
         // prevent infinite loops

@@ -1,62 +1,65 @@
-# cat=basic//001; type=int+; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.default404Page
+# cat=basic/enable/000; type=options[Disable Log=-1, EMERGENCY (0)=0, ALERT (1) = 1, CRITICAL (2) = 2, ERROR (3) = 3, WARNING (4) = 4, NOTICE (5) = 5, INFO (6) = 6, DEBUG (7) = 7]; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/backend.xlf:constants.logLevel
+logLevel = 3
+
+# cat=basic-deprecated//001; type=int+; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.default404Page
 default404Page = 0
 
-# cat=basic//002; type=string; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.defaultTemplateFile
+# cat=basic-deprecated//002; type=string; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.defaultTemplateFile
 defaultTemplateFile = EXT:pagenotfoundhandling/Resources/Private/Templates/default.html
 
-# cat=basic//003; type=string; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.additional404GetParams
+# cat=basic-deprecated//003; type=string; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.additional404GetParams
 additional404GetParams =
 
-# cat=basic//004; type=int+; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.default403Page
+# cat=basic-deprecated//004; type=int+; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.default403Page
 default403Page = 0
 
-# cat=basic//005; type=string; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.default403TemplateFile
+# cat=basic-deprecated//005; type=string; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.default403TemplateFile
 default403TemplateFile =
 
-# cat=basic//006; type=string; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.additional403GetParams
+# cat=basic-deprecated//006; type=string; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.additional403GetParams
 additional403GetParams =
 
-# cat=advanced//001; type=string; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.absoluteReferencePrefix
+# cat=advanced-deprecated//001; type=string; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.absoluteReferencePrefix
 absoluteReferencePrefix =
 
-# cat=advanced//002; type=boolean; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.disableDomainConfig
+# cat=advanced-deprecated//002; type=boolean; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.disableDomainConfig
 disableDomainConfig = 0
 
-# cat=advanced//003; type=boolean; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.preserveFeuserLogin
+# cat=advanced-deprecated//003; type=boolean; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.preserveFeuserLogin
 preserveFeuserLogin = 0
 
-# cat=advanced//004; type=boolean; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.debugGetUrlError
+# cat=advanced-deprecated//004; type=boolean; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.debugGetUrlError
 debugGetUrlError = 0
 
-# cat=advanced//005; type=int; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.requestTimeout
+# cat=advanced-deprecated//005; type=int; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.requestTimeout
 requestTimeout = 10
 
-# cat=http//001; type=options[Default (Do not send special headers)=0, HTTP/1.1 400 Bad Request=1, HTTP/1.1 401 Unauthorized=2, HTTP/1.1 402 Payment Required=3, HTTP/1.1 403 Forbidden=4]; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.default403Header
+# cat=http-deprecated//001; type=options[Default (Do not send special headers)=0, HTTP/1.1 400 Bad Request=1, HTTP/1.1 401 Unauthorized=2, HTTP/1.1 402 Payment Required=3, HTTP/1.1 403 Forbidden=4]; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.default403Header
 default403Header = 4
 
-# cat=http//002; type=boolean; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.passthroughContentTypeHeader
+# cat=http-deprecated//002; type=boolean; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.passthroughContentTypeHeader
 passthroughContentTypeHeader = 0
 
-# cat=http//003; type=boolean; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.sendXForwardedForHeader
+# cat=http-deprecated//003; type=boolean; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.sendXForwardedForHeader
 sendXForwardedForHeader = 0
 
-# cat=http//004; type=string; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.additionalHeaders
+# cat=http-deprecated//004; type=string; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.additionalHeaders
 additionalHeaders =
 
-# cat=http//005; type=string; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.digestAuthentication
+# cat=http-deprecated//005; type=string; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.digestAuthentication
 digestAuthentication =
 
-# cat=language//001; type=boolean; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.ignoreLanguage
+# cat=language-deprecated//001; type=boolean; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.ignoreLanguage
 ignoreLanguage = 0
 
-# cat=language//002; type=user[AawTeam\Pagenotfoundhandling\Utility\LanguageUtility->constantEditor]; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.forceLanguage
+# cat=language-deprecated//002; type=user[AawTeam\Pagenotfoundhandling\Utility\LanguageUtility->constantEditor]; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.forceLanguage
 forceLanguage = 0
 
-# cat=language//003; type=string; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.locallangFile
+# cat=language-deprecated//003; type=string; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.locallangFile
 locallangFile =
 
-# cat=language//004; type=small; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.defaultLanguageKey
+# cat=language-deprecated//004; type=small; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.defaultLanguageKey
 defaultLanguageKey = default
 
-# cat=language//005; type=small; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.languageParam
+# cat=language-deprecated//005; type=small; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.languageParam
 languageParam = L

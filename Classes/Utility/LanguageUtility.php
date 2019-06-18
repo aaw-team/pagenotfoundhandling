@@ -25,6 +25,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @author   Agentur am Wasser | Maeder & Partner AG <development@agenturamwasser.ch>
  * @category TYPO3
  * @package  pagenotfoundhandling
+ * @deprecated since pagenotfoundhandling v3, will be removed in pagenotfoundhandling v4.0.
  */
 class LanguageUtility
 {

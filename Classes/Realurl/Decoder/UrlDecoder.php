@@ -29,6 +29,7 @@ namespace AawTeam\Pagenotfoundhandling\Realurl\Decoder;
  * @category TYPO3
  * @package  pagenotfoundhandling
  * @see      \AawTeam\Pagenotfoundhandling\Realurl\RealurlV1
+ * @deprecated since pagenotfoundhandling v3, will be removed in pagenotfoundhandling v4.0.
  */
 class UrlDecoder extends \DmitryDulepov\Realurl\Decoder\UrlDecoder
 {

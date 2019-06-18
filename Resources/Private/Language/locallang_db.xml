@@ -6,7 +6,7 @@
     </meta>
     <data type="array">
         <languageKey index="default" type="array">
-            <label index="pagenotfoundhandling.sys_domain.tcasheet.title">404 handling</label>
+            <label index="pagenotfoundhandling.sys_domain.tcasheet.title">404 handling (DEPRECATED)</label>
             <label index="pagenotfoundhandling.sys_domain.enable">Enable 404 handling configuration for this domain record</label>
             <label index="pagenotfoundhandling.sys_domain.default404Page">404 page</label>
             <label index="pagenotfoundhandling.sys_domain.defaultTemplateFile">404 template file</label>
@@ -45,7 +45,7 @@
             <label index="pagenotfoundhandling.constants.requestTimeout">Request timeout:The number of seconds describing the timeout of the request to the 404/403 page. Zero means: no timeout. This work only in TYPO3 &gt;= 8.1. Default: '10'</label>
         </languageKey>
         <languageKey index="de" type="array">
-            <label index="pagenotfoundhandling.sys_domain.tcasheet.title">404 Behandlung</label>
+            <label index="pagenotfoundhandling.sys_domain.tcasheet.title">404 Behandlung (DEPRECATED)</label>
             <label index="pagenotfoundhandling.sys_domain.enable">404 Behandlung Konfiguration für diese Domain aktivieren</label>
             <label index="pagenotfoundhandling.sys_domain.default404Page">404 Seite</label>
             <label index="pagenotfoundhandling.sys_domain.defaultTemplateFile">404 Vorlage</label>

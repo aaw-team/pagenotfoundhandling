@@ -30,6 +30,7 @@ namespace AawTeam\Pagenotfoundhandling\Realurl;
  * @category TYPO3
  * @package  pagenotfoundhandling
  * @see      \AawTeam\Pagenotfoundhandling\Realurl\Decoder\UrlDecoder
+ * @deprecated since pagenotfoundhandling v3, will be removed in pagenotfoundhandling v4.0.
  */
 class RealurlV1 extends \tx_realurl
 {

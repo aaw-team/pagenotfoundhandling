@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0" xmlns:t3="http://typo3.org/schemas/xliff">
+    <file source-language="en" datatype="plaintext" original="messages" date="2019-06-18T19:06:05Z" product-name="pagenotfoundhandling">
+        <header/>
+        <body>
+            <!-- constants editor -->
+            <trans-unit id="constants.logLevel">
+                <source>Log level:The log with the according entries is written to a file in the TYPO3 log dir. Caution: logLevel DEBUG will log request parameters like session-cookies and/or HTTP Authorization, do not use in production environments! Default: '3'.</source>
+                <target>Log level:Eine Log-Datei mit den entsprechenden Einträgen wird TYPO3 Log-Verzeichnis geschrieben. Vorsicht: bei logLevel DEBUG werden parameter wie session-cookies und/oder HTTP Authorization aufgezeichet, nicht in produktiven Umgebungen verwenden! Standard: '3'.</target>
+            </trans-unit>
+
+            <!-- site -->
+            <trans-unit id="site.additionalGetParams">
+                <source>Additional GET parameters</source>
+                <target>Zusätzliche GET Parameter</target>
+            </trans-unit>
+            <trans-unit id="site.passthroughContentTypeHeader">
+                <source>Passthrough Content-Type HTTP header</source>
+                <target>Content-Type HTTP Header durchreichen</target>
+            </trans-unit>
+            <trans-unit id="site.requestTimeout">
+                <source>Request timeout</source>
+                <target>Anfrage-Zeitüberschreitung </target>
+            </trans-unit>
+            <trans-unit id="site.requestTimeout.description">
+                <source>Supersedes TYPO3_CONF_VARS[HTTP][timeout]</source>
+                <target>Überschreibt TYPO3_CONF_VARS[HTTP][timeout]</target>
+            </trans-unit>
+            <trans-unit id="site.connectTimeout">
+                <source>Request connection timeout (supersedes TYPO3_CONF_VARS[HTTP][connect_timeout])</source>
+                <target>Verbindung-Zeitüberschreitung</target>
+            </trans-unit>
+            <trans-unit id="site.connectTimeout.description">
+                <source>Supersedes TYPO3_CONF_VARS[HTTP][connect_timeout]</source>
+                <target>Überschreibt TYPO3_CONF_VARS[HTTP][connect_timeout]</target>
+            </trans-unit>
+            <trans-unit id="site.forceLanguage">
+                <source>Force language</source>
+                <target>Sprache erzwingen</target>
+            </trans-unit>
+            <trans-unit id="site.forceLanguage.description">
+                <source>When disabled, the requested language will be used (if possible)</source>
+                <target>Wenn deaktiviert, wird die angefragte Sprache verwendet (falls möglich)</target>
+            </trans-unit>
+            <trans-unit id="site.forceLanguage.disable">
+                <source>Disable (use requested language if possible)</source>
+                <target>Deaktivieren</target>
+            </trans-unit>
+            <trans-unit id="site.trustInsecureIncomingConnections">
+                <source>Trust data from insecure incoming connections</source>
+                <target>Eingehenden unsicheren Verbindungen vertrauen</target>
+            </trans-unit>
+            <trans-unit id="site.trustInsecureIncomingConnections.description">
+                <source>This allows using cookies and/or authentication data to be passed to the error page request, when the initial request is not via https://</source>
+                <target>Damit können Cookie- und/oder Authentifizierungs-Daten in der Anfrage an die Fehler-Seite verwendet werden, wenn die initiale Anfrage nicht via https:// ist</target>
+            </trans-unit>
+            <trans-unit id="site.passAuthinfoToInsecureConnections">
+                <source>Pass authentication information to insecure connections</source>
+                <target>Autentifizierungs-Daten an unsichere Verbindungen weitergeben</target>
+            </trans-unit>
+            <trans-unit id="site.passAuthinfoToInsecureConnections.description">
+                <source>This allows using cookies and/or authentication data to be sent to the error page request via http://</source>
+                <target>Damit können Cookie- und/oder Authentifizierungs-Daten via http:// an die Fehler-Seite gesendet werden</target>
+            </trans-unit>
+            <trans-unit id="site.disableCertificateVerification">
+                <source>Disable certificate verification. Attention: this is dangerous, do not enable in production environments!</source>
+                <target>Zertifikats-Verifizierung deaktivieren. Vorsicht: dies ist gefährlich, nicht in produktiven Umgebungen verwenden!</target>
+            </trans-unit>
+            <trans-unit id="site.disableCertificateVerification">
+                <source>Dangerous: disable certificate verification</source>
+                <target>Gefährlich: Zertifikats-Verifizierung deaktivieren</target>
+            </trans-unit>
+            <trans-unit id="site.disableCertificateVerification.description">
+                <source>NEVER EVER do this in production environments!</source>
+                <target>NIEMALS in produktiven Umgebungen einschalten!</target>
+            </trans-unit>
+            <trans-unit id="site.debugErrorPageRequestException">
+                <source>Render a debug message when an error occurs</source>
+                <target>Debug Nachricht bei Fehler anzeigen</target>
+            </trans-unit>
+            <trans-unit id="site.debugErrorPageRequestException.description">
+                <source>Make errors more transparent, when fetching the error page fails. Caution: this is a development option, do not enable in production environments!</source>
+                <target>Macht Fehlermeldungen transparent, wenn das Holen der Fehler-Seite fehlschlägt. Vorsicht: dies ist eine Entwickler-Option, nicht in produktiven Umgebungen verwenden!</target>
+            </trans-unit>
+            <trans-unit id="site.tabs.pnfh">
+                <source>Error Handling (advanced)</source>
+                <target>Error Handling (erweitert)</target>
+            </trans-unit>
+            <trans-unit id="site.palettes.pnfh-fetching">
+                <source>Fetching the Error Page (request options)</source>
+                <target>Fehler-Seite holen (request options)</target>
+            </trans-unit>
+            <trans-unit id="site.palettes.pnfh-responding">
+                <source>Delivering the Error Page (response options)</source>
+                <target>Fehler-Seite ausliefern (response options)</target>
+            </trans-unit>
+            <trans-unit id="site.palettes.pnfh-language">
+                <source>Language</source>
+                <target>Sprache</target>
+            </trans-unit>
+
+            <!-- site_errorhandling -->
+            <trans-unit id="site_errorhandling.errorPhpClassFQCN.valuePicker.pnfh">
+                <source>EXT: Page Not Found Handling</source>
+                <target>EXT: Page Not Found Handling</target>
+            </trans-unit>
+            <trans-unit id="site_errorhandling.errorPage">
+                <source>Error Page</source>
+                <target>Fehler-Seite</target>
+            </trans-unit>
+            <trans-unit id="site_errorhandling.additionalGetParams">
+                <source>Additional GET parameters</source>
+                <target>Zusätzliche GET Parameter</target>
+            </trans-unit>
+            <trans-unit id="site_errorhandling.palettes.pnfh-advanced">
+                <source>Advanced</source>
+                <target>Erweitert</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
