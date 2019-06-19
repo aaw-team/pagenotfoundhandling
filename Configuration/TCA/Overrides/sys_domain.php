@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright 2014-2017 Agentur am Wasser | Maeder & Partner AG
+ * Copyright by Agentur am Wasser | Maeder & Partner AG
  *
  * This file is part of the TYPO3 CMS project.
  *
