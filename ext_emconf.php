@@ -14,7 +14,7 @@
  * The TYPO3 project - inspiring people to share!
  */
 
-$EM_CONF[$_EXTKEY] = array(
+$EM_CONF[$_EXTKEY] = [
     'title' => '404 Page not found handling',
     'description' => 'Highly configurable 404 page handling. Supports multi domain systems with multiple languages.',
     'category' => 'fe',
@@ -24,14 +24,14 @@ $EM_CONF[$_EXTKEY] = array(
     'modify_tables' => 'sys_domain',
     'clearCacheOnLoad' => 1,
     'version' => '3.0.0-dev',
-    'constraints' => array(
-        'depends' => array(
+    'constraints' => [
+        'depends' => [
             'php' => '7.1.0',
             'typo3' => '8.7.26-9.5.99',
-        ),
-        'conflicts' => array(),
-        'suggests' => array(
-            'realurl' => '1.12.8'
-        )
-    )
-);
+        ],
+        'conflicts' => [],
+        'suggests' => [
+            'realurl' => '1.12.8',
+        ],
+    ],
+];

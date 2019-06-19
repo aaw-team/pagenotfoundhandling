@@ -24,37 +24,37 @@ $conf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['pagenotfoundh
 // add the fields to tca of sys_domain
 if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) {
 
-    $tempColumns = array (
-        'tx_pagenotfoundhandling_enable' => array(
+    $tempColumns = [
+        'tx_pagenotfoundhandling_enable' => [
             'onChange' => 'reload',
             'exclude' => 1,
             'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.enable',
-            'config' => array (
+            'config' => [
                 'type' => 'check',
                 'default' => '0',
-            )
-        ),
-        'tx_pagenotfoundhandling_default404Page' => array(
+            ]
+        ],
+        'tx_pagenotfoundhandling_default404Page' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.default404Page',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
-            'config' => array (
+            'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
                 'allowed' => 'pages',
                 'size' => 1,
                 'maxitems' => 1,
                 'minitems' => 0,
-                'wizards' => array(
-                    'suggest' => array('type' => 'suggest')
-                ),
-            )
-        ),
-        'tx_pagenotfoundhandling_defaultTemplateFile' => array(
+                'wizards' => [
+                    'suggest' => ['type' => 'suggest']
+                ],
+            ]
+        ],
+        'tx_pagenotfoundhandling_defaultTemplateFile' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.defaultTemplateFile',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
-            'config' => array (
+            'config' => [
                 'type' => 'group',
                 'internal_type' => 'file',
                 'allowed' => 'html,htm,tmpl,txt',
@@ -63,56 +63,56 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
                 'size' => 1,
                 'maxitems' => 1,
                 'minitems' => 0,
-            )
-        ),
-        'tx_pagenotfoundhandling_default403Page' => array(
+            ]
+        ],
+        'tx_pagenotfoundhandling_default403Page' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.default403Page',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
-            'config' => array (
+            'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
                 'allowed' => 'pages',
                 'size' => 1,
                 'maxitems' => 1,
                 'minitems' => 0,
-                'wizards' => array(
-                    'suggest' => array('type' => 'suggest')
-                ),
-            )
-        ),
-        'tx_pagenotfoundhandling_default403Header' => array(
+                'wizards' => [
+                    'suggest' => ['type' => 'suggest']
+                ],
+            ]
+        ],
+        'tx_pagenotfoundhandling_default403Header' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.default403Header',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
-            'config' => array (
+            'config' => [
                 'type' => 'select',
-                'items' => array(
-                    array('LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.default403Header.none', -1),
-                    array('LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.default403Header.default', 0),
-                    array('HTTP/1.1 400 Bad Request', 1),
-                    array('HTTP/1.1 401 Unauthorized', 2),
-                    array('HTTP/1.1 402 Payment Required', 3),
-                    array('HTTP/1.1 403 Forbidden', 4),
-                ),
+                'items' => [
+                    ['LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.default403Header.none', -1],
+                    ['LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.default403Header.default', 0],
+                    ['HTTP/1.1 400 Bad Request', 1],
+                    ['HTTP/1.1 401 Unauthorized', 2],
+                    ['HTTP/1.1 402 Payment Required', 3],
+                    ['HTTP/1.1 403 Forbidden', 4],
+                ],
                 'size' => 1,
                 'maxitems' => 1,
-            )
-        ),
-        'tx_pagenotfoundhandling_ignoreLanguage' => array(
+            ]
+        ],
+        'tx_pagenotfoundhandling_ignoreLanguage' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.ignoreLanguage',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
-            'config' => array (
+            'config' => [
                 'type' => 'check',
                 'default' => '0',
-            )
-        ),
-        'tx_pagenotfoundhandling_forceLanguage' => array(
+            ]
+        ],
+        'tx_pagenotfoundhandling_forceLanguage' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.forceLanguage',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
-            'config' => array(
+            'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
                 'size' => 1,
@@ -120,58 +120,58 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
                 'maxitems' => 1,
                 'minitems' => 0,
                 'allowed' => 'sys_language',
-                'wizards' => array(
-                    'suggest' => array('type' => 'suggest'),
-                ),
-            ),
-        ),
-        'tx_pagenotfoundhandling_languageParam' => array(
+                'wizards' => [
+                    'suggest' => ['type' => 'suggest'],
+                ],
+            ],
+        ],
+        'tx_pagenotfoundhandling_languageParam' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.languageParam',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
-            'config' => array (
+            'config' => [
                 'type' => 'input',
                 'size' => '5',
                 'default' => 'L',
-            )
-        ),
-        'tx_pagenotfoundhandling_passthroughContentTypeHeader' => array(
+            ]
+        ],
+        'tx_pagenotfoundhandling_passthroughContentTypeHeader' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.passthroughContentTypeHeader',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
-            'config' => array (
+            'config' => [
                 'type' => 'check',
                 'default' => '0',
-            )
-        ),
-        'tx_pagenotfoundhandling_sendXForwardedForHeader' => array(
+            ]
+        ],
+        'tx_pagenotfoundhandling_sendXForwardedForHeader' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.sendXForwardedForHeader',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
-            'config' => array (
+            'config' => [
                 'type' => 'check',
                 'default' => '0',
-            )
-        ),
-        'tx_pagenotfoundhandling_additionalHeaders' => array(
+            ]
+        ],
+        'tx_pagenotfoundhandling_additionalHeaders' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.additionalHeaders',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
-            'config' => array (
+            'config' => [
                 'type' => 'input',
                 'default' => '',
-            )
-        ),
-        'tx_pagenotfoundhandling_digestAuthentication' => array(
+            ]
+        ],
+        'tx_pagenotfoundhandling_digestAuthentication' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.digestAuthentication',
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
-            'config' => array (
+            'config' => [
                 'type' => 'input',
                 'default' => '',
-            )
-        ),
-    );
+            ]
+        ],
+    ];
 
     // avoid deprecation messages
     // @todo: integrate this above, when dropping support for TYPO3 < 7
@@ -195,22 +195,22 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('sys_domain', $tempColumns);
 
     // define palettes
-    $GLOBALS['TCA']['sys_domain']['palettes']['pagenotfoundhandling_palette_main'] = array(
+    $GLOBALS['TCA']['sys_domain']['palettes']['pagenotfoundhandling_palette_main'] = [
         'showitem' => 'tx_pagenotfoundhandling_default404Page,--linebreak--,tx_pagenotfoundhandling_defaultTemplateFile',
         'canNotCollapse' => true,
-    );
-    $GLOBALS['TCA']['sys_domain']['palettes']['pagenotfoundhandling_palette_forbidden'] = array(
+    ];
+    $GLOBALS['TCA']['sys_domain']['palettes']['pagenotfoundhandling_palette_forbidden'] = [
         'showitem' => 'tx_pagenotfoundhandling_default403Page,--linebreak--,tx_pagenotfoundhandling_default403Header',
         'canNotCollapse' => true,
-    );
-    $GLOBALS['TCA']['sys_domain']['palettes']['pagenotfoundhandling_palette_lang'] = array(
+    ];
+    $GLOBALS['TCA']['sys_domain']['palettes']['pagenotfoundhandling_palette_lang'] = [
         'showitem' => 'tx_pagenotfoundhandling_ignoreLanguage,tx_pagenotfoundhandling_languageParam,--linebreak--,tx_pagenotfoundhandling_forceLanguage',
         'canNotCollapse' => true,
-    );
-    $GLOBALS['TCA']['sys_domain']['palettes']['pagenotfoundhandling_palette_opts'] = array(
+    ];
+    $GLOBALS['TCA']['sys_domain']['palettes']['pagenotfoundhandling_palette_opts'] = [
         'showitem' => 'tx_pagenotfoundhandling_passthroughContentTypeHeader,tx_pagenotfoundhandling_sendXForwardedForHeader,--linebreak--,tx_pagenotfoundhandling_additionalHeaders,--linebreak--,tx_pagenotfoundhandling_digestAuthentication',
         'canNotCollapse' => true,
-    );
+    ];
 
     // add types
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('sys_domain', '

@@ -39,21 +39,21 @@ class PagenotfoundController
      * @see \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
      * @var array
      */
-    protected $_params = array();
+    protected $_params = [];
 
     /**
      * Config from constants editor in EM
      *
      * @var array
      */
-    protected $_conf = array();
+    protected $_conf = [];
 
     /**
      * Content of $_GET
      *
      * @var array
      */
-    protected $_get = array();
+    protected $_get = [];
 
     /**
      * Ignore the language parameter in _GET
@@ -125,7 +125,7 @@ class PagenotfoundController
      *
      * @var array
      */
-    protected $_additional404GetParams = array();
+    protected $_additional404GetParams = [];
 
     /**
      * Additional 403 _GET params
@@ -135,7 +135,7 @@ class PagenotfoundController
      *
      * @var array
      */
-    protected $_additional403GetParams = array();
+    protected $_additional403GetParams = [];
 
     /**
      * Passthrough for the HTTP header 'Content-Type'
@@ -156,7 +156,7 @@ class PagenotfoundController
      *
      * @var array
      */
-    protected $_additionalHeaders = array();
+    protected $_additionalHeaders = [];
 
     /**
      * Absolute reference prefix
@@ -224,7 +224,7 @@ class PagenotfoundController
 
         // check for access errors
         if(isset($this->_params['pageAccessFailureReasons']['fe_group'])
-            && $this->_params['pageAccessFailureReasons']['fe_group'] !== array('' => 0)) {
+            && $this->_params['pageAccessFailureReasons']['fe_group'] !== ['' => 0]) {
                 $this->_isForbiddenError = true;
         }
 
@@ -511,10 +511,10 @@ class PagenotfoundController
 
                 $url = str_replace('###CURRENT_URL###', urlencode($this->_params['currentUrl']), $url);
 
-                $headers = array(
+                $headers = [
                     'User-agent: ' . GeneralUtility::getIndpEnv('HTTP_USER_AGENT'),
                     'Referer: ' . GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL')
-                );
+                ];
 
                 // Preserve a frontend user login session
                 if ($this->_preserveFeuserLogin) {
@@ -529,7 +529,7 @@ class PagenotfoundController
                     $headers[] = 'X-Forwarded-For: ' . GeneralUtility::getIndpEnv('REMOTE_ADDR');
                 }
 
-                $report = array();
+                $report = [];
                 $html = $this->_getUrl($url, (int) $this->_passthroughContentTypeHeader, $headers, $report);
                 if ($this->_passthroughContentTypeHeader && $html !== null) {
                     // split response header and body
@@ -595,7 +595,7 @@ class PagenotfoundController
      * @return mixed
      * @see \TYPO3\CMS\Core\Utility\GeneralUtility::getURL()
      */
-    protected function _getUrl($url, $includeHeaders = 0, array $headers = array(), &$report = null)
+    protected function _getUrl($url, $includeHeaders = 0, array $headers = [], &$report = null)
     {
         // handle http authorization
         $digestAuthorization = false;
@@ -740,7 +740,7 @@ class PagenotfoundController
      * @return mixed
      * @see \TYPO3\CMS\Core\Utility\GeneralUtility::getURL()
      */
-    protected function _getUrlWithDigestAuthentication($url, $includeHeaders = 0, array $headers = array(), &$report = null)
+    protected function _getUrlWithDigestAuthentication($url, $includeHeaders = 0, array $headers = [], &$report = null)
     {
         if ($GLOBALS['TYPO3_CONF_VARS']['SYS']['curlUse'] != '1') {
             throw new \Exception('cURL usage must be enabled ($GLOBALS[\'TYPO3_CONF_VARS\'][\'SYS\'][\'curlUse\']) when using HTTP digest authentication.');
@@ -819,7 +819,7 @@ class PagenotfoundController
         if (function_exists('getallheaders')) {
             return \getallheaders();
         } else {
-            $headers = array();
+            $headers = [];
             foreach ($_SERVER as $key => $value) {
                 if (strpos($key, 'HTTP_') === 0) {
                     $name = str_replace(' ', '-', ucwords(str_replace('_', ' ', strtolower(substr($key, 5)))));

@@ -94,7 +94,7 @@ class LanguageUtility
      */
     public static function getLanguages($asPairs = true)
     {
-        $return = array();
+        $return = [];
         $languages = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('sys_language')->select(
             ['*'],
             'sys_language',
