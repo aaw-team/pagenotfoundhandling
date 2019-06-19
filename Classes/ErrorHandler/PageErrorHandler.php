@@ -49,19 +49,13 @@ class PageErrorHandler implements PageErrorHandlerInterface
     protected $errorHandlerConfiguration = [];
 
     /**
-     * @var array
-     */
-    protected $siteConfiguration = null;
-
-    /**
      * @param int $statusCode
      * @param array $errorHandlerConfiguration
      */
-    public function __construct(int $statusCode, array $errorHandlerConfiguration, array $siteConfiguration = null)
+    public function __construct(int $statusCode, array $errorHandlerConfiguration)
     {
         $this->statusCode = $statusCode;
         $this->errorHandlerConfiguration = $errorHandlerConfiguration;
-        $this->siteConfiguration = $siteConfiguration;
     }
 
     /**
@@ -82,10 +76,9 @@ class PageErrorHandler implements PageErrorHandlerInterface
         // Merge current site configuration
         /** @var Site $site */
         $site = $request->getAttribute('site', null);
-        $this->mergeSiteConfiguration($site);
 
         $this->getLogger()->debug('Startup', [
-            'site' => $site !== null ? $site->getIdentifier() : '',
+            'site' => $site->getIdentifier(),
             'requestURI' => (string)$request->getUri(),
             'message' => $message,
             'reasons' => $reasons,
@@ -122,9 +115,9 @@ class PageErrorHandler implements PageErrorHandlerInterface
         } catch (\Exception $e) {
         } finally {
             if ($e) {
-                if ($this->siteConfiguration['debugErrorPageRequestException']) {
+                if ($site->getConfiguration()['debugErrorPageRequestException']) {
                     // Return a response with debug content
-                    return $this->getDebugErrorPageRequestExceptionResponse($errorPageURI, $errorPageRequestOptions, $e);
+                    return $this->getDebugErrorPageRequestExceptionResponse($errorPageURI, $errorPageRequestOptions, $site, $e);
                 }
                 if ($detectedInfiniteLoop !== true) {
                     // Log the exception
@@ -149,7 +142,7 @@ class PageErrorHandler implements PageErrorHandlerInterface
         $response = $this->createResponse($errorPageContents, $this->statusCode);
 
         // Passthrough the 'Content-Type' header
-        if ($this->siteConfiguration['passthroughContentTypeHeader'] && $errorPageResponse->hasHeader('content-type')) {
+        if ($site->getConfiguration()['passthroughContentTypeHeader'] && $errorPageResponse->hasHeader('content-type')) {
             $response = $response->withHeader('Content-Type', $errorPageResponse->getHeaderLine('content-type'));
         }
 
@@ -163,6 +156,9 @@ class PageErrorHandler implements PageErrorHandlerInterface
      */
     protected function generateErrorPageUri(ServerRequestInterface $request): UriInterface
     {
+        /** @var \TYPO3\CMS\Core\Site\Entity\Site $site */
+        $site = $request->getAttribute('site', null);
+
         // Analyze error page
         $linkService = GeneralUtility::makeInstance(LinkService::class);
         $urlParams = $linkService->resolve($this->errorHandlerConfiguration['errorPage']);
@@ -172,8 +168,8 @@ class PageErrorHandler implements PageErrorHandlerInterface
 
         // Build additional GET params
         $queryString = '';
-        if ($this->siteConfiguration['additionalGetParams']) {
-            $queryString .= '&' . trim($this->siteConfiguration['additionalGetParams'], '&');
+        if ($site->getConfiguration()['additionalGetParams']) {
+            $queryString .= '&' . trim($site->getConfiguration()['additionalGetParams'], '&');
         }
         if ($this->errorHandlerConfiguration['additionalGetParams']) {
             $queryString .= '&' . trim($this->errorHandlerConfiguration['additionalGetParams'], '&');
@@ -186,72 +182,39 @@ class PageErrorHandler implements PageErrorHandlerInterface
             return !in_array(strtolower($key), ['id', 'chash', 'l', 'mp']);
         }, ARRAY_FILTER_USE_KEY);
 
-        // Compose the request URI
-        if (version_compare(TYPO3_version, '9', '>=')) {
-            /** @var \TYPO3\CMS\Core\Site\Entity\Site $site */
-            $site = $request->getAttribute('site', null);
-
-            // Determine language to request:
-            // 1. Force a language
-            // 2. Use currently requested language
-            // 3. Fallback to default language
-            $language = null;
-            if ($this->siteConfiguration['forceLanguage'] > -1) {
-                try {
-                    $language = $site->getLanguageById($this->siteConfiguration['forceLanguage']);
-                } catch (\InvalidArgumentException $e) {
-                    if ($e->getCode() !== 1522960188) {
-                        throw $e;
-                    }
+        // Determine language to request:
+        // 1. Force a language
+        // 2. Use currently requested language
+        // 3. Fallback to default language
+        $language = null;
+        if ($site->getConfiguration()['forceLanguage'] > -1) {
+            try {
+                $language = $site->getLanguageById($site->getConfiguration()['forceLanguage']);
+            } catch (\InvalidArgumentException $e) {
+                if ($e->getCode() !== 1522960188) {
+                    throw $e;
                 }
-            } elseif ($this->siteConfiguration['forceLanguage'] == -1) {
-                $language = $request->getAttribute('language', null);
             }
-            // Fallback to default if language could not be found
-            if (!$language) {
-                $language = $site->getDefaultLanguage();
-            }
-
-            // Add the required GET params
-            $defaultRequestUriParameters = [
-                '_language' => $language,
-                'loopPrevention' => 1,
-            ];
-            ArrayUtility::mergeRecursiveWithOverrule($requestUriParameters, $defaultRequestUriParameters);
-
-            // Create the PSR URI object
-            $requestUri = $site->getRouter()->generateUri(
-                (int)$urlParams['pageuid'],
-                $requestUriParameters
-            );
-        } else {
-            // Do it 'pre-v9-style'
-            $url = rtrim(GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST'), '/');
-
-            // Legacy: absRefPrexix
-            if ($this->siteConfiguration['absoluteReferencePrefix']) {
-                $url .= $this->siteConfiguration['absoluteReferencePrefix'];
-            } else {
-                $url .= '/';
-            }
-            $url .= 'index.php';
-
-            $requestUriParameters['id'] = (int)$urlParams['pageuid'];
-            $requestUriParameters['loopPrevention'] = 1;
-            if ($this->siteConfiguration['forceLanguage'] > -1) {
-                $requestUriParameters['L'] = (int)$this->siteConfiguration['forceLanguage'];
-            } elseif ($this->siteConfiguration['forceLanguage'] == -1 && $request->getQueryParams()['L']) {
-                $requestUriParameters['L'] = (int)$request->getQueryParams()['L'];
-            }
-
-            // Render query string and append cHash
-            $requestUriParameters = GeneralUtility::implodeArrayForUrl('', $requestUriParameters);
-            $cHash = GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\Page\CacheHashCalculator::class)->generateForParameters($requestUriParameters);
-            $requestUriParameters .= $cHash ? '&cHash=' . $cHash : '';
-
-            // Create the PSR URI object
-            $requestUri = GeneralUtility::makeInstance(Uri::class, $url . '?' . ltrim($requestUriParameters, '&'));
+        } elseif ($site->getConfiguration()['forceLanguage'] == -1) {
+            $language = $request->getAttribute('language', null);
         }
+        // Fallback to default if language could not be found
+        if (!$language) {
+            $language = $site->getDefaultLanguage();
+        }
+
+        // Add the required GET params
+        $defaultRequestUriParameters = [
+            '_language' => $language,
+            'loopPrevention' => 1,
+        ];
+        ArrayUtility::mergeRecursiveWithOverrule($requestUriParameters, $defaultRequestUriParameters);
+
+        // Create the PSR URI object
+        $requestUri = $site->getRouter()->generateUri(
+            (int)$urlParams['pageuid'],
+            $requestUriParameters
+        );
         return $requestUri;
     }
 
@@ -262,6 +225,9 @@ class PageErrorHandler implements PageErrorHandlerInterface
      */
     protected function generateErrorPageRequestOptions(ServerRequestInterface $request, UriInterface $errorPageURI): array
     {
+        /** @var \TYPO3\CMS\Core\Site\Entity\Site $site */
+        $site = $request->getAttribute('site', null);
+
         // Compose request options
         $options = [
             \GuzzleHttp\RequestOptions::HEADERS => [
@@ -270,15 +236,15 @@ class PageErrorHandler implements PageErrorHandlerInterface
             ],
         ];
         // Override default timeout
-        if ($this->siteConfiguration['requestTimeout'] > 0) {
-            $options[\GuzzleHttp\RequestOptions::TIMEOUT] = $this->siteConfiguration['requestTimeout'];
+        if ($site->getConfiguration()['requestTimeout'] > 0) {
+            $options[\GuzzleHttp\RequestOptions::TIMEOUT] = $site->getConfiguration()['requestTimeout'];
         } elseif ($GLOBALS['TYPO3_CONF_VARS']['HTTP'][\GuzzleHttp\RequestOptions::TIMEOUT] < 1) {
             // Force a 30 sec timeout, when none is set at all
             $options[\GuzzleHttp\RequestOptions::TIMEOUT] = 30;
         }
         // Override default connect_timeout
-        if ($this->siteConfiguration['connectTimeout'] > 0) {
-            $options[\GuzzleHttp\RequestOptions::CONNECT_TIMEOUT] = $this->siteConfiguration['connectTimeout'];
+        if ($site->getConfiguration()['connectTimeout'] > 0) {
+            $options[\GuzzleHttp\RequestOptions::CONNECT_TIMEOUT] = $site->getConfiguration()['connectTimeout'];
         } elseif ($GLOBALS['TYPO3_CONF_VARS']['HTTP'][\GuzzleHttp\RequestOptions::CONNECT_TIMEOUT] < 1) {
             // Force a 10 sec connect_timeout, when none is set at all
             $options[\GuzzleHttp\RequestOptions::CONNECT_TIMEOUT] = 10;
@@ -297,8 +263,8 @@ class PageErrorHandler implements PageErrorHandlerInterface
         }
 
         // Request trust
-        $currentRequestIsTrusted = GeneralUtility::getIndpEnv('TYPO3_SSL') || $this->siteConfiguration['trustInsecureIncomingConnections'];
-        $sendAuthInfoToErrorPage = $errorPageURI->getScheme() === 'https' || $this->siteConfiguration['passAuthinfoToInsecureConnections'];;
+        $currentRequestIsTrusted = GeneralUtility::getIndpEnv('TYPO3_SSL') || $site->getConfiguration()['trustInsecureIncomingConnections'];
+        $sendAuthInfoToErrorPage = $errorPageURI->getScheme() === 'https' || $site->getConfiguration()['passAuthinfoToInsecureConnections'];
 
         // Passthrough authentication data
         if ($currentRequestIsTrusted && $sendAuthInfoToErrorPage) {
@@ -337,7 +303,7 @@ class PageErrorHandler implements PageErrorHandlerInterface
         }
 
         // Disable certificate verification
-        if ($this->siteConfiguration['disableCertificateVerification']) {
+        if ($site->getConfiguration()['disableCertificateVerification']) {
             $options[\GuzzleHttp\RequestOptions::VERIFY] = false;
         }
 
@@ -345,34 +311,16 @@ class PageErrorHandler implements PageErrorHandlerInterface
     }
 
     /**
-     * @param Site $site
-     */
-    protected function mergeSiteConfiguration(?Site $site)
-    {
-        if ($site !== null) {
-            if ($this->siteConfiguration === null) {
-                $this->siteConfiguration = $site->getConfiguration();
-            } else {
-                $siteConfiguration = $site->getConfiguration();
-                ArrayUtility::mergeRecursiveWithOverrule($siteConfiguration, $this->siteConfiguration);
-                $this->siteConfiguration = $siteConfiguration;
-            }
-        }
-        if (!is_array($this->siteConfiguration)) {
-            $this->siteConfiguration = [];
-        }
-    }
-
-    /**
      * @param UriInterface $errorPageURI
      * @param array $errorPageRequestOptions
+     * @param Site $site
      * @param \Throwable $e
-     * @return string
+     * @return ResponseInterface
      */
-    protected function getDebugErrorPageRequestExceptionResponse(UriInterface $errorPageURI, array $errorPageRequestOptions, \Throwable $e): ResponseInterface
+    protected function getDebugErrorPageRequestExceptionResponse(UriInterface $errorPageURI, array $errorPageRequestOptions, Site $site, \Throwable $e): ResponseInterface
     {
         $debugArray = [
-            'siteConfiguration' => $this->siteConfiguration,
+            'siteConfiguration' => $site->getConfiguration(),
             'errorHandlerConfiguration' => $this->errorHandlerConfiguration,
             'errorPageURI' => (string)$errorPageURI,
             'errorPageRequestOptions' => $errorPageRequestOptions,
