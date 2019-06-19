@@ -1,0 +1,112 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:layout name="Statistics" />
+
+<f:section name="content">
+    <h1>Error Handler Statistics</h1>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Top 10 Request URIs</h2>
+                <f:if condition="{requestUris}">
+                    <f:then>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Count</th>
+                                    <th>URL</th>
+                                    <th>Latest request</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <f:for each="{requestUris}" as="row">
+                                    <tr>
+                                        <td>{row.count}</td>
+                                        <td>{row.request_uri}</td>
+                                        <td>{row.latest_time -> f:format.date(format:'d.m.Y H:i:s')}</td>
+                                    </tr>
+                                </f:for>
+                            </tbody>
+                        </table>
+                        <f:comment>
+                        <div>
+                            <f:link.action action="index" class="btn btn-default btn-small">Show all</f:link.action>
+                        </div>
+                        </f:comment>
+                    </f:then>
+                    <f:else>
+                        <p>No request URIs found</p>
+                    </f:else>
+                </f:if>
+            </div>
+            <div class="col-md-6">
+                <h2>Top 10 Referers</h2>
+                <f:if condition="{refererUris}">
+                    <f:then>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Count</th>
+                                    <th>URL</th>
+                                    <th>Latest request</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <f:for each="{refererUris}" as="row">
+                                    <tr>
+                                        <td>{row.count}</td>
+                                        <td>
+                                            <f:if condition="{row.referer_uri}">
+                                                <f:then>{row.referer_uri}</f:then>
+                                                <f:else><i>No referer</i></f:else>
+                                            </f:if>
+                                        </td>
+                                        <td>{row.latest_time -> f:format.date(format:'d.m.Y H:i:s')}</td>
+                                    </tr>
+                                </f:for>
+                            </tbody>
+                        </table>
+                    </f:then>
+                    <f:else>
+                        <p>No referer URIs found</p>
+                    </f:else>
+                </f:if>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Top 5 Status Codes</h2>
+                <f:if condition="{statusCodes}">
+                    <f:then>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Count</th>
+                                    <th>Status</th>
+                                    <th>Latest request</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <f:for each="{statusCodes}" as="row">
+                                    <tr>
+                                        <td>{row.count}</td>
+                                        <td>{row.status_code}</td>
+                                        <td>{row.latest_time -> f:format.date(format:'d.m.Y H:i:s')}</td>
+                                    </tr>
+                                </f:for>
+                            </tbody>
+                        </table>
+                    </f:then>
+                    <f:else>
+                        <p>No status codes found</p>
+                    </f:else>
+                </f:if>
+            </div>
+            <div class="col-md-6">
+            </div>
+        </div>
+    </div>
+</f:section>
+
+</html>

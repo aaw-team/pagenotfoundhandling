@@ -10,6 +10,14 @@
             </trans-unit>
 
             <!-- site -->
+            <trans-unit id="site.disableStatisticsRecording">
+                <source>Disable statistics</source>
+                <target>Statistik deaktivieren</target>
+            </trans-unit>
+            <trans-unit id="site.disableStatisticsRecording.description">
+                <source>If enabled, no statistic data about the Error Handler will be collected</source>
+                <targert>Wenn aktiviert, werden keine statistischen Daten zum Error Handler gesammelt</targert>
+            </trans-unit>
             <trans-unit id="site.additionalGetParams">
                 <source>Additional GET parameters</source>
                 <target>Zusätzliche GET Parameter</target>
@@ -85,6 +93,10 @@
             <trans-unit id="site.tabs.pnfh">
                 <source>Error Handling (advanced)</source>
                 <target>Error Handling (erweitert)</target>
+            </trans-unit>
+            <trans-unit id="site.palettes.pnfh-basic">
+                <source>Basic</source>
+                <target>Basis</target>
             </trans-unit>
             <trans-unit id="site.palettes.pnfh-fetching">
                 <source>Fetching the Error Page (request options)</source>

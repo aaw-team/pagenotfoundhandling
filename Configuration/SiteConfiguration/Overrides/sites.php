@@ -103,12 +103,21 @@ $siteColumns = [
             'renderType' => 'checkboxToggle',
         ],
     ],
+    'disableStatisticsRecording' => [
+        'label' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/backend.xlf:site.disableStatisticsRecording',
+        'description' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/backend.xlf:site.disableStatisticsRecording.description',
+        'config' => [
+            'type' => 'check',
+            'renderType' => 'checkboxToggle',
+        ],
+    ],
 ];
 $GLOBALS['SiteConfiguration']['site']['columns'] = array_merge($GLOBALS['SiteConfiguration']['site']['columns'], $siteColumns);
 $GLOBALS['SiteConfiguration']['site']['types']['0']['showitem'] = preg_replace(
     '~,\\s*errorHandling\\s*,~',
     ', errorHandling,
     --div--;LLL:EXT:pagenotfoundhandling/Resources/Private/Language/backend.xlf:site.tabs.pnfh,
+        --palette--;LLL:EXT:pagenotfoundhandling/Resources/Private/Language/backend.xlf:site.palettes.pnfh-basic;pnfh-basic,
         --palette--;LLL:EXT:pagenotfoundhandling/Resources/Private/Language/backend.xlf:site.palettes.pnfh-fetching;pnfh-fetching,
         --palette--;LLL:EXT:pagenotfoundhandling/Resources/Private/Language/backend.xlf:site.palettes.pnfh-responding;pnfh-responding,
         --palette--;LLL:EXT:pagenotfoundhandling/Resources/Private/Language/backend.xlf:site.palettes.pnfh-language;pnfh-language,
@@ -116,6 +125,11 @@ $GLOBALS['SiteConfiguration']['site']['types']['0']['showitem'] = preg_replace(
     $GLOBALS['SiteConfiguration']['site']['types']['0']['showitem']
 );
 // Palettes
+$GLOBALS['SiteConfiguration']['site']['palettes']['pnfh-basic'] = [
+    'showitem' => '
+        disableStatisticsRecording,
+    ',
+];
 $GLOBALS['SiteConfiguration']['site']['palettes']['pnfh-fetching'] = [
     'showitem' => '
         additionalGetParams, --linebreak--,

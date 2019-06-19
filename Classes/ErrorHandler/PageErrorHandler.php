@@ -17,13 +17,13 @@ namespace AawTeam\Pagenotfoundhandling\ErrorHandler;
  * The TYPO3 project - inspiring people to share!
  */
 
+use AawTeam\Pagenotfoundhandling\Utility\StatisticsUtility;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use TYPO3\CMS\Core\Error\PageErrorHandler\PageErrorHandlerInterface;
 use TYPO3\CMS\Core\Http\HtmlResponse;
-use TYPO3\CMS\Core\Http\Uri;
 use TYPO3\CMS\Core\LinkHandling\LinkService;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Site\Entity\Site;
@@ -76,6 +76,11 @@ class PageErrorHandler implements PageErrorHandlerInterface
         // Merge current site configuration
         /** @var Site $site */
         $site = $request->getAttribute('site', null);
+
+        // Record the request
+        if (!$site->getConfiguration()['disableStatisticsRecording']) {
+            StatisticsUtility::recordRequest($request, $this->statusCode, $reasons['code'] ?? null);
+        }
 
         $this->getLogger()->debug('Startup', [
             'site' => $site->getIdentifier(),

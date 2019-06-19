@@ -17,6 +17,7 @@ namespace AawTeam\Pagenotfoundhandling\Controller;
  */
 
 use AawTeam\Pagenotfoundhandling\Utility\LanguageUtility;
+use AawTeam\Pagenotfoundhandling\Utility\StatisticsUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -198,6 +199,11 @@ class PagenotfoundController
     protected $_requestTimeout = 10;
 
     /**
+     * @var boolean
+     */
+    protected $_disableStatisticsRecording = false;
+
+    /**
      * Main method called through TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController::pageErrorHandler()
      *
      * @param array $params
@@ -241,6 +247,17 @@ class PagenotfoundController
 
         if(!$this->_ignoreLanguage && empty($this->_forceLanguage)) {
             $this->_setupLanguage();
+        }
+
+        // Record the request
+        if (!$this->_disableStatisticsRecording) {
+            if (version_compare(TYPO3_version, '9.2', '>=')) {
+                // Note: this global is deprecated as of it's introduction. We'll not use it further as this class is going to be removed as well and never support TYPO3 > v9
+                $request = $GLOBALS['TYPO3_REQUEST'];
+            } else {
+                $request = \TYPO3\CMS\Core\Http\ServerRequestFactory::fromGlobals();
+            }
+            StatisticsUtility::recordRequest($request, $this->_getHttpStatusCode(), $params['pageAccessFailureReasons']['code'] ?? null);
         }
 
         $return = $this->_getHtml();
@@ -465,6 +482,10 @@ class PagenotfoundController
 
         if(isset($conf['requestTimeout']) && MathUtility::canBeInterpretedAsInteger($conf['requestTimeout']) && $conf['requestTimeout'] >= 0) {
             $this->_requestTimeout = (int) $conf['requestTimeout'];
+        }
+
+        if(isset($conf['disableStatisticsRecording'])) {
+            $this->_disableStatisticsRecording = (bool)$conf['disableStatisticsRecording'];
         }
     }
 
@@ -812,6 +833,26 @@ class PagenotfoundController
             return '&' . rawurlencode($this->_languageParam) . '=' . rawurlencode($this->_forceLanguage);
         }
         return '';
+    }
+
+    /**
+     * @return int
+     */
+    protected function _getHttpStatusCode()
+    {
+        $status = 0;
+        if ($this->_isForbiddenError) {
+            if (preg_match('~^HTTP\\/\\d\\.\\d\\s(\\d+)\\s~i', $this->_forbiddenHeader, $matches)) {
+                $status = (int)$matches[1];
+            } elseif (preg_match('~^HTTP\\/\\d\\.\\d\\s(\\d+)\\s~i', (string)$GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFound_handling_accessdeniedheader'], $matches)) {
+                $status = (int)$matches[1];
+            } else {
+                $status = 403;
+            }
+        } else {
+            $status = 404;
+        }
+        return $status;
     }
 
     /**

@@ -42,6 +42,17 @@ $bootstrap = function(string $extKey) {
             ];
         }
     }
+
+    // Add backend module configuration
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('
+module.tx_pagenotfoundhandling {
+    view {
+        templateRootPaths.10 = EXT:pagenotfoundhandling/Resources/Private/Backend/Templates/
+        partialRootPaths.10 = EXT:pagenotfoundhandling/Resources/Private/Backend/Partials/
+        layoutRootPaths.10 = EXT:pagenotfoundhandling/Resources/Private/Backend/Layouts/
+    }
+}'
+        );
 };
 $bootstrap($_EXTKEY);
 unset($bootstrap);

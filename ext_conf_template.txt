@@ -19,6 +19,9 @@ default403TemplateFile =
 # cat=basic-deprecated//006; type=string; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.additional403GetParams
 additional403GetParams =
 
+# cat=advanced-deprecated//000; type=boolean; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.disableStatisticsRecording
+disableStatisticsRecording = 0
+
 # cat=advanced-deprecated//001; type=string; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.absoluteReferencePrefix
 absoluteReferencePrefix =
 
