@@ -14,12 +14,16 @@
  * The TYPO3 project - inspiring people to share!
  */
 
-if (!defined ('TYPO3_MODE')) {
-     die ('Access denied.');
+defined('TYPO3_MODE') or die();
+
+// Load extension configuration
+if (version_compare(TYPO3_version, '9.0', '<')){
+    $conf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['pagenotfoundhandling'], ['allowed_classes' => false]);
+} else {
+    $conf = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+        \TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class
+    )->get('pagenotfoundhandling');
 }
-
-
-$conf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['pagenotfoundhandling']);
 
 // add the fields to tca of sys_domain
 if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) {
@@ -87,6 +91,7 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
             'displayCond' => 'FIELD:tx_pagenotfoundhandling_enable:REQ:true',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'items' => [
                     ['LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.default403Header.none', -1],
                     ['LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.sys_domain.default403Header.default', 0],
@@ -173,43 +178,21 @@ if(!isset($conf['disableDomainConfig']) || empty($conf['disableDomainConfig'])) 
         ],
     ];
 
-    // avoid deprecation messages
-    // @todo: integrate this above, when dropping support for TYPO3 < 7
-    if (version_compare(TYPO3_version, '7', '>=')) {
-        $tempColumns['tx_pagenotfoundhandling_default403Header']['config']['renderType'] = 'selectSingle';
-    }
-
-    // force-enable dividers2Tabs
-    $GLOBALS['TCA']['sys_domain']['ctrl']['dividers2tabs'] = 1;
-
-    // inject field tx_pagenotfoundhandling_enable to 'requestUpdate'
-    if (version_compare(TYPO3_version, '8', '<')) {
-        if($GLOBALS['TCA']['sys_domain']['ctrl']['requestUpdate']) {
-            $GLOBALS['TCA']['sys_domain']['ctrl']['requestUpdate'] .= ',tx_pagenotfoundhandling_enable';
-        } else {
-            $GLOBALS['TCA']['sys_domain']['ctrl']['requestUpdate'] = 'tx_pagenotfoundhandling_enable';
-        }
-    }
-
     // add the columns
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('sys_domain', $tempColumns);
 
     // define palettes
     $GLOBALS['TCA']['sys_domain']['palettes']['pagenotfoundhandling_palette_main'] = [
         'showitem' => 'tx_pagenotfoundhandling_default404Page,--linebreak--,tx_pagenotfoundhandling_defaultTemplateFile',
-        'canNotCollapse' => true,
     ];
     $GLOBALS['TCA']['sys_domain']['palettes']['pagenotfoundhandling_palette_forbidden'] = [
         'showitem' => 'tx_pagenotfoundhandling_default403Page,--linebreak--,tx_pagenotfoundhandling_default403Header',
-        'canNotCollapse' => true,
     ];
     $GLOBALS['TCA']['sys_domain']['palettes']['pagenotfoundhandling_palette_lang'] = [
         'showitem' => 'tx_pagenotfoundhandling_ignoreLanguage,tx_pagenotfoundhandling_languageParam,--linebreak--,tx_pagenotfoundhandling_forceLanguage',
-        'canNotCollapse' => true,
     ];
     $GLOBALS['TCA']['sys_domain']['palettes']['pagenotfoundhandling_palette_opts'] = [
         'showitem' => 'tx_pagenotfoundhandling_passthroughContentTypeHeader,tx_pagenotfoundhandling_sendXForwardedForHeader,--linebreak--,tx_pagenotfoundhandling_additionalHeaders,--linebreak--,tx_pagenotfoundhandling_digestAuthentication',
-        'canNotCollapse' => true,
     ];
 
     // add types

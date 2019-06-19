@@ -31,7 +31,7 @@ $EM_CONF[$_EXTKEY] = [
         ],
         'conflicts' => [],
         'suggests' => [
-            'realurl' => '1.12.8',
+            'realurl' => '2.2.0',
         ],
     ],
 ];

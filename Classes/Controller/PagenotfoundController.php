@@ -616,81 +616,69 @@ class PagenotfoundController
             }
         }
 
-        // Use RequestFactory in TYPO3 >= 8.1
-        if (version_compare(TYPO3_version, '8.1', '>=')) {
-            // Setup options for the request
-            $options = [
-                \GuzzleHttp\RequestOptions::HEADERS => [],
-                \GuzzleHttp\RequestOptions::TIMEOUT => $this->_requestTimeout,
-                \GuzzleHttp\RequestOptions::CONNECT_TIMEOUT => $this->_requestTimeout,
-            ];
-            foreach ($headers as $header) {
-                list($headerName, $headerValue) = explode(':', $header, 2);
-                $options[\GuzzleHttp\RequestOptions::HEADERS][$headerName] = ltrim($headerValue);
-            }
+        // Setup options for the request
+        $options = [
+            \GuzzleHttp\RequestOptions::HEADERS => [],
+            \GuzzleHttp\RequestOptions::TIMEOUT => $this->_requestTimeout,
+            \GuzzleHttp\RequestOptions::CONNECT_TIMEOUT => $this->_requestTimeout,
+        ];
+        foreach ($headers as $header) {
+            list($headerName, $headerValue) = explode(':', $header, 2);
+            $options[\GuzzleHttp\RequestOptions::HEADERS][$headerName] = ltrim($headerValue);
+        }
 
-            // Handle authorization
-            if (!empty($basicAuthorization)) {
-                list ($username, $password) = explode(':', base64_decode($basicAuthorization), 2);
-                $options[\GuzzleHttp\RequestOptions::AUTH] = [$username, $password];
-            } elseif ($digestAuthorization) {
-                list ($username, $password) = GeneralUtility::trimExplode(':', $this->_digestAuthentication, false, 2);
-                $options[\GuzzleHttp\RequestOptions::AUTH] = [$username, $password, 'digest'];
-            }
-
-            if (isset($report)) {
-                $report['lib'] = 'GuzzleHttp';
-            }
-
-            /** @var \TYPO3\CMS\Core\Http\RequestFactory $requestFactory */
-            $requestFactory = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Http\RequestFactory::class);
-            try {
-                $response = $requestFactory->request($url, 'GET', $options);
-                $return = '';
-
-                // Do it almost the same way as in GeneralUtility::getUrl()
-                $includeHeaders = (int)$includeHeaders;
-                if ($includeHeaders) {
-                    foreach ($response->getHeaders() as $name => $values) {
-                        $return .= $name . ": " . implode(", ", $values) . CRLF;
-                    }
-                    $return .= CRLF;
-                }
-                if ($includeHeaders !== 2) {
-                    $return .= $response->getBody()->getContents();
-                }
-                if (isset($report)) {
-                    if ($response->getStatusCode() >= 300 && $response->getStatusCode() < 400) {
-                        $report['http_code'] = $response->getStatusCode();
-                        $report['content_type'] = $response->getHeader('Content-Type');
-                        $report['error'] = $response->getStatusCode();
-                        $report['message'] = $response->getReasonPhrase();
-                    } elseif (!empty($return)) {
-                        $report['error'] = $response->getStatusCode();
-                        $report['message'] = $response->getReasonPhrase();
-                    } elseif ($includeHeaders) {
-                        // Set only for $includeHeader to work exactly like PHP variant
-                        $report['http_code'] = $response->getStatusCode();
-                        $report['content_type'] = $response->getHeader('Content-Type');
-                    }
-                }
-            } catch (\GuzzleHttp\Exception\RequestException $e) {
-                $return = false;
-                if (isset($report)) {
-                    $report['error'] = $e->getCode();
-                    $report['message'] = $e->getMessage();
-                    $report['exception'] = $e;
-                }
-            }
+        // Handle authorization
+        if (!empty($basicAuthorization)) {
+            list ($username, $password) = explode(':', base64_decode($basicAuthorization), 2);
+            $options[\GuzzleHttp\RequestOptions::AUTH] = [$username, $password];
         } elseif ($digestAuthorization) {
-            // Digest authorization in TYPO3 < 8.1
-            $return = $this->_getUrlWithDigestAuthentication($url, $includeHeaders, $headers, $report);
-        } else {
-            // Default for TYPO3 < 8.1
-            if (!empty($basicAuthorization)) {
-                $headers[] = 'Authorization: Basic ' . $basicAuthorization;
+            list ($username, $password) = GeneralUtility::trimExplode(':', $this->_digestAuthentication, false, 2);
+            $options[\GuzzleHttp\RequestOptions::AUTH] = [$username, $password, 'digest'];
+        }
+
+        if (isset($report)) {
+            $report['lib'] = 'GuzzleHttp';
+        }
+
+        /** @var \TYPO3\CMS\Core\Http\RequestFactory $requestFactory */
+        $requestFactory = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Http\RequestFactory::class);
+        try {
+            $response = $requestFactory->request($url, 'GET', $options);
+            $return = '';
+
+            // Do it almost the same way as in GeneralUtility::getUrl()
+            $includeHeaders = (int)$includeHeaders;
+            if ($includeHeaders) {
+                foreach ($response->getHeaders() as $name => $values) {
+                    $return .= $name . ": " . implode(", ", $values) . CRLF;
+                }
+                $return .= CRLF;
             }
-            $return = GeneralUtility::getURL($url, $includeHeaders, $headers, $report);
+            if ($includeHeaders !== 2) {
+                $return .= $response->getBody()->getContents();
+            }
+            if (isset($report)) {
+                if ($response->getStatusCode() >= 300 && $response->getStatusCode() < 400) {
+                    $report['http_code'] = $response->getStatusCode();
+                    $report['content_type'] = $response->getHeader('Content-Type');
+                    $report['error'] = $response->getStatusCode();
+                    $report['message'] = $response->getReasonPhrase();
+                } elseif (!empty($return)) {
+                    $report['error'] = $response->getStatusCode();
+                    $report['message'] = $response->getReasonPhrase();
+                } elseif ($includeHeaders) {
+                    // Set only for $includeHeader to work exactly like PHP variant
+                    $report['http_code'] = $response->getStatusCode();
+                    $report['content_type'] = $response->getHeader('Content-Type');
+                }
+            }
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            $return = false;
+            if (isset($report)) {
+                $report['error'] = $e->getCode();
+                $report['message'] = $e->getMessage();
+                $report['exception'] = $e;
+            }
         }
 
         if ($return === false) {
@@ -720,93 +708,6 @@ class PagenotfoundController
             }
         }
         return $return;
-    }
-
-    /**
-     * Wrapper method for the cURL-enabled part of GeneralUtility::getURL()
-     *
-     * Additionally, this method configures cURL to use HTTP digest
-     * authentication.
-     *
-     * Note: other than GeneralUtility::getURL(), this method supports no
-     * redirection itself. Redirection won't work, when cURL option
-     * CURLOPT_FOLLOWLOCATION con't be applied!
-     *
-     * @throws \Exception
-     * @param string $url
-     * @param int $includeHeaders
-     * @param array $headers
-     * @param array $report
-     * @return mixed
-     * @see \TYPO3\CMS\Core\Utility\GeneralUtility::getURL()
-     */
-    protected function _getUrlWithDigestAuthentication($url, $includeHeaders = 0, array $headers = [], &$report = null)
-    {
-        if ($GLOBALS['TYPO3_CONF_VARS']['SYS']['curlUse'] != '1') {
-            throw new \Exception('cURL usage must be enabled ($GLOBALS[\'TYPO3_CONF_VARS\'][\'SYS\'][\'curlUse\']) when using HTTP digest authentication.');
-        }
-
-        // prepare username/password
-        list ($username, $password) = GeneralUtility::trimExplode(':', $this->_digestAuthentication, false, 2);
-
-        // do (almost) the same things as in GeneralUtility::getURL();
-        if (!function_exists('curl_init') || !($ch = curl_init())) {
-            if (isset($report)) {
-                $report['error'] = -1;
-                $report['message'] = 'Couldn\'t initialize cURL.';
-            }
-            return false;
-        }
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        @curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_HEADER, (intval($includeHeaders) > 0));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_FAILONERROR, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, max(0, (int) $GLOBALS['TYPO3_CONF_VARS']['SYS']['curlTimeout']));
-        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_DIGEST);
-        curl_setopt($ch, CURLOPT_USERPWD, $username. ':' . $password);
-        if ($GLOBALS['TYPO3_CONF_VARS']['SYS']['curlProxyServer']) {
-            curl_setopt($ch, CURLOPT_PROXY, $GLOBALS['TYPO3_CONF_VARS']['SYS']['curlProxyServer']);
-            if ($GLOBALS['TYPO3_CONF_VARS']['SYS']['curlProxyNTLM']) {
-                curl_setopt($ch, CURLOPT_PROXYAUTH, CURLAUTH_NTLM);
-            }
-            if ($GLOBALS['TYPO3_CONF_VARS']['SYS']['curlProxyTunnel']) {
-                curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, $GLOBALS['TYPO3_CONF_VARS']['SYS']['curlProxyTunnel']);
-            }
-            if ($GLOBALS['TYPO3_CONF_VARS']['SYS']['curlProxyUserPass']) {
-                curl_setopt($ch, CURLOPT_PROXYUSERPWD, $GLOBALS['TYPO3_CONF_VARS']['SYS']['curlProxyUserPass']);
-            }
-        }
-
-        // apply the http headers
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-        // execute the request
-        $content = curl_exec($ch);
-        $curlInfo = curl_getinfo($ch);
-
-        // strip http headers
-        // @see GeneralUtility::stripHttpHeaders()
-        if ($includeHeaders < 1) {
-            $headersEndPos = strpos($content, CRLF . CRLF);
-            if ($headersEndPos !== false) {
-                $content = substr($content, $headersEndPos + 4);
-            }
-        }
-
-        if (isset($report)) {
-            if ($content === false) {
-                $report['error'] = curl_errno($ch);
-                $report['message'] = curl_error($ch);
-            } elseif ($includeHeader) {
-                $report['http_code'] = $curlInfo['http_code'];
-                $report['content_type'] = $curlInfo['content_type'];
-            }
-        }
-        curl_close($ch);
-        return $content;
     }
 
     /**
