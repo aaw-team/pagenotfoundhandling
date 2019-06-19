@@ -545,7 +545,7 @@ class PagenotfoundController
         if (count($this->_additionalHeaders)) {
             // disallow sending 'Location' header (redirecting)
             foreach ($this->_additionalHeaders as $header) {
-                if (!preg_match('/^Location:/i', $header, $matches)) {
+                if (!preg_match('~^(HTTP\\/|Location:)~i', $header)) {
                     header($header);
                 }
             }
