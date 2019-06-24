@@ -330,7 +330,17 @@ class PagenotfoundController
      */
     protected function _setupLanguage()
     {
-        $language = (int) $this->_get[$this->_languageParam];
+        if (version_compare(TYPO3_version, '9.2', '>=')) {
+            /** @var \TYPO3\CMS\Core\Http\ServerRequest $request */
+            $request = $GLOBALS['TYPO3_REQUEST'];
+            /** @var \TYPO3\CMS\Core\Site\Entity\SiteLanguage $language */
+            $language = $request->getAttribute('language', 0);
+            if ($language) {
+                $language = $language->getLanguageId();
+            }
+        } else {
+            $language = (int) $this->_get[$this->_languageParam];
+        }
 
         if($language) {
             if(array_key_exists($language, LanguageUtility::getLanguages(true))) {
@@ -550,6 +560,7 @@ class PagenotfoundController
                     $headers[] = 'X-Forwarded-For: ' . GeneralUtility::getIndpEnv('REMOTE_ADDR');
                 }
 
+                $url = $this->_processErrorPageUrl($url);
                 $report = [];
                 $html = $this->_getUrl($url, (int) $this->_passthroughContentTypeHeader, $headers, $report);
                 if ($this->_passthroughContentTypeHeader && $html !== null) {
@@ -853,6 +864,43 @@ class PagenotfoundController
             $status = 404;
         }
         return $status;
+    }
+
+    /**
+     * @param string $url
+     * @return string
+     */
+    protected function _processErrorPageUrl($url)
+    {
+        if (version_compare(TYPO3_version, '9.2', '>=')) {
+            /** @var \TYPO3\CMS\Core\Http\ServerRequest $request */
+            $request = $GLOBALS['TYPO3_REQUEST'];
+            /** @var \TYPO3\CMS\Core\Site\Entity\Site $site */
+            $site = $request->getAttribute('site', null);
+
+            // Analyze $url
+            $parsedUrl = parse_url($url);
+            $queryParams = [];
+            parse_str($parsedUrl['query'], $queryParams);
+
+            // Get the page uid (and remove from $queryParams)
+            $errorPageUid = (int) $queryParams['id'];
+            unset($queryParams['id']);
+
+            // Get the language (and remove from $queryParams)
+            if (array_key_exists($this->_languageParam, $queryParams)) {
+                $language = $site->getLanguageById($queryParams[$this->_languageParam]);
+                unset($queryParams[$this->_languageParam]);
+                $queryParams['_language'] = $language;
+            }
+
+            // Finally create the new $url
+            $url = (string)$site->getRouter()->generateUri(
+                $errorPageUid,
+                $queryParams
+            );
+        }
+        return $url;
     }
 
     /**
