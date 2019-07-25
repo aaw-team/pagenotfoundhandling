@@ -179,6 +179,9 @@ class PageErrorHandler implements PageErrorHandlerInterface
         if ($this->errorHandlerConfiguration['additionalGetParams']) {
             $queryString .= '&' . trim($this->errorHandlerConfiguration['additionalGetParams'], '&');
         }
+        if (strpos($queryString, '###CURRENT_URL###') !== false) {
+            $queryString = str_replace('###CURRENT_URL###', (string)$request->getUri(), $queryString);
+        }
         // Setup query parameters
         $requestUriParameters = [];
         parse_str($queryString, $requestUriParameters);
