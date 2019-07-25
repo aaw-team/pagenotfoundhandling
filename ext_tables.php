@@ -17,26 +17,35 @@
 defined('TYPO3_MODE') or die();
 
 $bootstrap = function(string $extKey) {
-    // Add the statistics backend module
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-        'AawTeam.Pagenotfoundhandling',
-        'web',
-        'statistics',
-        '',
-        [
-            'Statistics' => 'index',
-        ],
-        [
-            'access' => 'user,group',
-            // @todo add icon
-            //'iconIdentifier' => '',
-            //'icon' => 'EXT:aawskin/Resources/Public/Images/Icons/...',
-            'labels' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/module_statistics.xlf',
-            'navigationComponentId' => '',
-            'inheritNavigationComponentFromMainModule' => false,
-        ]
-    );
+    // Load extension configuration
+    if (version_compare(TYPO3_version, '9.0', '<')){
+        $extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$extKey], ['allowed_classes' => false]);
+    } else {
+        $extConf = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            \TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class
+        )->get($extKey);
+    }
 
+    if (is_array($extConf) && $extConf['enableStatisticsModule']) {
+        // Add the statistics backend module
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+            'AawTeam.Pagenotfoundhandling',
+            'web',
+            'statistics',
+            '',
+            [
+                'Statistics' => 'index',
+            ],
+            [
+                'access' => 'user,group',
+                // @todo add icon
+                //'iconIdentifier' => '',
+                'labels' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/module_statistics.xlf',
+                'navigationComponentId' => '',
+                'inheritNavigationComponentFromMainModule' => false,
+            ]
+        );
+    }
 };
 $bootstrap($_EXTKEY);
 unset($bootstrap);

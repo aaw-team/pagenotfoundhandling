@@ -1,4 +1,7 @@
-# cat=basic/enable/000; type=options[Disable Log=-1, EMERGENCY (0)=0, ALERT (1) = 1, CRITICAL (2) = 2, ERROR (3) = 3, WARNING (4) = 4, NOTICE (5) = 5, INFO (6) = 6, DEBUG (7) = 7]; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/backend.xlf:constants.logLevel
+# cat=basic/enable/001; type=boolean; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/backend.xlf:constants.enableStatisticsModule
+enableStatisticsModule = 3
+
+# cat=basic/enable/002; type=options[Disable Log=-1, EMERGENCY (0)=0, ALERT (1) = 1, CRITICAL (2) = 2, ERROR (3) = 3, WARNING (4) = 4, NOTICE (5) = 5, INFO (6) = 6, DEBUG (7) = 7]; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/backend.xlf:constants.logLevel
 logLevel = 3
 
 # cat=basic-deprecated//001; type=int+; label=LLL:EXT:pagenotfoundhandling/Resources/Private/Language/locallang_db.xml:pagenotfoundhandling.constants.default404Page

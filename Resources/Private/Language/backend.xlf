@@ -7,6 +7,9 @@
             <trans-unit id="constants.logLevel">
                 <source>Log level:The log with the according entries is written to a file in the TYPO3 log dir. Caution: logLevel DEBUG will log request parameters like session-cookies and/or HTTP Authorization, do not use in production environments! Default: '3'.</source>
             </trans-unit>
+            <trans-unit id="constants.enableStatisticsModule">
+                <source>Enable statistics backend module: The statistics module is still in development and thus disabled by default. Even though it works without errors, it is not finished yet. Notice: when the module is not enabled, the statistics data will still be collected. Second notice: the TYPO3 backend has to be reloaded after toggling this option. Default: false.</source>
+            </trans-unit>
 
             <!-- site -->
             <trans-unit id="site.disableStatisticsRecording">
