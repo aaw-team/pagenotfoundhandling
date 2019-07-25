@@ -29,22 +29,24 @@ $bootstrap = function(string $extKey) {
         )->get($extKey);
     }
 
-    // Register logger
-    if (is_array($extConf) && array_key_exists('logLevel', $extConf)) {
-        $logLevel = (int)$extConf['logLevel'];
-        if ($logLevel > -1 && $logLevel < 8) {
-            $GLOBALS['TYPO3_CONF_VARS']['LOG']['AawTeam']['Pagenotfoundhandling']['writerConfiguration'] = [
-                $logLevel => [
-                    \TYPO3\CMS\Core\Log\Writer\FileWriter::class => [
-                        'logFileInfix' => 'pnfh',
+    if (is_array($extConf)) {
+        // Register logger
+        if (array_key_exists('logLevel', $extConf)) {
+            $logLevel = (int)$extConf['logLevel'];
+            if ($logLevel > -1 && $logLevel < 8) {
+                $GLOBALS['TYPO3_CONF_VARS']['LOG']['AawTeam']['Pagenotfoundhandling']['writerConfiguration'] = [
+                    $logLevel => [
+                        \TYPO3\CMS\Core\Log\Writer\FileWriter::class => [
+                            'logFileInfix' => 'pnfh',
+                        ],
                     ],
-                ],
-            ];
+                ];
+            }
         }
-    }
 
-    // Add backend module configuration
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('
+        // Add backend module configuration
+        if ($extConf['enableStatisticsModule']) {
+            \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('
 module.tx_pagenotfoundhandling {
     view {
         templateRootPaths.10 = EXT:pagenotfoundhandling/Resources/Private/Backend/Templates/
@@ -52,7 +54,9 @@ module.tx_pagenotfoundhandling {
         layoutRootPaths.10 = EXT:pagenotfoundhandling/Resources/Private/Backend/Layouts/
     }
 }'
-        );
+            );
+        }
+    }
 };
 $bootstrap($_EXTKEY);
 unset($bootstrap);
