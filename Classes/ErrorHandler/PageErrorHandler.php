@@ -37,6 +37,7 @@ class PageErrorHandler implements PageErrorHandlerInterface
 {
     protected const HTTP_HEADER_XGENERATEDBY = 'EXT:pagenotfoundhandling';
     protected const HTTP_HEADER_XERRORREASON_INFINITELOOP = 'Infinite loop detected';
+    protected const HTTP_HEADER_XERRORREASON_INVALIDORNOSITE = 'Invalid or no Site object found';
 
     /**
      * @var int
@@ -76,6 +77,18 @@ class PageErrorHandler implements PageErrorHandlerInterface
         // Merge current site configuration
         /** @var Site $site */
         $site = $request->getAttribute('site', null);
+
+        // Note: at the moment, we only support the TYPO3 built-in Site object
+        if (!($site instanceof Site)) {
+            $this->getLogger()->error(
+                ($site === null ? 'No Site object found' : 'Invalid Site object found'),
+                [
+                    'requestURI' => (string)$request->getUri(),
+                    'referer' => $request->getServerParams()['HTTP_REFERER'],
+                ]
+            );
+            return $this->getInvalidOrNoSiteResponse();
+        }
 
         // Record the request
         if (!$site->getConfiguration()['disableStatisticsRecording']) {
@@ -381,6 +394,27 @@ class PageErrorHandler implements PageErrorHandlerInterface
 </html>';
         return $this->createResponse($content, 508, [
             'X-Error-Reason' => self::HTTP_HEADER_XERRORREASON_INFINITELOOP,
+        ]);
+    }
+
+    /**
+     * @return ResponseInterface
+     */
+    protected function getInvalidOrNoSiteResponse(): ResponseInterface
+    {
+        $content = '<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>500 Internal Server Error</title>
+</head>
+<body>
+    <h1>500 Internal Server Error</h1>
+    <p>Invalid or no Site object found.</p>
+</body>
+</html>';
+        return $this->createResponse($content, 500, [
+            'X-Error-Reason' => self::HTTP_HEADER_XERRORREASON_INVALIDORNOSITE,
         ]);
     }
 
