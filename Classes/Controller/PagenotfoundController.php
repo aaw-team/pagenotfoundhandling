@@ -944,11 +944,13 @@ class PagenotfoundController
                 $queryParams['_language'] = $language;
             }
 
-            // Finally create the new $url
-            $url = (string)$site->getRouter()->generateUri(
-                $errorPageUid,
-                $queryParams
-            );
+            if (!$site instanceof \TYPO3\CMS\Core\Site\Entity\NullSite) {
+                // Finally create the new $url
+                $url = (string)$site->getRouter()->generateUri(
+                    $errorPageUid,
+                    $queryParams
+                );
+            }
         }
         return $url;
     }
