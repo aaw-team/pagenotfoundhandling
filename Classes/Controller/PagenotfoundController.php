@@ -928,27 +928,30 @@ class PagenotfoundController
             /** @var \TYPO3\CMS\Core\Site\Entity\Site $site */
             $site = $request->getAttribute('site', null);
 
-            // Analyze $url
-            $parsedUrl = parse_url($url);
-            $queryParams = [];
-            parse_str($parsedUrl['query'], $queryParams);
+            // Note: at the moment, we only support the TYPO3 built-in Site object
+            if ($site instanceof \TYPO3\CMS\Core\Site\Entity\Site) {
+                // Analyze $url
+                $parsedUrl = parse_url($url);
+                $queryParams = [];
+                parse_str($parsedUrl['query'], $queryParams);
 
-            // Get the page uid (and remove from $queryParams)
-            $errorPageUid = (int) $queryParams['id'];
-            unset($queryParams['id']);
+                // Get the page uid (and remove from $queryParams)
+                $errorPageUid = (int) $queryParams['id'];
+                unset($queryParams['id']);
 
-            // Get the language (and remove from $queryParams)
-            if (array_key_exists($this->_languageParam, $queryParams)) {
-                $language = $site->getLanguageById($queryParams[$this->_languageParam]);
-                unset($queryParams[$this->_languageParam]);
-                $queryParams['_language'] = $language;
+                // Get the language (and remove from $queryParams)
+                if (array_key_exists($this->_languageParam, $queryParams)) {
+                    $language = $site->getLanguageById($queryParams[$this->_languageParam]);
+                    unset($queryParams[$this->_languageParam]);
+                    $queryParams['_language'] = $language;
+                }
+
+                // Finally create the new $url
+                $url = (string)$site->getRouter()->generateUri(
+                    $errorPageUid,
+                    $queryParams
+                );
             }
-
-            // Finally create the new $url
-            $url = (string)$site->getRouter()->generateUri(
-                $errorPageUid,
-                $queryParams
-            );
         }
         return $url;
     }
