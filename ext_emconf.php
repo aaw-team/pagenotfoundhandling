@@ -21,7 +21,6 @@ $EM_CONF[$_EXTKEY] = [
     'author' => 'Agentur am Wasser | Maeder & Partner AG',
     'author_email' => 'development@agenturamwasser.ch',
     'state' => 'stable',
-    'modify_tables' => 'sys_domain',
     'clearCacheOnLoad' => 1,
     'version' => '4.0.0-dev',
     'constraints' => [
@@ -30,8 +29,6 @@ $EM_CONF[$_EXTKEY] = [
             'typo3' => '9.5.99-10.3.99',
         ],
         'conflicts' => [],
-        'suggests' => [
-            'realurl' => '2.2.0',
-        ],
+        'suggests' => [],
     ],
 ];

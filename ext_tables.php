@@ -16,26 +16,31 @@
 
 defined('TYPO3_MODE') or die();
 
-$bootstrap = function(string $extKey = 'pagenotfoundhandling') {
-    // Load extension configuration
-    if (version_compare(TYPO3_version, '9.0', '<')){
-        $extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$extKey], ['allowed_classes' => false]);
-    } else {
-        $extConf = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            \TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class
-        )->get($extKey);
-    }
+$bootstrap = function() {
+    /** @var \AawTeam\Pagenotfoundhandling\Configuration\ExtensionConfiguration $extensionConfiguration */
+    $extensionConfiguration = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\AawTeam\Pagenotfoundhandling\Configuration\ExtensionConfiguration::class);
 
-    if (is_array($extConf) && $extConf['enableStatisticsModule']) {
-        // Add the statistics backend module
+    // Add the statistics backend module
+    if ($extensionConfiguration->has('enableStatisticsModule') && $extensionConfiguration->get('enableStatisticsModule')) {
+        /** @var \AawTeam\Pagenotfoundhandling\Utility\Typo3VersionUtility $typo3VersionUtility */
+        $typo3VersionUtility = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\AawTeam\Pagenotfoundhandling\Utility\Typo3VersionUtility::class);
+        if ($typo3VersionUtility->isCurrentTypo3VersionAtLeast('10')) {
+            $extensionName = 'Pagenotfoundhandling';
+            $controllerActions= [
+                \AawTeam\Pagenotfoundhandling\Controller\StatisticsController::class => 'index',
+            ];
+        } else {
+            $extensionName = 'AawTeam.Pagenotfoundhandling';
+            $controllerActions= [
+                'Statistics' => 'index',
+            ];
+        }
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-            'AawTeam.Pagenotfoundhandling',
+            $extensionName,
             'web',
             'statistics',
             '',
-            [
-                'Statistics' => 'index',
-            ],
+            $controllerActions,
             [
                 'access' => 'user,group',
                 // @todo add icon
