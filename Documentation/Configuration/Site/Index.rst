@@ -19,7 +19,7 @@ Finally, you can select the desired page in "Error Page". This will then be the
 page, which gets displayed in case of an error (well, not "an" error, but the
 error you chose in "HTTP Error Status Code").
 
-.. figure:: ../../Images/Introduction/SiteConfiguration.png
+.. figure:: ../../Images/SiteConfiguration.png
    :alt: Error handling in Site Configuration
 
 Error handling in Site Configuration
@@ -34,7 +34,7 @@ all the nice options you might want to use. At the moment, the descriptions
 right beneath the option names (and the option names themselves) must hold as
 "documentation".
 
-.. figure:: ../../Images/Introduction/SiteConfigurationAdvanced.png
+.. figure:: ../../Images/SiteConfigurationAdvanced.png
    :alt: Advanced error handling in Site Configuration
 
 Advanced error handling in Site Configuration
