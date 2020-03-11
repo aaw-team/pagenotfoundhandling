@@ -16,5 +16,6 @@ in Extension Manager and/or within a domain record. This means:
    :maxdepth: 5
    :titlesonly:
 
+   Site/Index
    ExtensionManager/Index
    DomainRecord/Index

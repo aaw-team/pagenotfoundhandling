@@ -16,7 +16,7 @@
 
 defined('TYPO3_MODE') or die();
 
-$bootstrap = function(string $extKey) {
+$bootstrap = function(string $extKey = 'pagenotfoundhandling') {
     // register pageNotFound_handling
     $GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFound_handling'] = 'USER_FUNCTION:AawTeam\\Pagenotfoundhandling\\Controller\\PagenotfoundController->main';
 
@@ -34,6 +34,26 @@ $bootstrap = function(string $extKey) {
         if (array_key_exists('logLevel', $extConf)) {
             $logLevel = (int)$extConf['logLevel'];
             if ($logLevel > -1 && $logLevel < 8) {
+
+                // TYPO3 is PSR-3 compliant as of v10, see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Breaking-88799-IntroducedPSR-3CompatibleLoggingAPI.html
+                // For now, just 'translate' the log level numbers.
+                // @todo remove this code when dropping support for TYPO3 < v10
+                if (version_compare(TYPO3_version, '10', '>=')) {
+                    $typo3LogLevels2psr3Levels = [
+                        0 => \Psr\Log\LogLevel::EMERGENCY,
+                        1 => \Psr\Log\LogLevel::ALERT,
+                        2 => \Psr\Log\LogLevel::CRITICAL,
+                        3 => \Psr\Log\LogLevel::ERROR,
+                        4 => \Psr\Log\LogLevel::WARNING,
+                        5 => \Psr\Log\LogLevel::NOTICE,
+                        6 => \Psr\Log\LogLevel::INFO,
+                        7 => \Psr\Log\LogLevel::DEBUG,
+                    ];
+                    if (array_key_exists($logLevel, $typo3LogLevels2psr3Levels)) {
+                        $logLevel = $typo3LogLevels2psr3Levels[$logLevel];
+                    }
+                }
+
                 $GLOBALS['TYPO3_CONF_VARS']['LOG']['AawTeam']['Pagenotfoundhandling']['writerConfiguration'] = [
                     $logLevel => [
                         \TYPO3\CMS\Core\Log\Writer\FileWriter::class => [
@@ -58,5 +78,5 @@ module.tx_pagenotfoundhandling {
         }
     }
 };
-$bootstrap($_EXTKEY);
+$bootstrap();
 unset($bootstrap);

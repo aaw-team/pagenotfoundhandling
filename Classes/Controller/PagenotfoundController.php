@@ -213,7 +213,9 @@ class PagenotfoundController
      */
     public function main($params, $controller)
     {
-        if (version_compare(TYPO3_version, '9.0', '<')) {
+        if (version_compare(TYPO3_version, '10', '>=')) {
+            throw new \RuntimeException('This class does not support TYPO3 v10. Please use errorHandling (and advanced errorHandling) in Site Configration, where you find the already-known options.');
+        } elseif (version_compare(TYPO3_version, '9.0', '<')) {
             GeneralUtility::logDeprecatedFunction();
         } else {
             trigger_error(__METHOD__ . ' will be removed in pagenotfoundhandling v4.0. Use ' . \AawTeam\Pagenotfoundhandling\ErrorHandler\PageErrorHandler::class . ' within TYPO3 Site Configuration instead.', E_USER_DEPRECATED);

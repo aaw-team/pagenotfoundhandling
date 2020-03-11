@@ -17,12 +17,6 @@ Once installed the extension is already active. By default the 404 Page is a
 simple pure HTML template, that includes a title and a message with almost
 no styles.
 
-.. hint::
-   As of TYPO3 version 9, the new Site Configuration is in place. In the 
-   `errorHandling` section, make sure, there are no handlers registered
-   for `errorCode` values 404 and 403. Because they would supersede this
-   extension.
-
 .. important::
    If your default website language is not english, configure
    your default language code in the extension manager.

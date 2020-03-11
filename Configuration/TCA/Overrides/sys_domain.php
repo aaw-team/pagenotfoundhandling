@@ -16,6 +16,11 @@
 
 defined('TYPO3_MODE') or die();
 
+// Ignore sys_domain record in TYPO3 >= v10
+if (version_compare(TYPO3_version, '10', '>=')) {
+    return;
+}
+
 // Load extension configuration
 if (version_compare(TYPO3_version, '9.0', '<')){
     $conf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['pagenotfoundhandling'], ['allowed_classes' => false]);

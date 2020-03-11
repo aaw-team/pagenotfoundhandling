@@ -16,7 +16,7 @@
 
 defined('TYPO3_MODE') or die();
 
-$bootstrap = function(string $extKey) {
+$bootstrap = function(string $extKey = 'pagenotfoundhandling') {
     // Load extension configuration
     if (version_compare(TYPO3_version, '9.0', '<')){
         $extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$extKey], ['allowed_classes' => false]);
@@ -47,5 +47,5 @@ $bootstrap = function(string $extKey) {
         );
     }
 };
-$bootstrap($_EXTKEY);
+$bootstrap();
 unset($bootstrap);

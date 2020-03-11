@@ -6,6 +6,10 @@
 Extension Manager configuration
 ===============================
 
+.. important::
+   In TYPO3 v10, this type of configuration will not work anymore. Use the
+   options in the :ref:`section-site-configuration`!
+
 Go to the Extension Manager, find the extension pagenotfoundhandling and click
 on the extension name to open the configuration interface.
 

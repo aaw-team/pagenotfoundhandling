@@ -6,6 +6,10 @@
 Domain record configuration
 ===========================
 
+.. important::
+   In TYPO3 v10, this type of configuration will not work anymore. Use the
+   options in the :ref:`section-site-configuration`!
+
 This configuration is almost the same as in
 :ref:`section-extension-manager-configuration`. The described options either
 differ from Extension Manager configuration or are only available here.
