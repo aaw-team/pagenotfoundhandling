@@ -23,11 +23,11 @@ $EM_CONF[$_EXTKEY] = [
     'state' => 'stable',
     'modify_tables' => 'sys_domain',
     'clearCacheOnLoad' => 1,
-    'version' => '3.0.1-dev',
+    'version' => '4.0.0-dev',
     'constraints' => [
         'depends' => [
-            'php' => '7.1.0',
-            'typo3' => '8.7.26-10.3.99',
+            'php' => '7.2',
+            'typo3' => '9.5.99-10.3.99',
         ],
         'conflicts' => [],
         'suggests' => [
