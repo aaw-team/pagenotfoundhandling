@@ -4,7 +4,7 @@
     "description": "404 Page not found handling",
     "keywords": ["typo3", "404", "403", "page not found", "page not found handling", "page unavailable handling", "pageNotFound_handling"],
     "homepage": "https://github.com/aaw-team/pagenotfoundhandling",
-    "license": "GPL-2.0+",
+    "license": "GPL-2.0-or-later",
     "authors": [
         {
             "name": "Agentur am Wasser Team",
@@ -18,7 +18,6 @@
         "typo3/cms-core": "^8.7|^9.5|~10.3.0"
     },
     "replace": {
-        "pagenotfoundhandling": "self.version",
         "typo3-ter/pagenotfoundhandling": "self.version"
     },
     "autoload": {
