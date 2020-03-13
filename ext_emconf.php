@@ -15,8 +15,8 @@
  */
 
 $EM_CONF[$_EXTKEY] = [
-    'title' => '404 Page not found handling',
-    'description' => 'Highly configurable 404 page handling. Supports multi domain systems with multiple languages.',
+    'title' => 'Error Handler for TYPO3',
+    'description' => 'A versatile Error Handler for the TYPO3 CMS Site Handling',
     'category' => 'fe',
     'author' => 'Agentur am Wasser | Maeder & Partner AG',
     'author_email' => 'development@agenturamwasser.ch',

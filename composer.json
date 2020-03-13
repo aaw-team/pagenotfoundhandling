@@ -1,8 +1,8 @@
 {
     "name": "aaw-team/pagenotfoundhandling",
     "type": "typo3-cms-extension",
-    "description": "404 Page not found handling",
-    "keywords": ["typo3", "404", "403", "page not found", "page not found handling", "page unavailable handling", "pageNotFound_handling"],
+    "description": "Versatile Error Handler for the TYPO3 CMS Site Handling",
+    "keywords": ["typo3", "error handler", "http error", "error", "404", "403", "500", "page not found", "page unavailable", "site", "error page"],
     "homepage": "https://github.com/aaw-team/pagenotfoundhandling",
     "license": "GPL-2.0-or-later",
     "authors": [

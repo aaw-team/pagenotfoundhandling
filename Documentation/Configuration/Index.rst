@@ -1,21 +1,23 @@
 .. include:: ../Includes.txt
 
+
 .. _section-configuration:
 
-==============================
+=============
 Configuration
-==============================
+=============
 
-When no page has been found by TYPO3, there is no typoscript template available.
-Because of this the configuration of pagenotfoundhandling has to be done either
-in Extension Manager and/or within a domain record. This means:
-**There is no typoscript setup**.
+.. important::
+
+   If you are not using **at least version 3**, be sure to read the correct
+   version of this documentation. However, we strongly encourage you to upgrade
+   to at least version 3.
 
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 3
    :titlesonly:
 
+   Basic/Index
    Site/Index
-   ExtensionManager/Index
-   DomainRecord/Index
+   Advanced/Index

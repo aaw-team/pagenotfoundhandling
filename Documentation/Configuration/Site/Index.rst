@@ -1,40 +1,71 @@
 .. include:: ../../Includes.txt
 
-.. _section-site-configuration:
 
-========================
-TYPO3 Site Configuration
-========================
+.. _section-configuration-site:
 
-As of TYPO3 v9, the Site Configuration became available. This extension extends
-the errorHandling options of the Site Configuration.
+===================
+Site Error Handling
+===================
 
-To configure a error page, add a new `errorHandling` section, set the
-"HTTP Error Status Code", choose "PHP Class" in "How to handle Errors" and then
-add this extension's error handler in "ErrorHandler Class Target (FQCN)" (you
-can easily select it from the succestion selector). You might be forced to
-reload the screen multiple times during that process.
-
-Finally, you can select the desired page in "Error Page". This will then be the
-page, which gets displayed in case of an error (well, not "an" error, but the
-error you chose in "HTTP Error Status Code").
+The Site Error Handling options explained in depth.
 
 .. figure:: ../../Images/SiteConfiguration.png
    :alt: Error handling in Site Configuration
 
-Error handling in Site Configuration
+   Error handling in Site Configuration
 
-.. _section-site-configuration-advanced:
 
-Advanced error handling
-=======================
+errorPhpClassFQCN
+-----------------
 
-In the Tab "Error Handling (advanced)" of the Site Configuration, you'll find
-all the nice options you might want to use. At the moment, the descriptions
-right beneath the option names (and the option names themselves) must hold as
-"documentation".
+:aspect:`Datatype`
+    string
 
-.. figure:: ../../Images/SiteConfigurationAdvanced.png
-   :alt: Advanced error handling in Site Configuration
+:aspect:`Description`
+    This MUST be set to the class name of the PageErrorHandler of this
+    extension:
+    `AawTeam\Pagenotfoundhandling\ErrorHandler\PageErrorHandler` (or
+    :php:`\AawTeam\Pagenotfoundhandling\ErrorHandler\PageErrorHandler::class` in
+    PHP code).
 
-Advanced error handling in Site Configuration
+
+errorPage
+---------
+
+:aspect:`Datatype`
+    string
+
+:aspect:`Description`
+    The URI to the page, that sould be fetched and displayed as error page.
+
+    .. important::
+
+       Note that the resulting URI must be accessible to the webserver, which
+       is hosting the TYPO3 website. Make sure that the webserver internally
+       knows about the DNS name and the `errorPage` is accessible.
+
+       In case of a problem you might want to use
+       `debugErrorPageRequestException`.
+
+:aspect:`Example`
+    `t3://page?uid=123`
+
+
+additionalGetParams
+-------------------
+
+:aspect:`Datatype`
+    string [optional]
+
+:aspect:`Description`
+    Additional query parameters for the `GET` request, that fetches the error
+    page (defined in `errorPage`).
+
+    The current URL (that lead to the error handler being invoked) is available,
+    through `###CURRENT_URL###`.
+
+    Forbidden parameter names are (case insensitive): `id`, `chash`, `l`, `mp`.
+    They will be quietly ignored.
+
+:aspect:`Example`
+    `&tx_myext[key]=value&errorUrl=###CURRENT_URL###`

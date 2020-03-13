@@ -1,24 +1,28 @@
-# TYPO3 extension pagenotfoundhandling
+# Error Handler for TYPO3
 
-This is a small but powerful extension for [TYPO3](https://typo3.org/) which
-handles the "Page not found" case.
+This extension implements a versatile Error Handler for the
+[TYPO3 CMS Site Handling](https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ApiOverview/SiteHandling/ErrorHandling.html).
 
 ## Features
 
-- Manage 404/403 errors thrown by TYPO3
-- Display user-defined contents in 404/403 case
-- Ready-to-use for simple TYPO3 installations, but it is configurable for many different use cases
-- Supports multi-domain systems
-- Supports multi-language systems
+* Seamless integration with the [TYPO3 Site Handling](https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ApiOverview/SiteHandling/Index.html)
+* Fetch and display any TYPO3 page in case of an error
+* Configuration of the request, that fetches the URL
+   * Adjust TYPO3-internal language
+   * Define additional `GET` query parameters (per Site and per `errorCode`)
+   * Automatically manage authentication (HTTP Basic authentication \[[RFC 2617](https://tools.ietf.org/html/rfc2617)\] / [TYPO3 Frontend User Authentication](https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ApiOverview/Authentication/Index.html#authentication))
+   * And more..
+* Statistics
+   * Data collection (can be disabled)
+   * Analysis backend module (still experimental)
 
 ## Installation
 
-Install either with composer
+Composer package
+
 ```
 composer require aaw-team/pagenotfoundhandling
 ```
-or in TYPO3 Extension Manager from TER:
-https://typo3.org/extensions/repository/view/pagenotfoundhandling
 
 ## Docs
 
@@ -39,4 +43,4 @@ GPLv2.0
 
 ## Copyright
 
-2014-2017 by Agentur am Wasser | Maeder & Partner AG (https://web.agenturamwasser.ch)
+2014-2020 by Agentur am Wasser | Maeder & Partner AG (https://www.agenturamwasser.ch)

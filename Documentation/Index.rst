@@ -1,67 +1,78 @@
 .. include:: Includes.txt
 
+
+.. Every manual should have a start label for cross-referencing to
+.. start page. Do not remove this!
+
 .. _start:
 
-============================
-404 Page not found handling
-============================
+=======================
+Error Handler for TYPO3
+=======================
 
-.. only:: html
+:Version:
+   |release|
 
-    :Classification:
-          pagenotfoundhandling
+:Language:
+   en
 
-    :Version:
-          |version|
+:Description:
+   Manual of the TYPO3 extension "Error Handler for TYPO3"
+   (pagenotfoundhandling)
 
-    :Language:
-          en
+:Authors:
+   Christian Futterlieb
 
-    :Description:
-          This is the manual of the TYPO3 extension pagenotfoundhandling
+:Email:
+   development@agenturamwasser.ch
 
-    :Copyright:
-          2014-2017 by Agentur am Wasser | Maeder & Partner AG (https://web.agenturamwasser.ch)
+:License:
+   Open Publication License available from `www.opencontent.org/openpub/
+   <http://www.opencontent.org/openpub/>`_
 
-    :License:
-          This document is published under the Open Content License
-          available from http://www.opencontent.org/opl.shtml
-
-    :Keywords:
-          404, 403, page not found handling, page unavailable handling, pageNotFound_handling
-
-    :Author:
-          Christian Futterlieb
-
-    :Email:
-          development@agenturamwasser.ch
-
-    :Rendered:
-          |today|
+:Rendered:
+   |today|
 
 
-The content of this document is related to TYPO3, a GNU/GPL CMS/Framework
-available from `typo3.org <http://typo3.org/>`_.
+.. rst-class:: horizbuttons-tip-m
 
-.. important::
-   This version of the extension marks the start of the transition to the
-   TYPO3 Site Handling (https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ApiOverview/SiteHandling/Index.html)
-   which is available since TYPO3 v9. While the new settings in
-   :ref:`section-site-configuration` can be used as of now, the already known
-   extension configuration remains still available. In the upcoming version 4 of
-   this extension, only the new method will be kept. Note, that in TYPO3 v10,
-   only the Site Configuration method will work!
+- :ref:`section-sitemap`
+
+The content of this document is related to TYPO3 CMS, a GNU/GPL CMS/Framework
+available from `www.typo3.org <https://typo3.org/>`_
+
+.. note::
+
+   This extension was formerly titled "404 Page not found handling". As of
+   version 4 we decided to re-title it to a less bulky "Error Handler for
+   TYPO3", which also describes it more accurately. The extension key and the
+   composer package name remain the same anyway.
+
+
+**Contributors**
+
+You are welcome to help improve this guide. Just click on "Edit me on GitHub" on
+the top right to submit your change request.
+
 
 Table of Contents
 -----------------
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 3
    :titlesonly:
+   :caption: Manual
 
    Introduction/Index
-   Administration/Index
+   Editor/Index
+   Installation/Index
    Configuration/Index
-   KnownProblems/Index
-   Changelog/Index
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Miscellaneous
+
    Links
+   Changelog
+   Sitemap
+   Targets
