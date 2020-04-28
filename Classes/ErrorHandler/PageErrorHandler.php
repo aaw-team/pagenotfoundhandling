@@ -18,12 +18,13 @@ namespace AawTeam\Pagenotfoundhandling\ErrorHandler;
  */
 
 use AawTeam\Pagenotfoundhandling\Utility\StatisticsUtility;
+use AawTeam\Pagenotfoundhandling\Http\ResponseFactory;
 use GuzzleHttp\Exception\RequestException;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use TYPO3\CMS\Core\Error\PageErrorHandler\PageErrorHandlerInterface;
-use TYPO3\CMS\Core\Http\HtmlResponse;
 use TYPO3\CMS\Core\LinkHandling\LinkService;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Site\Entity\Site;
@@ -50,6 +51,11 @@ class PageErrorHandler implements PageErrorHandlerInterface
     protected $errorHandlerConfiguration = [];
 
     /**
+     * @var ResponseFactoryInterface
+     */
+    protected $responseFactory;
+
+    /**
      * @param int $statusCode
      * @param array $errorHandlerConfiguration
      */
@@ -57,6 +63,8 @@ class PageErrorHandler implements PageErrorHandlerInterface
     {
         $this->statusCode = $statusCode;
         $this->errorHandlerConfiguration = $errorHandlerConfiguration;
+        // @todo get a ResponseFactoryInterface with dependency injection
+        $this->responseFactory = GeneralUtility::makeInstance(ResponseFactory::class);
     }
 
     /**
@@ -392,9 +400,9 @@ class PageErrorHandler implements PageErrorHandlerInterface
     <p>An infinite loop has been detected.</p>
 </body>
 </html>';
-        return $this->createResponse($content, 508, [
-            'X-Error-Reason' => self::HTTP_HEADER_XERRORREASON_INFINITELOOP,
-        ]);
+        return $this->createResponse($content, 508)->withHeader(
+            'X-Error-Reason', self::HTTP_HEADER_XERRORREASON_INFINITELOOP
+        );
     }
 
     /**
@@ -413,18 +421,24 @@ class PageErrorHandler implements PageErrorHandlerInterface
     <p>Invalid or no Site object found.</p>
 </body>
 </html>';
-        return $this->createResponse($content, 500, [
-            'X-Error-Reason' => self::HTTP_HEADER_XERRORREASON_INVALIDORNOSITE,
-        ]);
+        return $this->createResponse($content, 500)->withHeader(
+            'X-Error-Reason', self::HTTP_HEADER_XERRORREASON_INVALIDORNOSITE
+        );
     }
 
     /**
+     * @param string $content
+     * @param int $status
      * @return ResponseInterface
      */
-    protected function createResponse(string $content, $status = 200, array $headers = []): ResponseInterface
+    protected function createResponse(string $content, int $status = 200): ResponseInterface
     {
-        $headers['X-Generated-By'] = self::HTTP_HEADER_XGENERATEDBY;
-        return new HtmlResponse($content, $status, $headers);
+        $response = $this->responseFactory->createResponse($status)
+            ->withHeader('X-Generated-By', self::HTTP_HEADER_XGENERATEDBY)
+            ->withHeader('Content-Type', 'text/html; charset=utf-8');
+        $response->getBody()->write($content);
+
+        return $response;
     }
 
     /**
