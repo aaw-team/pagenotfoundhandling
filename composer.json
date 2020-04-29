@@ -25,6 +25,11 @@
             "AawTeam\\Pagenotfoundhandling\\": "Classes/"
         }
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "4.x-dev"
+        }
+    },
     "support": {
         "source": "https://github.com/aaw-team/pagenotfoundhandling",
         "issues": "https://github.com/aaw-team/pagenotfoundhandling/issues",
