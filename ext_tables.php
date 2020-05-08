@@ -43,8 +43,7 @@ $bootstrap = function() {
             $controllerActions,
             [
                 'access' => 'user,group',
-                // @todo add icon
-                //'iconIdentifier' => '',
+                'iconIdentifier' => 'pagenotfoundhandling-module-statistics',
                 'labels' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/module_statistics.xlf',
                 'navigationComponentId' => '',
                 'inheritNavigationComponentFromMainModule' => false,

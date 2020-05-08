@@ -57,6 +57,15 @@ $bootstrap = function() {
 
     // Add the statistics backend module configuration
     if ($extensionConfiguration->has('enableStatisticsModule') && $extensionConfiguration->get('enableStatisticsModule')) {
+        $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+        $iconRegistry->registerIcon(
+            'pagenotfoundhandling-module-statistics',
+            \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+            [
+                'source' => 'EXT:pagenotfoundhandling/Resources/Public/Icons/ModuleStatistics.svg'
+            ]
+        );
+
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('
 module.tx_pagenotfoundhandling {
     view {
