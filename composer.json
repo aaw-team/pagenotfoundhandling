@@ -15,7 +15,7 @@
     ],
     "require": {
         "php": ">=7.2",
-        "typo3/cms-core": "^9.5 || ^10.4"
+        "typo3/cms-core": "^9.5.25 || ^10.4.14"
     },
     "replace": {
         "typo3-ter/pagenotfoundhandling": "self.version"
