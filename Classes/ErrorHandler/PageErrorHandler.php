@@ -317,15 +317,7 @@ class PageErrorHandler implements PageErrorHandlerInterface
             }
 
             if ($authorizationHeader) {
-                // 'Basic' authorization support
-                if (strpos($authorizationHeader, 'Basic ') === 0) {
-                    // Check the header value for authentication basic (only base64 characters are allowed)
-                    $basicAuthorization = substr($authorizationHeader, 6);
-                    if (preg_match('~[^a-zA-Z0-9+/=]~', $basicAuthorization) === 0) {
-                        list ($username, $password) = explode(':', (string)base64_decode($basicAuthorization), 2);
-                        $options[\GuzzleHttp\RequestOptions::AUTH] = [(string)$username, (string)$password];
-                    }
-                }
+                $options[\GuzzleHttp\RequestOptions::HEADERS]['Authorization'] = $authorizationHeader;
             }
         }
 
