@@ -1,0 +1,56 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:be.pageRenderer includeRequireJsModules="{0: 'TYPO3/CMS/Backend/DateTimePicker'}" />
+
+<f:form action="persistStatisticsFilter" arguments="{returnToAction: currentAction}" object="{statisticsFilterForm}" name="statisticsFilterForm" class="form-inline form-inline-spaced">
+    <div class="form-group">
+        <label for="dateTimeStart"><f:translate key="LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:from" /></label>
+        <div class="input-group input-group-sm">
+            <f:form.textfield
+                    name="dateTimeStart"
+                    value="{f:format.date(format:'d-m-Y', date: statisticsFilterForm.dateTimeStart)}"
+                    id="dateTimeStart"
+                    class="form-control input-sm t3js-datetimepicker t3js-clearable"
+                    data="{date-type: 'date'}"
+                    />
+            <f:form.hidden
+                    property="dateTimeStart"
+                    value="{f:format.date(format:'c', date: statisticsFilterForm.dateTimeStart)}"
+            />
+            <span class="input-group-btn">
+                <label class="btn btn-default" for="dateTimeStart">
+                    <span class="fa fa-calendar"></span>
+                </label>
+            </span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="dateTimeStop"><f:translate key="LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:to" /></label>
+        <div class="input-group input-group-sm">
+            <f:form.textfield
+                    name="dateTimeStop"
+                    value="{f:format.date(format:'d-m-Y', date: statisticsFilterForm.dateTimeStop)}"
+                    id="dateTimeStop"
+                    class="form-control input-sm t3js-datetimepicker t3js-clearable"
+                    data="{date-type: 'date'}"
+                    />
+            <f:form.hidden
+                    property="dateTimeStop"
+                    value="{f:format.date(format:'c', date: statisticsFilterForm.dateTimeStop)}"
+            />
+            <span class="input-group-btn">
+                <label class="btn btn-default" for="dateTimeStop">
+                    <span class="fa fa-calendar"></span>
+                </label>
+            </span>
+        </div>
+    </div>
+    <div class="form-group">
+        <f:form.submit id="submit-constraint" value="{f:translate(key: '---todo---', default:'Filter (LLL)')}" class="btn btn-default btn-sm" />
+        <f:link.action action="resetStatisticsFilter" arguments="{returnToAction: currentAction}" class="btn btn-default btn-sm">
+            <f:translate key="---todo---" default="Reset filter (LLL)" />
+        </f:link.action>
+    </div>
+</f:form>
+
+</html>

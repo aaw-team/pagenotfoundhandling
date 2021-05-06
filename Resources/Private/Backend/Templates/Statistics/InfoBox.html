@@ -1,0 +1,29 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Statistics" />
+
+<f:section name="content">
+    <h1><f:translate key="backendmodule.headings.index" default="Error Handler Statistics (LLL)" /></h1>
+
+    <f:if condition="{infoBox.title}">
+        <f:then>
+            <f:be.infobox title="{f:translate(key:infoBox.title, default:'{infoBox.title} (LLL)')}" state="{infoBox.state}">
+                <f:if condition="{infoBox.message}">
+                    <p><f:translate key="{infoBox.message}" default="{infoBox.message} (LLL)" /></p>
+                </f:if>
+            </f:be.infobox>
+        </f:then>
+        <f:else>
+            <f:be.infobox state="{infoBox.state}">
+                <f:if condition="{infoBox.message}">
+                    <f:translate key="{infoBox.message}" default="{infoBox.message} (LLL)" />
+                </f:if>
+            </f:be.infobox>
+        </f:else>
+    </f:if>
+
+</f:section>
+
+</html>

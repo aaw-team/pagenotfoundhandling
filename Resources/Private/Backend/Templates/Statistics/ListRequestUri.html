@@ -1,0 +1,53 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Statistics" />
+
+<f:section name="content">
+
+    <be:moduleLayout.button.linkButton
+        icon="actions-view-go-back"
+        title="Back (LLL)"
+        link="{f:uri.action(action: 'index')}"
+        showLabel="1"
+        position="left"
+    />
+
+    <f:render partial="Form/StatisticsFilter" arguments="{currentAction:'listRequestUri', statisticsFilterForm:statisticsFilterForm}" />
+
+    <h2>Request Uri</h2>
+
+    <f:if condition="{requestUris}">
+        <f:then>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Count</th>
+                        <th>URL</th>
+                        <th>Latest request</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <f:for each="{requestUris}" as="row">
+                        <tr>
+                            <td>{row.count}</td>
+                            <td>{row.request_uri}</td>
+                            <td>{row.latest_time -> f:format.date(format:'d.m.Y H:i:s')}</td>
+                        </tr>
+                    </f:for>
+                </tbody>
+            </table>
+            <div>
+                <f:render partial="Pagination" arguments="{pagination:pagination, itemsOnThisPage: '{requestUris -> f:count()}', action:'listRequestUri', settings: settings}" />
+            </div>
+        </f:then>
+        <f:else>
+            <p>No request URIs found</p>
+        </f:else>
+    </f:if>
+
+
+</f:section>
+
+</html>

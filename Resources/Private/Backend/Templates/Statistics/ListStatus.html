@@ -1,0 +1,52 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Statistics" />
+
+<f:section name="content">
+
+    <be:moduleLayout.button.linkButton
+        icon="actions-view-go-back"
+        title="Back (LLL)"
+        link="{f:uri.action(action: 'index')}"
+        showLabel="1"
+        position="left"
+    />
+
+    <f:render partial="Form/StatisticsFilter" arguments="{currentAction:'listStatus', statisticsFilterForm:statisticsFilterForm}" />
+
+    <h2>Status</h2>
+
+    <f:if condition="{statusCodes}">
+        <f:then>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Count</th>
+                        <th>Status</th>
+                        <th>Latest request</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <f:for each="{statusCodes}" as="row">
+                        <tr>
+                            <td>{row.count}</td>
+                            <td>{row.status_code}</td>
+                            <td>{row.latest_time -> f:format.date(format:'d.m.Y H:i:s')}</td>
+                        </tr>
+                    </f:for>
+                </tbody>
+            </table>
+            <div>
+                <f:render partial="Pagination" arguments="{pagination:pagination, itemsOnThisPage: '{statusCodes -> f:count()}', action:'listStatus', settings: settings}" />
+            </div>
+        </f:then>
+        <f:else>
+            <p>No status codes found</p>
+        </f:else>
+    </f:if>
+
+</f:section>
+
+</html>

@@ -1,0 +1,143 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<nav class="pagination-wrap">
+    <ul class="pagination pagination-block">
+        <f:comment>First page</f:comment>
+        <f:if condition="{pagination.current}==1">
+            <f:then>
+                <li class="disabled">
+                    <span>
+                        <core:icon identifier="actions-view-paging-first" />
+                    </span>
+                </li>
+            </f:then>
+            <f:else>
+                <li>
+                    <f:link.action action="{action}">
+                        <span>
+                            <core:icon identifier="actions-view-paging-first" />
+                        </span>
+                    </f:link.action>
+                </li>
+            </f:else>
+        </f:if>
+
+        <f:comment>Previous page</f:comment>
+        <f:if condition="{pagination.previousPage}">
+            <f:then>
+                <li>
+                    <f:link.action action="{action}" arguments="{page: pagination.previousPage}">
+                        <span>
+                            <core:icon identifier="actions-view-paging-previous" />
+                        </span>
+                    </f:link.action>
+                </li>
+            </f:then>
+            <f:else>
+                <li class="disabled">
+                    <span>
+                        <core:icon identifier="actions-view-paging-previous" />
+                    </span>
+                </li>
+            </f:else>
+        </f:if>
+
+        <f:comment>Info block</f:comment>
+        <li><span>
+            Records
+            <f:if condition="{pagination.previousPage}">
+                <f:then>{pagination.current * pagination.itemsPerPage - pagination.itemsPerPage + 1}</f:then>
+                <f:else>1</f:else>
+            </f:if>
+            -
+            <f:if condition="{pagination.nextPage}">
+                <f:then>{pagination.current * pagination.itemsPerPage}</f:then>
+                <f:else>{pagination.numberOfPages * pagination.itemsPerPage - pagination.itemsPerPage + itemsOnThisPage}</f:else>
+            </f:if>
+        </span></li>
+
+        <f:comment>First page</f:comment>
+        <f:if condition="{pagination.displayRangeStart} > 1">
+            <li class="first">
+                <f:link.action action="{action}">1</f:link.action>
+            </li>
+        </f:if>
+
+        <f:comment>Info (has less pages than displayed)</f:comment>
+        <f:if condition="{pagination.hasLessPages}">
+            <li class="disabled"><span>…</span></li>
+        </f:if>
+
+        <f:comment>Page numbers</f:comment>
+        <f:for each="{pagination.pages}" as="page">
+            <f:if condition="{page.isCurrent}">
+                <f:then>
+                    <li class="active"><span>{page.number}</span></li>
+                </f:then>
+                <f:else>
+                    <li data-nums>
+                        <f:link.action action="{action}" arguments="{page: page.number}">
+                            <span>{page.number}</span>
+                        </f:link.action>
+                    </li>
+                </f:else>
+            </f:if>
+        </f:for>
+
+        <f:comment>Info (has more pages than displayed)</f:comment>
+        <f:if condition="{pagination.hasMorePages}">
+            <li class="disabled"><span>…</span></li>
+        </f:if>
+
+        <f:comment>Last page</f:comment>
+        <f:if condition="{pagination.displayRangeEnd} < {pagination.numberOfPages}">
+            <li>
+                <f:link.action action="{action}" arguments="{page: pagination.numberOfPages}">
+                    <span>{pagination.numberOfPages}</span>
+                </f:link.action>
+            </li>
+        </f:if>
+
+        <f:comment>Next page</f:comment>
+        <f:if condition="{pagination.nextPage}">
+            <f:then>
+                <li>
+                    <f:link.action action="{action}" arguments="{page: pagination.nextPage}">
+                        <span><core:icon identifier="actions-view-paging-next" /></span>
+                    </f:link.action>
+                </li>
+            </f:then>
+            <f:else>
+                <li class="disabled">
+                    <span><core:icon identifier="actions-view-paging-next" /></span>
+                </li>
+            </f:else>
+        </f:if>
+
+        <f:comment>Last page</f:comment>
+        <f:if condition="{pagination.current} < {pagination.numberOfPages}">
+            <f:then>
+                <li>
+                    <f:link.action action="{action}" arguments="{page: pagination.numberOfPages}">
+                        <span><core:icon identifier="actions-view-paging-last" /></span>
+                    </f:link.action>
+                </li>
+            </f:then>
+            <f:else>
+                <li class="disabled">
+                    <span><core:icon identifier="actions-view-paging-last" /></span>
+                </li>
+            </f:else>
+        </f:if>
+
+        <f:comment>Refresh</f:comment>
+        <li>
+            <f:link.action action="{action}" arguments="{page: pagination.current}">
+                <span><core:icon identifier="actions-refresh" /></span>
+            </f:link.action>
+        </li>
+    </ul>
+</nav>
+

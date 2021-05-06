@@ -1,0 +1,82 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Statistics" />
+
+<f:section name="content">
+
+    <be:moduleLayout.button.linkButton
+        icon="actions-view-go-back"
+        title="Back (LLL)"
+        link="{f:uri.action(action: '{f:if(condition:returnAction, then:returnAction, else: \'index\')}')}"
+        showLabel="1"
+        position="left"
+    />
+
+    <f:comment>
+    <f:render partial="Form/StatisticsFilter" arguments="{currentAction:'detailRequestUri', statisticsFilterForm:statisticsFilterForm}" />
+    </f:comment>
+
+    <h2>Request URI detail</h2>
+
+    <p>
+        URI: <code>{requestUri}</code>
+    </p>
+    
+    <h3>Referers</h3>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Count</th>
+                <th>Referer</th>
+                <th>Latest request</th>
+            </tr>
+        </thead>
+        <tbody>
+            <f:for each="{referers}" as="row">
+                <tr>
+                    <td>{row.count}</td>
+                    <td>
+                        <f:if condition="{row.referer_uri}">
+                            <f:then>{row.referer_uri}</f:then>
+                            <f:else><i>No referer</i></f:else>
+                        </f:if>
+                    </td>
+                    <td>{row.latest_time -> f:format.date(format:'d.m.Y H:i:s')}</td>
+                </tr>
+            </f:for>
+        </tbody>
+    </table>
+    
+    <h3>Status codes</h3>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Count</th>
+                <th>Status</th>
+                <th>Latest request</th>
+            </tr>
+        </thead>
+        <tbody>
+            <f:for each="{statusCodes}" as="row">
+                <tr>
+                    <td>{row.count}</td>
+                    <td>
+                        <f:if condition="{row.referer_uri}">
+                            <f:then>{row.referer_uri}</f:then>
+                            <f:else><i>No referer</i></f:else>
+                        </f:if>
+                    </td>
+                    <td>{row.latest_time -> f:format.date(format:'d.m.Y H:i:s')}</td>
+                </tr>
+            </f:for>
+        </tbody>
+    </table>
+
+
+</f:section>
+
+</html>

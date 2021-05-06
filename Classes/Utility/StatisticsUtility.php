@@ -37,12 +37,14 @@ class StatisticsUtility
         /** @var Site $site */
         $site = $request->getAttribute('site', null);
         $siteIdentifier = $site instanceof Site ? $site->getIdentifier() : null;
+        $rootPageUid = $site instanceof Site ? $site->getRootPageId() : null;
 
         self::getConnectionForTable('tx_pagenotfoundhandling_history')->insert(
             'tx_pagenotfoundhandling_history',
             [
                 'time' => time(),
                 'site_identifier' => $siteIdentifier,
+                'rootpage_uid' => $rootPageUid,
                 'status_code' => $status,
                 'failure_reason' => $failureReasonCode,
                 'request_uri' => (string)$request->getUri(),
@@ -52,6 +54,7 @@ class StatisticsUtility
             [
                 \PDO::PARAM_INT,
                 $siteIdentifier === null ? \PDO::PARAM_NULL : \PDO::PARAM_STR,
+                $rootPageUid === null ? \PDO::PARAM_NULL : \PDO::PARAM_INT,
                 \PDO::PARAM_INT,
                 $failureReasonCode === null ? \PDO::PARAM_NULL : \PDO::PARAM_STR,
                 \PDO::PARAM_STR,

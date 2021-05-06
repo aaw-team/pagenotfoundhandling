@@ -22,19 +22,26 @@ $bootstrap = function() {
 
     // Add the statistics backend module
     if ($extensionConfiguration->has('enableStatisticsModule') && $extensionConfiguration->get('enableStatisticsModule')) {
+
+        $extensionName = 'Pagenotfoundhandling';
+        $controllerActions= [
+            \AawTeam\Pagenotfoundhandling\Controller\StatisticsController::class => '
+                index, infoBox, persistStatisticsFilter, resetStatisticsFilter,
+                listRequestUri, listReferer, listStatus,
+                detailRequestUri, detailReferer, detailStatus,
+            ',
+        ];
+
         /** @var \AawTeam\Pagenotfoundhandling\Utility\Typo3VersionUtility $typo3VersionUtility */
         $typo3VersionUtility = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\AawTeam\Pagenotfoundhandling\Utility\Typo3VersionUtility::class);
-        if ($typo3VersionUtility->isCurrentTypo3VersionAtLeast('10')) {
-            $extensionName = 'Pagenotfoundhandling';
+        if (!$typo3VersionUtility->isCurrentTypo3VersionAtLeast('10')) {
+            $extensionName = 'AawTeam.' . $extensionName;
             $controllerActions= [
-                \AawTeam\Pagenotfoundhandling\Controller\StatisticsController::class => 'index',
+                'Statistics' => $controllerActions[\AawTeam\Pagenotfoundhandling\Controller\StatisticsController::class],
             ];
-        } else {
-            $extensionName = 'AawTeam.Pagenotfoundhandling';
-            $controllerActions= [
-                'Statistics' => 'index',
-            ];
+            unset($controllerActions[\AawTeam\Pagenotfoundhandling\Controller\StatisticsController::class]);
         }
+
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
             $extensionName,
             'web',
@@ -45,10 +52,21 @@ $bootstrap = function() {
                 'access' => 'user,group',
                 'iconIdentifier' => 'pagenotfoundhandling-module-statistics',
                 'labels' => 'LLL:EXT:pagenotfoundhandling/Resources/Private/Language/module_statistics.xlf',
-                'navigationComponentId' => '',
-                'inheritNavigationComponentFromMainModule' => false,
+                //'navigationComponentId' => '',
+                //'inheritNavigationComponentFromMainModule' => false,
             ]
         );
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('
+// Module options
+module.tx_pagenotfoundhandling {
+    settings {
+        pagination {
+            maximumNumberOfLinks = 7
+            itemsPerPage = 15
+        }
+    }
+}
+        ');
     }
 };
 $bootstrap();
