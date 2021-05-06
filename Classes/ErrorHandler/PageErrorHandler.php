@@ -307,6 +307,12 @@ class PageErrorHandler implements PageErrorHandlerInterface
             // Passthrough HTTP Authorization
             // 1. Get authorization header from PSR-7 request
             $authorizationHeader = $request->getHeaderLine('Authorization');
+            if (!$authorizationHeader && isset($request->getServerParams()['HTTP_AUTHORIZATION'])) {
+                $authorizationHeader = $request->getServerParams()['HTTP_AUTHORIZATION'];
+            }
+            if (!$authorizationHeader && isset($request->getServerParams()['REDIRECT_HTTP_AUTHORIZATION'])) {
+                $authorizationHeader = $request->getServerParams()['REDIRECT_HTTP_AUTHORIZATION'];
+            }
             // 2. Apache-only function
             if (!$authorizationHeader && function_exists('getallheaders')) {
                 $authorizationHeader = getallheaders()['Authorization'] ?? '';
