@@ -317,7 +317,9 @@ class PageErrorHandler implements PageErrorHandlerInterface
             }
 
             if ($authorizationHeader) {
-                $options[\GuzzleHttp\RequestOptions::HEADERS]['Authorization'] = $authorizationHeader;
+                if (stripos($authorizationHeader, 'digest ') !== 0) {
+                    $options[\GuzzleHttp\RequestOptions::HEADERS]['Authorization'] = $authorizationHeader;
+                }
             }
         }
 
