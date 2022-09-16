@@ -17,7 +17,6 @@ namespace AawTeam\Pagenotfoundhandling\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -27,11 +26,6 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  */
 class StatisticsController extends ActionController
 {
-    /**
-     * @var BackendTemplateView
-     */
-    protected $defaultViewObjectName = BackendTemplateView::class;
-
     /**
      *
      */
