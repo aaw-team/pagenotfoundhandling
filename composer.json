@@ -17,6 +17,9 @@
         "php": ">=7.4",
         "typo3/cms-core": "^10.4.32 || ^11.5.17"
     },
+    "require-dev": {
+        "nimut/testing-framework": "^6.0"
+    },
     "replace": {
         "typo3-ter/pagenotfoundhandling": "self.version"
     },
@@ -25,7 +28,14 @@
             "AawTeam\\Pagenotfoundhandling\\": "Classes/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "AawTeam\\Pagenotfoundhandling\\Tests\\": "Tests/"
+        }
+    },
     "config": {
+        "vendor-dir": ".Build/vendor",
+        "bin-dir": ".Build/bin",
         "allow-plugins": {
             "typo3/cms-composer-installers": true,
             "typo3/class-alias-loader": true
@@ -36,8 +46,15 @@
             "dev-master": "4.x-dev"
         },
         "typo3/cms": {
-            "extension-key": "pagenotfoundhandling"
+            "extension-key": "pagenotfoundhandling",
+            "app-dir": ".Build",
+            "web-dir": ".Build/public"
         }
+    },
+    "scripts":{
+        "ci:test:unit": [
+            ".Build/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit"
+        ]
     },
     "support": {
         "source": "https://github.com/aaw-team/pagenotfoundhandling",
