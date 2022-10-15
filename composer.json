@@ -14,8 +14,8 @@
         }
     ],
     "require": {
-        "php": ">=7.2",
-        "typo3/cms-core": "^9.5.25 || ^10.4.14"
+        "php": ">=7.4",
+        "typo3/cms-core": "^10.4.32 || ^11.5.17"
     },
     "replace": {
         "typo3-ter/pagenotfoundhandling": "self.version"
@@ -23,6 +23,12 @@
     "autoload": {
         "psr-4": {
             "AawTeam\\Pagenotfoundhandling\\": "Classes/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "typo3/cms-composer-installers": true,
+            "typo3/class-alias-loader": true
         }
     },
     "extra": {
