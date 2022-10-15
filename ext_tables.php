@@ -16,7 +16,7 @@
 
 defined('TYPO3_MODE') or die();
 
-$bootstrap = function() {
+(function() {
     /** @var \AawTeam\Pagenotfoundhandling\Configuration\ExtensionConfiguration $extensionConfiguration */
     $extensionConfiguration = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\AawTeam\Pagenotfoundhandling\Configuration\ExtensionConfiguration::class);
 
@@ -50,6 +50,4 @@ $bootstrap = function() {
             ]
         );
     }
-};
-$bootstrap();
-unset($bootstrap);
+})();
